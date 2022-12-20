@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Yourtrip from '../../../assets/images/sub-logo.svg'
-import SearchIcon from '../../../assets/images/icon-search.svg'
+import YourtripImg from '../../../assets/images/sub-logo.svg'
+import SearchImg from '../../../assets/images/icon-search.svg'
 import { Link } from 'react-router-dom'
+
+// ${(props) => props.theme.bgColor}
 
 const HeaderContainer = styled.header`
     width: 390px;
@@ -10,10 +12,9 @@ const HeaderContainer = styled.header`
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    border-bottom: 1px solid #DBDBDB;
+    border-bottom: 1px solid ${(props) => props.theme.color.gray.g2};
     background-color: white;
     position: fixed;
-    z-index: 20;
 `
 
 const LogoTitle = styled.h1`
@@ -40,11 +41,11 @@ export default function LogoHeader() {
         <HeaderContainer>
             <LogoTitle>
                 <Link to='/'>
-                    <LogoImage src={Yourtrip} alt='YOURTRIP' />
+                    <LogoImage src={YourtripImg} alt='YOURTRIP' />
                 </Link>
             </LogoTitle>
             <SearchLink to='/'>
-                <SearchImage src={SearchIcon} alt='검색' />
+                <SearchImage src={SearchImg} alt='검색' />
             </SearchLink>
         </HeaderContainer>
     )
