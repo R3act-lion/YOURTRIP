@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
 import LogoHeaderLayout from "./components/Layout/LogoHeaderLayout/LogoHeaderLayout";
+import BasicHeaderLayout from "./components/Layout/BasicHeaderLayout/BasicHeaderLayout";
+import UploadHeaderLayout from "./components/Layout/UploadHeaderLayout/UploadHeaderLayout";
+import SearchHeaderLayout from "./components/Layout/SearchHeaderLayout/SearchHeaderLayout";
 import LocationCategory from "./components/LocationCategory/LocationCategory";
 import Location from "./pages/Location/Location";
 import { theme } from "./theme";
@@ -53,11 +56,14 @@ function App() {
         <>
             <ThemeProvider theme={theme} >
                 <GlobalStyle />
-                
+
                 <BrowserRouter>
                     <Routes>
                         <Route element={<NavigationLayout />}>
-                            <Route element={<LogoHeaderLayout />}>
+                            {/* <Route element={<LogoHeaderLayout />}> */}
+                            {/* <Route element={<BasicHeaderLayout />}> */}
+                            {/* <Route element={<UploadHeaderLayout />}> */}
+                            <Route element={<SearchHeaderLayout />}>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/location" element={<LocationCategory></LocationCategory>}>
                                     <Route path="/location/subLocation" element={<Location></Location>}></Route>
