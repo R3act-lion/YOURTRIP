@@ -1,10 +1,10 @@
-import reset from "styled-reset";
+import { reset } from "styled-reset";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
 import LogoHeaderLayout from "./components/Layout/LogoHeaderLayout/LogoHeaderLayout";
 import LocationCategory from "./components/LocationCategory/LocationCategory";
-import Location from "./pages/Location/Location";
+import PlaceList from "./components/PlaceList/PlaceList";
 import { theme } from "./theme";
 
 import Home from "./pages/Home/Home";
@@ -53,14 +53,13 @@ function App() {
         <>
             <ThemeProvider theme={theme} >
                 <GlobalStyle />
-                
                 <BrowserRouter>
                     <Routes>
                         <Route element={<NavigationLayout />}>
                             <Route element={<LogoHeaderLayout />}>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/location" element={<LocationCategory></LocationCategory>}>
-                                    <Route path="/location/subLocation" element={<Location></Location>}></Route>
+                                <Route path="/location" element={<LocationCategory />} >
+                                    <Route path="/location/placeList" element={<PlaceList />}></Route>
                                 </Route>
                             </Route>
                         </Route>
