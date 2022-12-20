@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import category_place from '../../assets/images/category-place.svg'
 import category_location from '../../assets/images/category-location.svg'
@@ -42,6 +43,7 @@ export default function Category() {
     let [cafeIcon, setCafeIcon]= useState(false);
 
     return (
+    <>
     <Container>
         <CategoryList>
             <CategoryListItem>
@@ -98,5 +100,7 @@ export default function Category() {
             </CategoryListItem>
         </CategoryList>      
     </Container>
+    <Outlet />
+    </>
   )
 }
