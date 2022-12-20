@@ -1,4 +1,4 @@
-import reset from "styled-reset";
+import { reset } from "styled-reset";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
@@ -7,7 +7,7 @@ import BasicHeaderLayout from "./components/Layout/BasicHeaderLayout/BasicHeader
 import UploadHeaderLayout from "./components/Layout/UploadHeaderLayout/UploadHeaderLayout";
 import SearchHeaderLayout from "./components/Layout/SearchHeaderLayout/SearchHeaderLayout";
 import LocationCategory from "./components/LocationCategory/LocationCategory";
-import Location from "./pages/Location/Location";
+import PlaceList from "./components/PlaceList/PlaceList";
 import { theme } from "./theme";
 
 import Home from "./pages/Home/Home";
@@ -65,8 +65,8 @@ function App() {
                             {/* <Route element={<UploadHeaderLayout />}> */}
                             <Route element={<SearchHeaderLayout />}>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/location" element={<LocationCategory></LocationCategory>}>
-                                    <Route path="/location/subLocation" element={<Location></Location>}></Route>
+                                <Route path="/location" element={<LocationCategory />} >
+                                    <Route path="/location/placeList" element={<PlaceList />}></Route>
                                 </Route>
                             </Route>
                         </Route>
