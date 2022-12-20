@@ -1,8 +1,9 @@
 import reset from "styled-reset";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
 import LogoHeaderLayout from "./components/Layout/LogoHeaderLayout/LogoHeaderLayout";
+import { theme } from "./theme";
 
 import Home from "./pages/Home/Home";
 
@@ -48,17 +49,19 @@ const GlobalStyle = createGlobalStyle`
 function App() {
     return (
         <>
-            <GlobalStyle />
-            
-            <BrowserRouter>
-                <Routes>
-                    <Route element={<NavigationLayout />}>
-                        <Route element={<LogoHeaderLayout />}>
-                            <Route path="/" element={<Home />} />
+            <ThemeProvider theme={theme} >
+                <GlobalStyle />
+                
+                <BrowserRouter>
+                    <Routes>
+                        <Route element={<NavigationLayout />}>
+                            <Route element={<LogoHeaderLayout />}>
+                                <Route path="/" element={<Home />} />
+                            </Route>
                         </Route>
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+                    </Routes>
+                </BrowserRouter>
+            </ThemeProvider>
         </>
     );
 }
