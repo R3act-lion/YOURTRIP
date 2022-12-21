@@ -12,6 +12,7 @@ const HeaderContainer = styled.header`
     border-bottom: 1px solid ${(props) => props.theme.color.gray.g2};
     background-color: white;
     position: fixed;
+    z-index: 20;
 `
 
 const LeftArrowImage = styled.img`

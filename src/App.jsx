@@ -60,10 +60,10 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route element={<NavigationLayout />}>
-                            {/* <Route element={<LogoHeaderLayout />}> */}
+                            <Route element={<LogoHeaderLayout />}>
                             {/* <Route element={<BasicHeaderLayout />}> */}
                             {/* <Route element={<UploadHeaderLayout />}> */}
-                            <Route element={<SearchHeaderLayout />}>
+                            {/* <Route element={<SearchHeaderLayout />}> */}
                                 <Route path="/" element={<Home />} />
                                 <Route path="/location" element={<LocationCategory />} >
                                     <Route path="/location/placeList" element={<PlaceList />}></Route>
