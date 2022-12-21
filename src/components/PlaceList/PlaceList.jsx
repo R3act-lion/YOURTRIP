@@ -50,8 +50,7 @@ export default function PlaceCont() {
   return (
     <Container>
         {locationArr.map((a)=>{
-        return(
-            
+        return(           
             <PlaceContainer>
                 <PlaceImg src={'https://cdn.pixabay.com/photo/2022/12/10/11/05/snow-7646952_1280.jpg'}/>
                 <PlaceDescCont>
