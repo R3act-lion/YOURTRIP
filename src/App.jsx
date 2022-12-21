@@ -8,6 +8,7 @@ import UploadHeaderLayout from "./components/Layout/UploadHeaderLayout/UploadHea
 import SearchHeaderLayout from "./components/Layout/SearchHeaderLayout/SearchHeaderLayout";
 import LocationCategory from "./components/LocationCategory/LocationCategory";
 import PlaceList from "./components/PlaceList/PlaceList";
+import Comment from "./components/Comment/Comment";
 import { theme } from "./theme";
 
 import Home from "./pages/Home/Home";

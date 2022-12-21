@@ -37,6 +37,7 @@ const CategoryName= styled.span`
 `
 
 export default function Category() {
+   // let [bgColor, setBgColor]= useState('gray');
     let [placeIcon, setPlaceIcon]= useState(false);
     let [locationIcon, setLocationIcon]= useState(false);
     let [restaurantIcon, setRestaurantIcon]= useState(false);
@@ -57,7 +58,7 @@ export default function Category() {
                     setRestaurantIcon(false);
                     setCafeIcon(false);
                 }}/>
-                <CategoryName>Today</CategoryName>
+                <CategoryName>Today</CategoryName>            
             </CategoryListItem>
             <CategoryListItem>
                 <CategoryButtonImage 
