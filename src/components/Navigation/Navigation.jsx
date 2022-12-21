@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import icon_home from '../../../assets/images/nav-home.svg'
-import icon_location from '../../../assets/images/nav-location.svg'
-import icon_community from '../../../assets/images/nav-community.svg'
-import icon_profile from '../../../assets/images/nav-profile.svg'
+import icon_home from '../../assets/images/nav-home.svg'
+import icon_location from '../../assets/images/nav-location.svg'
+import icon_community from '../../assets/images/nav-community.svg'
+import icon_profile from '../../assets/images/nav-profile.svg'
 import { Link } from 'react-router-dom'
 
 const HiddenHeader = styled.header`
