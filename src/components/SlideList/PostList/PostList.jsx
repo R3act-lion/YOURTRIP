@@ -4,25 +4,29 @@ import { Link } from 'react-router-dom'
 import IconArrowRight from '../../../assets/images/icon-arrow-right.svg'
 import PostListItem from './PostListItem'
 
-const SectionLink = styled(Link)`
+const SectionPost = styled.section`
+    padding: 28px 0;
+`
+
+const HeaderCommunidty = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 28px 15px 16px;
 `
 
-const SectionTitle = styled.h2`
+const HeadingTwoTitle = styled.h2`
     font-weight: 700;
     font-size: 22px;
     line-height: 28px;
 `
 
-const TitleImage = styled.img`
+const ImageTitle = styled.img`
     width: 10px;
     height: 18px;
 `
 
-const SlideList = styled.ul`
+const ListPost = styled.ul`
     width: 100%;
     overflow-x: scroll;
     padding: 2px 22px;
@@ -40,18 +44,18 @@ export default function PostList() {
     const content = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure reiciendis distinctio rerum ducimus, eius ipsum quibusdam maxime praesentium. Dolorem eum quas perspiciatis commodi iste? Impedit praesentium corrupti numquam eaque nulla.';
 
     return (
-        <section>
-            <header>
-                <SectionLink to='/'>
-                    <SectionTitle>우리의 이야기</SectionTitle>
-                    <TitleImage src={IconArrowRight} alt='' />
-                </SectionLink>
-            </header>
-            <SlideList>
+        <SectionPost>
+            <Link to='/'>
+                <HeaderCommunidty>
+                    <HeadingTwoTitle>우리의 이야기</HeadingTwoTitle>
+                    <ImageTitle src={IconArrowRight} alt='' />
+                </HeaderCommunidty>
+            </Link>
+            <ListPost>
                 <PostListItem content={content} />
                 <PostListItem content={content} />
                 <PostListItem content={content} />
-            </SlideList>
-        </section>
+            </ListPost>
+        </SectionPost>
     )
 }

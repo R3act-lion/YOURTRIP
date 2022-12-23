@@ -18,36 +18,36 @@ const HeaderContainer = styled.header`
     z-index: 20;
 `
 
-const LogoTitle = styled.h1`
+const HeadingOneTitle = styled.h1`
     width: 96px;
     margin: 0 auto;
 `
 
-const LogoImage = styled.img`
+const ImageLogo = styled.img`
     width: 100%;
 `
 
-const SearchLink = styled(Link)`
+const LinkSearch = styled(Link)`
     width: 18px;
     position: absolute;
     margin-right: 16px;
 `
 
-const SearchImage = styled.img`
+const ImageSearch = styled.img`
     width: 100%;
 `
 
 export default function LogoHeader() {
     return (
         <HeaderContainer>
-            <LogoTitle>
+            <HeadingOneTitle>
                 <Link to='/'>
-                    <LogoImage src={YourtripImg} alt='YOURTRIP' />
+                    <ImageLogo src={YourtripImg} alt='YOURTRIP' />
                 </Link>
-            </LogoTitle>
-            <SearchLink to='/'>
-                <SearchImage src={SearchImg} alt='검색' />
-            </SearchLink>
+            </HeadingOneTitle>
+            <LinkSearch to='/search'>
+                <ImageSearch src={SearchImg} alt='검색' />
+            </LinkSearch>
         </HeaderContainer>
     )
 }

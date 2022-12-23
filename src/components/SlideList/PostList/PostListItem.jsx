@@ -1,20 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 import IconCOmmunity from '../../../assets/images/icon-community-mini.svg'
+import { Link } from 'react-router-dom'
 
-const CommuintyListItem = styled.li`
+const ListItemCommunity = styled.li`
     flex-basis: 166px;
     flex-shrink: 0;
-    height: 147px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+`
+
+const LinkCommunity = styled(Link)`
+    height: 147px;
     padding: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 `
 
-const ItemContent = styled.p`
+const ParagraphContent = styled.p`
     font-weight: 400;
     font-size: 14px;
     line-height: 160%;
@@ -25,17 +29,19 @@ const ItemContent = styled.p`
     -webkit-line-clamp: 4;
 `
 
-const ItemImage = styled.img`
+const ImageCommunity = styled.img`
     width: 16px;
 `
 
-export default function PostListItem({content}) {
+export default function PostListItem({ content }) {
     return (
-        <CommuintyListItem>
-            <ItemContent>
-                {content}
-            </ItemContent>
-            <ItemImage src={IconCOmmunity} alt='' />
-        </CommuintyListItem>
+        <ListItemCommunity>
+            <LinkCommunity to='/post/test'>
+                <ParagraphContent>
+                    {content}
+                </ParagraphContent>
+                <ImageCommunity src={IconCOmmunity} alt='' />
+            </LinkCommunity>
+        </ListItemCommunity>
     )
 }

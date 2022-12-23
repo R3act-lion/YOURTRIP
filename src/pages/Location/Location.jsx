@@ -1,10 +1,12 @@
 import React from 'react'
+import LocationList from '../../components/PlaceList/LocationList/LocationList'
 
 export default function Location() {
-  return (
-    <>
-    <div>지역별 페이지입니다.</div>
+    window.scrollTo(0,0)
 
-    </>
-  )
+    return (
+        <>
+            <LocationList />
+        </>
+    )
 }

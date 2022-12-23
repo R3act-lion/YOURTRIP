@@ -3,20 +3,38 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
 import LogoHeaderLayout from "./components/Layout/LogoHeaderLayout/LogoHeaderLayout";
+import LogoBackHeaderLayout from "./components/Layout/LogoBackHeaderLayout/LogoBackHeaderLayout";
 import BasicHeaderLayout from "./components/Layout/BasicHeaderLayout/BasicHeaderLayout";
-import UploadHeaderLayout from "./components/Layout/UploadHeaderLayout/UploadHeaderLayout";
+import ButtonHeaderLayout from "./components/Layout/ButtonHeaderLayout/ButtonHeaderLayout";
 import SearchHeaderLayout from "./components/Layout/SearchHeaderLayout/SearchHeaderLayout";
-import LocationCategory from "./components/LocationCategory/LocationCategory";
-import PlaceList from "./components/PlaceList/PlaceList";
-import Comment from "./components/Comment/Comment";
+import LogoMoreHeaderLayout from "./components/Layout/LogoMoreHeaderLayout/LogoMoreHeaderLayout";
+import CategoryNavigationLayout from "./components/Layout/CategoryNavigationLayout/CategoryNavigationLayout";
 import { theme } from "./theme";
 
 import Home from "./pages/Home/Home";
+import HomePlaceList from "./pages/Home/HomePlaceList/HomePlaceList";
+
+import Location from "./pages/Location/Location";
+import LocationTheme from "./pages/Location/LocationTheme/LocationTheme";
+import LocationPlaceList from "./pages/Location/LocationPlaceList/LocationPlaceList";
+
+import Search from "./pages/Search/Search";
+
+import Community from "./pages/Community/Community";
+import CommunityUpload from "./pages/Community/CommunityUpload/CommunityUpload";
+
+import PlaceDetail from "./pages/PlaceDetail/PlaceDetail";
+import Post from "./pages/Post/Post";
+
+import Profile from "./pages/Profile/Profile";
+import ProfileFollowers from "./pages/Profile/ProfileFollowers/ProfileFollowers";
+import ProfileFollowing from "./pages/Profile/ProfileFollowing/ProfileFollowing";
+import ProfileModify from "./pages/Profile/ProfileModify/ProfileModify";
+import ProfileAddQuration from "./pages/Profile/ProfileAddQuration/ProfileAddQuration";
+import QurationPlaceList from "./pages/Profile/ProfileAddQuration/QurationPlaceList/QurationPlaceList";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
-
-    @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
     *, *::before, *::after {
         box-sizing: border-box;
@@ -50,6 +68,20 @@ const GlobalStyle = createGlobalStyle`
         background-color: white;
         padding: 0;
     }
+
+    .irOnly {
+        position: absolute;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+    }
+
+    li {
+        list-style-type: none;
+    }
 `
 
 function App() {
@@ -57,18 +89,43 @@ function App() {
         <>
             <ThemeProvider theme={theme} >
                 <GlobalStyle />
-
                 <BrowserRouter>
                     <Routes>
                         <Route element={<NavigationLayout />}>
-                            {/* <Route element={<LogoHeaderLayout />}> */}
-                            {/* <Route element={<BasicHeaderLayout />}> */}
-                            {/* <Route element={<UploadHeaderLayout />}> */}
-                            <Route element={<SearchHeaderLayout />}>
+                            <Route element={<LogoHeaderLayout />}>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/location" element={<LocationCategory />} >
-                                    <Route path="/location/placeList" element={<PlaceList />}></Route>        
+
+                                <Route element={<CategoryNavigationLayout />}>
+                                    <Route path="/location" element={<Location />} />
                                 </Route>
+                            </Route>
+                            <Route element={<LogoBackHeaderLayout />}>
+                                <Route path="/home/placelist" element={<HomePlaceList />} />
+
+                                <Route element={<CategoryNavigationLayout />}>
+                                    <Route path="/location/theme" element={<LocationTheme />} />
+                                    <Route path="/location/placelist" element={<LocationPlaceList />} />
+                                </Route>
+                            </Route>
+                            <Route element={<BasicHeaderLayout />}>
+                                <Route path="/placedetail/:id" element={<PlaceDetail />} />
+                                <Route path="/post/:id" element={<Post />} />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/profile/:id" element={<Profile />} />
+                                <Route path="/profile/followers" element={<ProfileFollowers />} />
+                                <Route path="/profile/following" element={<ProfileFollowing />} />
+                            </Route>
+                            <Route element={<SearchHeaderLayout />}>
+                                <Route path="/search" element={<Search />} />
+                            </Route>
+                            <Route element={<LogoMoreHeaderLayout />}>
+                                <Route path="/community" element={<Community />} />
+                            </Route>
+                            <Route element={<ButtonHeaderLayout />}>
+                                <Route path="/community/upload" element={<CommunityUpload />} />
+                                <Route path="/profile/modify" element={<ProfileModify />} />
+                                <Route path="/profile/addquration" element={<ProfileAddQuration />} />
+                                <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                             </Route>
                         </Route>
                     </Routes>
