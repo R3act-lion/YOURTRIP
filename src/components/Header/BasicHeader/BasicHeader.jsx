@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import LeftArrowImg from '../../../assets/images/icon-arrow-left.svg'
 import MoreImg from '../../../assets/images/icon-more.svg'
-import { Link } from 'react-router-dom'
+import { useNavigate  } from 'react-router-dom'
+
 
 const HeaderContainer = styled.header`
     width: 390px;
@@ -16,40 +17,46 @@ const HeaderContainer = styled.header`
     z-index: 20;
 `
 
-const LeftArrowImage = styled.img`
+const ImageLeftArrow = styled.img`
     width: 22px;
 `
 
-const MoreButton = styled.button`
+const ButtonMore = styled.button`
     width: 24px;
     height: 24px;
     margin-left: auto;
     cursor: pointer;
 `
 
-const MoreImage = styled.img`
+const ImageMore = styled.img`
     width: 100%;
 `
 
-const BasicTitle = styled.h1`
+const HeadingOneTitle = styled.h1`
     font-weight: 500;
     font-size: ${(props) => props.theme.fontSize.lv4};
     line-height: 23px;
-    margin-left: 5px;
+    margin-left: 10px;
+`
+
+const ButtonPrev = styled.button`
+    height: 22px;
 `
 
 export default function BasicHeader() {
+    const navigation = useNavigate();
+
     return (
         <HeaderContainer>
-            <Link to='/'>
-                <LeftArrowImage src={LeftArrowImg} alt='뒤로가기' />
-            </Link>
-            <BasicTitle>
-                테스트
-            </BasicTitle>
-            <MoreButton>
-                <MoreImage src={MoreImg} alt='더보기' />
-            </MoreButton>
+            <ButtonPrev onClick={() => navigation(-1)}>
+                <ImageLeftArrow src={LeftArrowImg} alt='뒤로가기' />
+            </ButtonPrev>
+            <HeadingOneTitle>
+                
+            </HeadingOneTitle>
+            <ButtonMore>
+                <ImageMore src={MoreImg} alt='더보기' />
+            </ButtonMore>
         </HeaderContainer>
     )
 }

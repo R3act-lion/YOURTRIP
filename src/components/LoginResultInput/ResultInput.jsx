@@ -40,14 +40,14 @@ const PasswordInput = styled.input`
 `
 
 export default function ResultInput() {
-  return (
-    <>
-     <LoginValue>
-        <LoginTitle id="email" type="email" >이메일</LoginTitle>
-        <EmailInput/>
-        <PassWordTitle id="password" type="password">비밀번호</PassWordTitle>
-        <PasswordInput/>
-        </LoginValue>
-    </>
-  )
+    return (
+        <>
+            <LoginValue>
+                <LoginTitle id="email" type="email" >이메일</LoginTitle>
+                <EmailInput />
+                <PassWordTitle id="password" type="password">비밀번호</PassWordTitle>
+                <PasswordInput />
+            </LoginValue>
+        </>
+    )
 }

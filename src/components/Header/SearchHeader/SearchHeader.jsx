@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import LeftArrowImg from '../../../assets/images/icon-arrow-left.svg'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const HeaderContainer = styled.header`
     width: 390px;
@@ -15,31 +15,11 @@ const HeaderContainer = styled.header`
     z-index: 20;
 `
 
-const LeftArrowImage = styled.img`
+const ImageLeftArrow = styled.img`
     width: 22px;
 `
 
-const BasicTitle = styled.h1`
-    position: absolute;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-`
-
-const SearchLabel = styled.label`
-    position: absolute;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-`
-
-const SearchInput = styled.input`
+const InputSearch = styled.input`
     width: 316px;
     height: 32px;
     background: #F2F2F2;
@@ -50,17 +30,23 @@ const SearchInput = styled.input`
     padding: 7px 16px;
 `
 
+const ButtonPrev = styled.button`
+    height: 22px;
+`
+
 export default function UploadHeader() {
+    const navigation = useNavigate();
+
     return (
         <HeaderContainer>
-            <Link to='/'>
-                <LeftArrowImage src={LeftArrowImg} alt='뒤로가기' />
-            </Link>
-            <BasicTitle>
+            <ButtonPrev onClick={() => navigation(-1)}>
+                <ImageLeftArrow src={LeftArrowImg} alt='뒤로가기' />
+            </ButtonPrev>
+            <h1 className='irOnly'>
                 검색 페이지
-            </BasicTitle>
-            <SearchLabel htmlFor='searchInput' >검색어 입력</SearchLabel>
-            <SearchInput id='searchInput' placeholder='검색' />
+            </h1>
+            <label htmlFor='searchInput' className='irOnly' >검색어 입력</label>
+            <InputSearch id='searchInput' placeholder='검색' />
         </HeaderContainer>
     )
 }

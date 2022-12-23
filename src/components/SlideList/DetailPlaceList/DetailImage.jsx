@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ImageListItem = styled.li`
+const ListItemImage = styled.li`
     flex-basis: 212px;
     flex-shrink: 0;
     height: 280px;
 `
 
-const ItemImage = styled.img`
+const ImageItem = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -16,8 +16,8 @@ const ItemImage = styled.img`
 
 export default function DetailImage({ image }) {
     return (
-        <ImageListItem>
-            <ItemImage src={image} />
-        </ImageListItem>
+        <ListItemImage>
+            <ImageItem src={image} />
+        </ListItemImage>
     )
 }

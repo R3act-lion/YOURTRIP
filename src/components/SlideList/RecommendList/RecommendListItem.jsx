@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom'
 import IconArrowRight from '../../../assets/images/icon-arrow-right.svg'
 import RecommendImage from './RecommendImage'
 
-const ThemeLink = styled(Link)`
-    margin-bottom: 16px;
+const ListItemRecommend = styled.li`
+    & + li {
+        margin-top: 32px;
+    }
+`
+
+const HeaderTheme = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 22px;
+    padding: 0 22px 16px 22px;
 `
 
 const ImageListTitle = styled.h3`
@@ -24,12 +29,12 @@ const Blank = styled.span`
     margin: 5px;
 `
 
-const ArrowRightImage = styled.img`
+const ImageArrowRight = styled.img`
     width: 10px;
     height: 18px;
 `
 
-const ImageList = styled.ul`
+const ListImage = styled.ul`
     width: 100%;
     overflow-x: scroll;
     display: flex;
@@ -42,25 +47,25 @@ const ImageList = styled.ul`
     }
 `
 
-export default function RecommendListItem() {
-    const image = 'https://dimg04.c-ctrip.com/images/0M74n12000a2jbclzF771_Q60.jpg_.webp'
-
+export default function RecommendListItem({ placelist, category, url }) {
     return (
-        <section>
-            <header>
-                <ThemeLink to='/'>
-                    <ImageListTitle>
-                        다가오는 12월,<Blank></Blank>서울에서 만나는 크리스마스
-                    </ImageListTitle>
-                    <ArrowRightImage src={IconArrowRight} alt="" />
-                </ThemeLink>
-            </header>
-            <ImageList>
-                <RecommendImage image={image} />
-                <RecommendImage image={image} />
-                <RecommendImage image={image} />
-            </ImageList>
-        </section>
+        <ListItemRecommend>
+            <section>
+                <Link to={url || '/home/placelist'} state={placelist}>
+                    <HeaderTheme>
+                        <ImageListTitle>
+                            {category}
+                        </ImageListTitle>
+                        <ImageArrowRight src={IconArrowRight} alt="" />
+                    </HeaderTheme>
+                    <ListImage>
+                        {
+                            placelist.list.map(place => <RecommendImage key={place.title} image={place.firstimage} alt={place.title} />)
+                        }
+                    </ListImage>
+                </Link>
+            </section>
+        </ListItemRecommend>
 
     )
 }

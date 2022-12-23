@@ -6,16 +6,6 @@ import icon_community from '../../assets/images/nav-community.svg'
 import icon_profile from '../../assets/images/nav-profile.svg'
 import { Link } from 'react-router-dom'
 
-const HiddenHeader = styled.header`
-    position: absolute;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-`
-
 const NavigationContainer = styled.nav`
     width: 390px;
     height: 60px;
@@ -42,9 +32,9 @@ const NavigationButtonImage = styled.img`
 export default function Navigation() {
     return (
         <article>
-            <HiddenHeader>
-                <h2>네비게이션</h2>
-            </HiddenHeader>
+            <header>
+                <h2 className='irOnly'>네비게이션</h2>
+            </header>
             <NavigationContainer>
                 <NavigationList>
                     <NavigationListItem>
@@ -53,17 +43,17 @@ export default function Navigation() {
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
-                        <Link to='/'>
+                        <Link to='/location'>
                             <NavigationButtonImage src={icon_location} alt="지역별" />
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
-                        <Link to='/'>
+                        <Link to='/community'>
                             <NavigationButtonImage src={icon_community} alt="커뮤니티" />
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
-                        <Link to='/'>
+                        <Link to='/profile'>
                             <NavigationButtonImage src={icon_profile} alt="프로필" />
                         </Link>
                     </NavigationListItem>
