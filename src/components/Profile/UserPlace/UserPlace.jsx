@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import RecommendList from '../../SlideList/RecommendList/RecommendList'
 import DetailPlaceList from '../../SlideList/DetailPlaceList/DetailPlaceList'
@@ -27,6 +27,11 @@ const ButtonTab = styled.button`
     vertical-align: top;
     color: #858585;
     cursor: pointer;
+    &.on{
+        font-weight: 700;
+        color: ${props => props.theme.color.text.black};
+        border-bottom: 2px solid black;
+    }
 `
 
 const ListTheme = styled.ul`
@@ -46,6 +51,22 @@ const HeadingThreeTitle = styled.h3`
 `
 
 export default function UserPlace() {
+    // 스테이트 생성 및 기본값 지정
+    const [isCategory, setIsCategory] = useState([
+        { value: "큐레이션", selected: true },
+        { value: "즐겨찾기", selected: false }
+    ]);
+
+    const itemClick = (value) => {
+        const newState = isCategory.map((list) => {
+            return {
+                ...list,
+                selected: value === list.value
+            };
+        });
+        setIsCategory(newState);
+    };
+
     const placelist = {
         list: [
             {
@@ -77,34 +98,38 @@ export default function UserPlace() {
                 </h2>
             </header>
             <ListButton>
-                <ListItemButton>
-                    <ButtonTab>
-                        큐레이션
-                    </ButtonTab>
-                </ListItemButton>
-                <ListItemButton>
-                    <ButtonTab>
-                        즐겨찾기
-                    </ButtonTab>
-                </ListItemButton>
+                {isCategory.map((list) => {
+                    return (
+                        <ListItemButton key={list.value}>
+                            <ButtonTab className={list.selected ? "on" : false}
+                                onClick={() => itemClick(list.value)}>
+                                {list.value}
+                            </ButtonTab>
+                        </ListItemButton>
+                    )
+                })}
             </ListButton>
-            <ListTheme>
-                <li>
-                    <RecommendList />
-                </li>
-            </ListTheme>
-            <ListPlace>
-                <li>
-                    <section>
-                        <header>
-                            <HeadingThreeTitle>
-                                고양이
-                            </HeadingThreeTitle>
-                        </header>
-                        <DetailPlaceList list={placelist.list} />
-                    </section>
-                </li>
-            </ListPlace>
+            {
+                isCategory[0].selected ?
+                    <ListTheme>
+                        <li>
+                            <RecommendList />
+                        </li>
+                    </ListTheme>
+                    :
+                    <ListPlace>
+                        <li>
+                            <section>
+                                <header>
+                                    <HeadingThreeTitle>
+                                        고양이
+                                    </HeadingThreeTitle>
+                                </header>
+                                <DetailPlaceList list={placelist.list} />
+                            </section>
+                        </li>
+                    </ListPlace>
+            }
         </SectionPlace>
     )
 }
