@@ -33,6 +33,12 @@ import ProfileModify from "./pages/Profile/ProfileModify/ProfileModify";
 import ProfileAddQuration from "./pages/Profile/ProfileAddQuration/ProfileAddQuration";
 import QurationPlaceList from "./pages/Profile/ProfileAddQuration/QurationPlaceList/QurationPlaceList";
 
+import SignUp from "./pages/SignUp/SignUp";
+import SignUpProfile from "./pages/SignUp/SignUpProfile"
+
+import Login from "./pages/Login/Login";
+
+
 const GlobalStyle = createGlobalStyle`
     ${reset}
 
@@ -127,6 +133,13 @@ function App() {
                                 <Route path="/profile/addquration" element={<ProfileAddQuration />} />
                                 <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                             </Route>
+
+                            
+                            <Route path="SignUp" element={<SignUp/>} />
+                            <Route path="SignUpProfile" element={<SignUpProfile/>} />
+
+                            <Route path="Login" element={<Login/>} />
+                            
                         </Route>
                     </Routes>
                 </BrowserRouter>
