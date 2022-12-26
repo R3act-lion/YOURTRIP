@@ -1,8 +1,7 @@
-import React from 'react'
+import { React,useState } from 'react'
 import styled from 'styled-components'
 import UserDesc from '../../UserDesc/UserDesc'
 import MoreImg from '../../../assets/images/icon-more.svg'
-import duksu from '../../../assets/images/test_duksu.png'
 import HeartImg from '../../../assets/images/icon-heart.svg'
 import CommentImg from '../../../assets/images/icon-comment.svg'
 
@@ -61,25 +60,53 @@ const ParagraphTime = styled.p`
 `
 
 export default function PostItem() {
+    const url = "https://mandarin.api.weniv.co.kr";
+    const token = localStorage.getItem("Access Token");
+    
+    let [userName, setUserName]=useState('');
+    let [userId, setUserId]=useState('');
+    let [userImage, setUserImage]=useState('');
+    let [userContent, setUserContent]=useState('');
+    let [heartCount, setHeartCount]=useState(0);
+    let [commentCount, setCommentCount]=useState(0);
+    let [createdAt, setCreatedAt]=useState(''); 
+
+    const getData= async()=>{
+        const res= fetch(url+"/post/feed",{
+            headers: {
+                "Authorization" : `Bearer ${token}`,
+	            "Content-type" : "application/json"
+            }
+        })
+        const resJson= res.json();
+
+        setUserName(resJson.posts["author"].username);
+        setUserId(resJson.posts["author"]._id);
+        setUserContent(resJson.posts["content"]);
+        setUserImage(resJson.posts["image"]);
+        setHeartCount(resJson.posts["heartCount"]);
+        setCommentCount(resJson.posts["commentCount"]);
+        setCreatedAt(resJson.posts["createdAt"]);
+    }
     return (
         <DivPost>
-            <UserDesc />
+            <UserDesc img={userImage} name={userName} id={userId}/>
             <ImageMore src={MoreImg} alt='더보기' />
             <DivContent>
                 <ParagraphContent>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae alias id autem dolore vitae nobis asperiores magnam harum. Minus, nostrum! Quas quam vitae, cum error distinctio adipisci sit consequuntur fugiat.
+                    {userContent}
                 </ParagraphContent>
-                <ImageContent src={duksu} alt='' />
+                <ImageContent src={userImage} alt='' />
                 <ImageAdditional src={HeartImg} alt='좋아요' />
                 <ParagraphAdditional>
-                    15
+                    {heartCount}
                 </ParagraphAdditional>
                 <ImageAdditional src={CommentImg} alt='댓글' />
                 <ParagraphAdditional>
-                    2
+                    {commentCount}
                 </ParagraphAdditional>
                 <ParagraphTime>
-                    2021년 1월 16일
+                    {createdAt}
                 </ParagraphTime>
             </DivContent>
         </DivPost>

@@ -98,98 +98,98 @@ export default function CommunityUpload() {
         textArea.current.style.color = 'black'
     }
 
-    const token= localStorage.getItem("login-token");
-  const url = "https://mandarin.api.weniv.co.kr";
-  let [content, setContent]=useState("");
-  let [imageFile,setImageFile]=useState([]);
-  let [imagesrc,setImagesrc]=useState([]);
-  
-  // 게시물 포스팅하는 함수
-  async function posting(){
-    const imgUrls= [];
-    const files= imageFile;
-    if (files.length <= 3){
-      for (let index=0; index< files.length; index++){
-        const imgUrl= await uploadImage(files, index);
-        imgUrls.push(`${url}/${imgUrl}`);
-      }
-      try{   
-        const res = await fetch(url+"/post", {
-                          method: "POST",
-                          headers: {
-                              "Authorization" : `Bearer ${token}`,
-                              "Content-Type": "application/json",
-                          },
-                          body : JSON.stringify({
-                             "post": {
-                                "content": content,
-                                "image": imgUrls.join()
-                              }
-                          })
-                      });
-        const resJson = await res.json();
-        setImageFile([]);
-        setImagesrc([]);
-        console.log(resJson);
-      } catch(err){
-        console.error(err);
-      }
-    }
-    else {
-      alert("이미지는 3장까지만 업로드 가능합니다")
-    }
+    const token= localStorage.getItem("Access Token");
+    const url = "https://mandarin.api.weniv.co.kr";
+    let [content, setContent]=useState("");
+    let [imageFile,setImageFile]=useState([]);
+    let [imagesrc,setImagesrc]=useState([]);
     
-    }
-
-  // 파일 인풋창 열리는 함수 근데 왜 두번열리는지 모르겠음
-  const handleClickFileInput=()=>{
-    if (imageFile.length>=3){
-      alert("이미지는 3장까지만 업로드 가능합니다")
-    } else{
-    fileInputRef.current.click();
-  }}
-
-
-  //파일을 이미지 배열에 넣는 함수
-  const fileInput=(e)=>{
-    const Blob= e.target.files[0];
-    
-    if (Blob === undefined){
-      return;
-    }
-    setImageFile((prevState)=>[...prevState, Blob]);
-  }
-    
-  // 이미지 서버로 보내고 나서 filename 받는 함수
-  const uploadImage= async(files, index) =>{
-      const formData= new FormData();
-      formData.append("image", files[index]);
-
-      try{
-        const res=await fetch(url+"/image/uploadfiles",{
-            method: "POST",    
-            body : formData
-        })
-        const resJson= await res.json();
-        let makeSrc=url+'/'+resJson[0]["filename"];
-        setImagesrc((imagesrc)=>[...imagesrc, makeSrc]);
-        console.log(resJson)
-        return(resJson[0]["filename"])
-
-      } catch(err) {
-        console.error(err);
+    // 게시물 포스팅하는 함수
+    async function posting(){
+      const imgUrls= [];
+      const files= imageFile;
+      if (files.length <= 3){
+        for (let index=0; index< files.length; index++){
+          const imgUrl= await uploadImage(files, index);
+          imgUrls.push(`${url}/${imgUrl}`);
+        }
+        try{   
+          const res = await fetch(url+"/post", {
+                            method: "POST",
+                            headers: {
+                                "Authorization" : `Bearer ${token}`,
+                                "Content-Type": "application/json",
+                            },
+                            body : JSON.stringify({
+                              "post": {
+                                  "content": content,
+                                  "image": imgUrls.join()
+                                }
+                            })
+                        });
+          const resJson = await res.json();
+          setImageFile([]);
+          setImagesrc([]);
+          console.log(resJson);
+        } catch(err){
+          console.error(err);
+        }
       }
-    }
-  
-  
-  //사진 미리보기 함수
-  // const showImage= useMemo(()=>{
-  //   if (!imageFile && imageFile == null){
-  //     return <img src={BlankImage} alt='사진없음' />
-  //   }
+      else {
+        alert("이미지는 3장까지만 업로드 가능합니다")
+      }
+      
+      }
 
-  //   return <ShowFileImage src={imageFile.thumbnail} alt={imageFile.type} onClick={handleClickFileInput}/>},[imageFile]) 
-  
+    // 파일 인풋창 열리는 함수 근데 왜 두번열리는지 모르겠음
+    const handleClickFileInput=()=>{
+      if (imageFile.length>=3){
+        alert("이미지는 3장까지만 업로드 가능합니다")
+      } else{
+      fileInputRef.current.click();
+    }}
+
+
+    //파일을 이미지 배열에 넣는 함수
+    const fileInput=(e)=>{
+      const Blob= e.target.files[0];
+      
+      if (Blob === undefined){
+        return;
+      }
+      setImageFile((prevState)=>[...prevState, Blob]);
+    }
+      
+    // 이미지 서버로 보내고 나서 filename 받는 함수
+    const uploadImage= async(files, index) =>{
+        const formData= new FormData();
+        formData.append("image", files[index]);
+
+        try{
+          const res=await fetch(url+"/image/uploadfiles",{
+              method: "POST",    
+              body : formData
+          })
+          const resJson= await res.json();
+          let makeSrc=url+'/'+resJson[0]["filename"];
+          setImagesrc((imagesrc)=>[...imagesrc, makeSrc]);
+          console.log(resJson)
+          return(resJson[0]["filename"])
+
+        } catch(err) {
+          console.error(err);
+        }
+      }
+    
+    
+    //사진 미리보기 함수
+    // const showImage= useMemo(()=>{
+    //   if (!imageFile && imageFile == null){
+    //     return <img src={BlankImage} alt='사진없음' />
+    //   }
+
+    //   return <ShowFileImage src={imageFile.thumbnail} alt={imageFile.type} onClick={handleClickFileInput}/>},[imageFile]) 
+    
 
     return (
         <SectionUpload>
