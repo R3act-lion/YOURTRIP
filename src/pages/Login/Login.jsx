@@ -88,8 +88,8 @@ const SignTitle = styled.a`
 `
 
 const ErrorMessage = styled.p`
-    font-size: ${({ theme }) => theme.fontSizes.sm};
-    color: ${({ theme }) => theme.colors.warning};
+    font-size: 12px;
+    color: red;
     margin-top: 6px;
     `;
 
@@ -153,7 +153,7 @@ const loginAxios = axios.create({
           localStorage.setItem('Access Token', response.data.user.token);
           localStorage.setItem('user ID', response.data.user.accountname);
   
-          navigate('/main');
+          navigate('/');
         } else {
           console.log('로그인 실패');
           console.log(response);
@@ -163,13 +163,13 @@ const loginAxios = axios.create({
       }
     };
   
-    // useEffect(() => {
-    //   if (!!email && !!password && !emailError) {
-    //     setIsBtnActive(false);
-    //   } else {
-    //     setIsBtnActive(true);
-    //   }
-    // }, [email, password, emailError]);
+    useEffect(() => {
+      if (!!email && !!password && !emailError) {
+        setIsBtnActive(false);
+      } else {
+        setIsBtnActive(true);
+      }
+    }, [email, password, emailError]);
 
 
   return (
@@ -184,7 +184,7 @@ const loginAxios = axios.create({
         <PassWordTitle >비밀번호</PassWordTitle>
         <PasswordInput id="inputPwd" type="password" onChange={changeHandler} required/>
         </LoginValue>
-        {/* <ErrorMessage>{loginError}</ErrorMessage> */}
+        <ErrorMessage>{loginError}</ErrorMessage>
         <ResultBtn disabled={isBtnActive}>로그인</ResultBtn>
         <SignTitle to='../Signup/Signup'>이메일로 회원가입</SignTitle>
         </form>
