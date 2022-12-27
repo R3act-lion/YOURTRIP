@@ -38,6 +38,8 @@ import SignUpProfile from "./pages/SignUp/SignUpProfile"
 
 import Login from "./pages/Login/Login";
 
+import NotFound from "./pages/NotFound/NotFound";
+
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -134,13 +136,14 @@ function App() {
                                 <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                             </Route>
 
-                            
-                            <Route path="SignUp" element={<SignUp/>} />
-                            <Route path="SignUpProfile" element={<SignUpProfile/>} />
 
-                            <Route path="Login" element={<Login/>} />
-                            
+                            <Route path="/signup" element={<SignUp />} />
+                            <Route path="/signup/profile" element={<SignUpProfile />} />
+
+                            <Route path="/login" element={<Login />} />
+
                         </Route>
+                        <Route path="/notfound" element={<NotFound />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
