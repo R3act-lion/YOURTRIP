@@ -62,6 +62,11 @@ const ParagraphDescription = styled.p`
     font-size: 14px;
     line-height: 18px;
     margin: 0 22px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 `
 
 export default function DetailPlaceListItem({ place }) {
@@ -93,7 +98,7 @@ export default function DetailPlaceListItem({ place }) {
                     {
                         !!place.desc 
                         ? <ParagraphDescription>
-                            {place.desc}
+                            {/* {place.desc} */}
                         </ParagraphDescription>
                         : <></>
                     }
