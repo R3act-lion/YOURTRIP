@@ -47,25 +47,24 @@ const ListImage = styled.ul`
     }
 `
 
-export default function RecommendListItem({ placelist, category, url }) {
+export default function RecommendListItem({ data, title, placelist, category, url }) {
     return (
         <ListItemRecommend>
             <section>
-                <Link to={url || '/home/placelist'} state={placelist}>
+                <Link to={url || '/home/placelist'} state={{data, placelist}}>
                     <HeaderTheme>
                         <ImageListTitle>
-                            {category}
+                            {title}
                         </ImageListTitle>
                         <ImageArrowRight src={IconArrowRight} alt="" />
                     </HeaderTheme>
                     <ListImage>
                         {
-                            placelist.list.map(place => <RecommendImage key={place.title} image={place.firstimage} alt={place.title} />)
+                            placelist.map(place => <RecommendImage key={place.title} image={place.firstimage} alt={place.title} />)
                         }
                     </ListImage>
                 </Link>
             </section>
         </ListItemRecommend>
-
     )
 }
