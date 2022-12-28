@@ -60,7 +60,7 @@ export default function SimplePlaceListItem({ place }) {
                     <header>
                         <HeadingThreeTitle>{place.title}</HeadingThreeTitle>
                     </header>
-                    <ParagraphDescription>{place.category}</ParagraphDescription>
+                    <ParagraphDescription>{place.detail}</ParagraphDescription>
                     <ButtonHeart>
                         <ImageHeart src={IconHeart} alt='' />
                     </ButtonHeart>

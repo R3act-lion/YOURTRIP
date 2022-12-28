@@ -9,11 +9,11 @@ const ListNormalPlace = styled.ul`
     gap: 16px;
 `
 
-export default function NormalPlaceList({ placelist }) {
+export default function NormalPlaceList({ data, placelist }) {
     return (
         <ListNormalPlace>
             {
-                placelist.map(place => <NormalPlaceListItem key={place.title} place={place}  />)
+                placelist.map(place => <NormalPlaceListItem data={data} key={place.title} place={place}  />)
             }
         </ListNormalPlace>
     )

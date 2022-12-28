@@ -4,11 +4,14 @@ import DetailPlaceList from '../../../components/SlideList/DetailPlaceList/Detai
 
 export default function HomePlaceList() {
     const location = useLocation();
+    const list = location.state.placelist
+    const data = location.state.data
+    console.log(data);
     window.scrollTo(0,0)
 
     return (
         <>
-            <DetailPlaceList list={location.state.list} />
+            <DetailPlaceList data={data} list={list} />
         </>
     )
 }

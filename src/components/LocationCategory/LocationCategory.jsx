@@ -37,11 +37,15 @@ const CategoryName = styled.span`
     text-align : center;
 `
 
-export default function LocationCategory() {
-    let [placeIcon, setPlaceIcon] = useState(false);
+export default function LocationCategory(props) {
+    let [placeIcon, setPlaceIcon] = useState(true);
     let [locationIcon, setLocationIcon] = useState(false);
     let [restaurantIcon, setRestaurantIcon] = useState(false);
     let [cafeIcon, setCafeIcon] = useState(false);
+
+    const setCategoryValue = (e) => {
+        props.getCategory(e)
+    }
 
     return (
         <Container>
@@ -61,6 +65,7 @@ export default function LocationCategory() {
                             setLocationIcon(false);
                             setRestaurantIcon(false);
                             setCafeIcon(false);
+                            setCategoryValue("place")
                         }} />
                     <CategoryName>Today</CategoryName>
                 </CategoryListItem>
@@ -74,6 +79,7 @@ export default function LocationCategory() {
                             setLocationIcon(true);
                             setRestaurantIcon(false);
                             setCafeIcon(false);
+                            setCategoryValue("location")
                         }} />
                     <CategoryName>Place</CategoryName>
                 </CategoryListItem>
@@ -87,6 +93,7 @@ export default function LocationCategory() {
                             setLocationIcon(false);
                             setRestaurantIcon(true);
                             setCafeIcon(false);
+                            setCategoryValue("restaurant")
                         }} />
                     <CategoryName>Restaurant</CategoryName>
                 </CategoryListItem>
@@ -100,6 +107,7 @@ export default function LocationCategory() {
                             setLocationIcon(false);
                             setRestaurantIcon(false);
                             setCafeIcon(true);
+                            setCategoryValue("cafe")
                         }} />
                     <CategoryName>Cafe</CategoryName>
                 </CategoryListItem>
