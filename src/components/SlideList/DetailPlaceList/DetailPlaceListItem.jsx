@@ -69,12 +69,12 @@ const ParagraphDescription = styled.p`
     overflow: hidden;
 `
 
-export default function DetailPlaceListItem({ place }) {
+export default function DetailPlaceListItem({ data, place }) {
     const url = '/placedetail/' + place.title
 
     return (
         <ListItemDetail>
-            <Link to={url} state={place} >
+            <Link to={url} state={{data, place}} >
                 <section>
                     <HeaderDetail>
                         {
@@ -88,20 +88,12 @@ export default function DetailPlaceListItem({ place }) {
                         }
                         <ImageMarker src={IconMarker} alt='' />
                         <ParagraphCategory>
-                            {place.category}
+                            {place.addr1.split(" ")[1]} | {place.detail}
                         </ParagraphCategory>
                     </HeaderDetail>
                     <ListImage>
-                        <DetailImage image={place.firstimage} />
-                        <DetailImage image={place.firstimage2} />
+                        {Array.from(Array(4), (x, i) => <DetailImage key={i} image={place.firstimage} /> )}
                     </ListImage>
-                    {
-                        !!place.desc 
-                        ? <ParagraphDescription>
-                            {/* {place.desc} */}
-                        </ParagraphDescription>
-                        : <></>
-                    }
                 </section>
             </Link>
         </ListItemDetail>

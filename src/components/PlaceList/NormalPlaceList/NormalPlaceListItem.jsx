@@ -49,12 +49,12 @@ const ImageHeart = styled.img`
     height: 50%;
 `
 
-export default function NormalPlaceListItem({ place }) {
+export default function NormalPlaceListItem({ place, data  }) {
     const url = '/placedetail/' + place.title
 
     return (
         <ListItemPlace>
-            <Link to={url} state={place} >
+            <Link to={url} state={{ place, data }} >
                 <article>
                     <ImagePlace src={place.firstimage} alt='' />
                     <header>

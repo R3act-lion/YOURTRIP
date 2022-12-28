@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import icon_arrow_right from '../../../assets/images/icon-arrow-right.svg'
 
-let locationArr = ['서울', '경기도', '강원도', '제주도', '충청남도', '충청북도', '전라남도', '전라북도'];
-
 const Container = styled.ul`
     padding: 25px;
     background-color: white;
@@ -25,7 +23,7 @@ const PlaceImg = styled.img`
     width: 77px;
     height: 77px;
     border-radius: 10px;
-    border-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 `
 
 const PlaceDescCont = styled.div`
@@ -52,25 +50,47 @@ const PlaceCount = styled.p`
     font-weight: 400;
 `
 
-export default function LocationList() {
+export default function LocationList(props) {
+    const { category, data} = props
+    let categoryList = [];
+
     return (
         <Container>
-            {
-                locationArr.map((a) => {
-                    return (
-                        <PlaceContainer key={a}>
-                            <LinkLocation to='/location/theme' >
-                                <PlaceImg src={'https://cdn.pixabay.com/photo/2022/12/10/11/05/snow-7646952_1280.jpg'} />
-                                <PlaceDescCont>
-                                    <PlaceHeader>{a}</PlaceHeader>
-                                    <PlaceBtn src={icon_arrow_right} />
-                                    <PlaceCount>200개의 여행지</PlaceCount>
-                                </PlaceDescCont>
-                            </LinkLocation>
-                        </PlaceContainer>
-                    )
-                })
-            }
+            {data.map((item) => {
+            let selectedItem= [];
+                for (let key in item[1]) {
+                    if(!categoryList.includes(key)) categoryList.push(key)
+                }
+                if (category === "place") {
+                    categoryList = categoryList.filter(i => i !== "count" && i !== "image" && i !== "전체_식당" && i !== "전체_여행지")
+                    categoryList.map(i => {
+                        selectedItem.push({...[i, item[1][i].list]})
+                    })
+                } else if (category === "location") {
+                    categoryList = categoryList.filter(i => i === "전체_여행지")
+                    selectedItem = item[1][categoryList].list
+                } else if (category === "restaurant") {
+                    categoryList = categoryList.filter(i => i === "전체_식당")
+                    selectedItem = item[1][categoryList].list.filter(i => i.detail !== "바/까페")
+                    
+                } else if (category === "cafe") {
+                    categoryList = categoryList.filter(i => i === "전체_식당")
+                    selectedItem = item[1][categoryList].list.filter(i => i.detail === "바/까페")
+                }
+
+                return (
+                    <PlaceContainer key={item[0]}>
+                        <LinkLocation to='/location/theme' state={{data, selectedItem, category}}>
+                            <PlaceImg src={item[1].image} />
+                            <PlaceDescCont>
+                                <PlaceHeader>{item[0]}</PlaceHeader>
+                                <PlaceBtn src={icon_arrow_right}/>
+                                <PlaceCount>{item[1].count}개의 여행지</PlaceCount>
+                            </PlaceDescCont>
+                        </LinkLocation>
+                    </PlaceContainer>  
+                )
+            })}
         </Container>
     )
 }

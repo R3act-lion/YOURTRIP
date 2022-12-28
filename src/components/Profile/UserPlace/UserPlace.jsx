@@ -113,7 +113,7 @@ export default function UserPlace() {
                 isCategory[0].selected ?
                     <ListTheme>
                         <li>
-                            <RecommendList />
+                            {/* <RecommendList /> */}
                         </li>
                     </ListTheme>
                     :
@@ -125,7 +125,7 @@ export default function UserPlace() {
                                         고양이
                                     </HeadingThreeTitle>
                                 </header>
-                                <DetailPlaceList list={placelist.list} />
+                                {/* <DetailPlaceList list={placelist.list} /> */}
                             </section>
                         </li>
                     </ListPlace>
