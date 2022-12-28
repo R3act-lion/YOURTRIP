@@ -150,10 +150,12 @@ const loginAxios = axios.create({
           console.log(response);
           setLoginError('이메일 또는 비밀번호가 일치하지 않습니다.');
         } else if (response.data.user) {
-          console.log(response.data.user.token);
+          console.log(response);
           localStorage.setItem('Access Token', response.data.user.token);
           localStorage.setItem('user ID', response.data.user.accountname);
-  
+          
+          console.log(localStorage.getItem('Access Token'))
+          console.log(localStorage.getItem('user ID'))
           navigate('/');
         } else {
           console.log('로그인 실패');

@@ -1,6 +1,7 @@
-import React from 'react'
+import { React,useEffect, useState } from 'react'
 import styled from 'styled-components';
 import UserDesc from '../../../components/UserDesc/UserDesc';
+import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn'
 
 const SectionFollowers = styled.section`
     padding: 24px 16px;
@@ -16,37 +17,40 @@ const ListItemFollowers = styled.li`
     }
 `
 
-const ButtonFollow = styled.button`
-    width: 56px;
-    height: 28px;
-    background-color: #3C70BC;
-    border-radius: 26px;
-    font-weight: 400;
-    font-size: 12px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-const ButtonCancel = styled.button`
-    width: 56px;
-    height: 28px;
-    border: 1px solid #DBDBDB;
-    border-radius: 26px;
-    font-weight: 400;
-    font-size: 12px;
-    color: #767676;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
 export default function ProfileFollowing() {
+    const url= "https://mandarin.api.weniv.co.kr";
+    let token= localStorage.getItem('Access Token');
+    let accountname= localStorage.getItem('user ID');
+    let [followingData, setFollowingData]= useState([]);
+
+    //팔로잉 리스트 확인 함수
+    const followingList=async()=>{
+        try{
+        const res= await fetch(url+`/profile/${accountname}/following`,{
+            method: "GET",
+            headers:{
+                "Authorization" : `Bearer ${token}`,
+                "Content-type" : "application/json"
+                }
+            }
+        )
+        const resJson= await res.json();
+        console.log(resJson)
+        setFollowingData([...resJson])    
+        } catch(err) {
+            console.error(err);
+        }
+    }
+    console.log(followingData)
+
     setTimeout(() => {
         document.querySelector('h1').textContent = 'Following'
-        window.scrollTo(0,0)
+        window.scrollTo(0,0);
     }, 0);
+
+    useEffect(()=>{
+        followingList();
+    },[]);
 
     return (
         <SectionFollowers>
@@ -56,24 +60,15 @@ export default function ProfileFollowing() {
                 </h2>
             </header>
             <ul>
-                <ListItemFollowers>
-                    <UserDesc />
-                    <ButtonFollow>
-                        팔로우
-                    </ButtonFollow>
-                </ListItemFollowers>
-                <ListItemFollowers>
-                    <UserDesc />
-                    <ButtonFollow>
-                        팔로우
-                    </ButtonFollow>
-                </ListItemFollowers>
-                <ListItemFollowers>
-                    <UserDesc />
-                    <ButtonCancel>
-                        취소
-                    </ButtonCancel>
-                </ListItemFollowers>
+                {(followingData.length > 0) &&
+                    followingData.map((item)=>{
+                        return(
+                        <ListItemFollowers key={item._id}>
+                            <UserDesc img={item.image} name={item.username} id={item._id}/>
+                            <FollowingBtn item={item}/>
+                        </ListItemFollowers>
+                    )}
+                )}
             </ul>
         </SectionFollowers>
     )
