@@ -12,8 +12,8 @@ export default function CategoryNavigationLayout() {
     return (
         <> 
             {/* <CategoryNavigation /> */}
-            <LocationCategory />
-            <Outlet />
+            <LocationCategory getCategory={getCategory}/>
+            <Outlet context={[category, setCategory]}/>
         </>
     )
 }
