@@ -79,6 +79,7 @@ const ResultBtn = styled.button`
 `
 
 const SignTitle = styled.a`
+
     cursor: pointer;
     text-align: center;
     color:#767676;
@@ -174,7 +175,6 @@ const loginAxios = axios.create({
 
   return (
     <>
-    
     <Container>
     <form onSubmit={submitLogin}>
         <HeaderTitle>로그인</HeaderTitle>
@@ -183,11 +183,12 @@ const loginAxios = axios.create({
         <EmailInput id="inputEmail" type="email" onChange={changeHandler} required />
         <PassWordTitle >비밀번호</PassWordTitle>
         <PasswordInput id="inputPwd" type="password" onChange={changeHandler} required/>
-        </LoginValue>
         <ErrorMessage>{loginError}</ErrorMessage>
+        </LoginValue>
+        
         <ResultBtn disabled={isBtnActive}>로그인</ResultBtn>
-        <SignTitle to='../Signup/Signup'>이메일로 회원가입</SignTitle>
         </form>
+        <SignTitle to='../Signup/Signup'>이메일로 회원가입</SignTitle>
     </Container>
     </>
   )

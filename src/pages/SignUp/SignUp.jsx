@@ -39,7 +39,6 @@ const LoginTitle = styled.label`
 const EmailInput = styled.input`
     width: 322px;
     margin-top: 10px;
-    margin-bottom: 16px;
     border-top:none;
     border-left:none;
     border-right:none;
@@ -80,10 +79,19 @@ const ResultBtn = styled.button`
     line-height: 18px;
     color: #FFFFFF;
     cursor: pointer;
-    &:hover{
-        background-color: #C9D9F0;
+    &:disabled{
+        background-color: #3C70BC;
         color: #FFFFFF;}
 `
+
+const ErrorMessage = styled.p`
+    font-size: 12px;
+    color: #EB5757;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    `;
+
+
 const emailAxios = axios.create({
     baseURL: 'https://mandarin.api.weniv.co.kr/user',
     headers: { 'Content-type': 'application/json' },
@@ -130,9 +138,9 @@ export default function Signup() {
         setPwError('');
       }
     };
-  
+
     useEffect(() => {
-      console.log(emailError, pwError);
+      console.log(emailError, pwError );
       if (!emailError && !pwError) {
         if (!!email && !!password) {
           setIsBtnActive(prev => false);
@@ -142,7 +150,7 @@ export default function Signup() {
       } else {
         setIsBtnActive(prev => true);
       }
-    }, [email, password, emailError, pwError]);
+    }, [email, password, emailError, pwError,]);
   
     const submitEmail = async e => {
       e.preventDefault();
@@ -151,17 +159,18 @@ export default function Signup() {
         const response = await emailAxios.post('/emailvalid', { user: { email } });
   
         if (response.data.message === '사용 가능한 이메일 입니다.') {
-          alert('사용가능');
-          navigate('/SignUpProfile', { state: { email, password } });
+          console.log('사용가능');
+          navigate('/signup/profile', { state: { email, password } });
         } else if (response.data.message === '이미 가입된 이메일 주소 입니다.') {
           setEmailError('이미 가입된 계정ID 입니다.');
         } else if (response.data.message === '잘못된 접근입니다.') {
-            alert('잘못된 접근입니다.');
+          console.log('잘못된 접근입니다.');
         }
       } catch (error) {
         console.log(error.message);
       }
     };
+  
   
     return (
     <>
@@ -177,6 +186,7 @@ export default function Signup() {
         onChange={emailValidation}
         required={true}
         />
+        <ErrorMessage>{emailError}</ErrorMessage>
         <PassWordTitle>비밀번호</PassWordTitle>
         <PasswordInput 
         name="password"
@@ -185,6 +195,7 @@ export default function Signup() {
         onChange={pwValidation}
         required={true}
         />
+        <ErrorMessage>{pwError}</ErrorMessage>
         </LoginValue>
         <ResultBtn disabled={isBtnActive}>다음</ResultBtn>
         </form>
