@@ -8,7 +8,7 @@ import Imgsircle from '../../assets/images/profile.svg'
 const Container = styled.div`
     margin: 0 auto;
     width: 390px;
-    height: 850px;
+    height: 950px;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,9 @@ const ImgView = styled.img.attrs({
     position: relative;
 `
 
-const ResultValue = styled.div`
+const ResultValue = styled.form`
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
 `
 
@@ -59,7 +61,7 @@ const ResultTitle = styled.label`
 
 const NameInput = styled.input`
     width: 322px;
-    margin-bottom: 16px;
+    
     border-top:none;
     border-left:none;
     border-right:none;
@@ -71,7 +73,6 @@ const NameInput = styled.input`
 
 const IdInput = styled.input`
     width: 322px;
-    margin-bottom: 16px;
     border-top:none;
     border-left:none;
     border-right:none;
@@ -110,6 +111,12 @@ const ResultBtn = styled.button`
     &:hover{
         background-color: #C9D9F0;
         color: #FFFFFF;}
+`
+
+const ErrorMessage = styled.p`
+    font-size: 12px;
+    color: red;
+    margin-top: 6px;
 `
 
     const idAxios = axios.create({
@@ -240,12 +247,9 @@ const ResultBtn = styled.button`
     <Container>
         <HeaderTitle>프로필설정</HeaderTitle>
         <HeaderSubTitle>나중에 언제든지 변경할 수 있습니다.</HeaderSubTitle>
-        <form onSubmit={submitProfile}>
         <ImgView/>
-
-        <ResultValue>
+        <ResultValue onSubmit={submitProfile}>
         <ResultTitle htmlFor='userName'>사용자이름</ResultTitle>
-        <br/>
         <NameInput
          id='userName'
          type='text' 
@@ -253,8 +257,8 @@ const ResultBtn = styled.button`
          placeholder='2~10자 이내여야 합니다.'
          required
         />
+        <ErrorMessage>{userNameError}</ErrorMessage>
         <ResultTitle>계정ID</ResultTitle>
-        <br/>
         <IdInput 
         id='userId'
         type='text' 
@@ -262,19 +266,18 @@ const ResultBtn = styled.button`
         placeholder='영문,숫자,특수문자(.),(_)만 사용 가능합니다.'
         required
          />
+         <ErrorMessage>{userIdError}</ErrorMessage>
         <ResultTitle>소개</ResultTitle>
-        <br/>
         <IntroInput 
         id='userDesc'
         type='text'
         onChange={userIntroCheck}
         placeholder='나의 소개를 입력 해주세요'
         />
-        </ResultValue>
         <ResultBtn disabled={isBtnActive}>시작하기</ResultBtn>
-        </form>
+        </ResultValue>
+      
     </Container>
-
     </>
-  );
-}
+  )
+};
