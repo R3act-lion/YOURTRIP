@@ -56,7 +56,7 @@ export default function ProfileFollowing() {
         <SectionFollowers>
             <header>
                 <h2 className='irOnly'>
-                    팔로워 목록
+                    팔로잉 목록
                 </h2>
             </header>
             <ul>

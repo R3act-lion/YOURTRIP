@@ -1,6 +1,7 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import styled from 'styled-components';
 import UserDesc from '../../../components/UserDesc/UserDesc';
+import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn';
 
 const SectionFollowers = styled.section`
     padding: 24px 16px;
@@ -16,64 +17,58 @@ const ListItemFollowers = styled.li`
     }
 `
 
-const ButtonFollow = styled.button`
-    width: 56px;
-    height: 28px;
-    background-color: #3C70BC;
-    border-radius: 26px;
-    font-weight: 400;
-    font-size: 12px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-const ButtonCancel = styled.button`
-    width: 56px;
-    height: 28px;
-    border: 1px solid #DBDBDB;
-    border-radius: 26px;
-    font-weight: 400;
-    font-size: 12px;
-    color: #767676;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
 export default function ProfileFollowers() {
+    const url= "https://mandarin.api.weniv.co.kr";
+    let token= localStorage.getItem('Access Token');
+    let accountname= localStorage.getItem('user ID');
+    let [followerData, setFollowerData]= useState([]);
+
+    //팔로워 리스트 확인 함수
+    const followerList=async()=>{
+        try{
+        const res= await fetch(url+`/profile/${accountname}/follower`,{
+            method: "GET",
+            headers:{
+                "Authorization" : `Bearer ${token}`,
+                "Content-type" : "application/json"
+                }
+            }
+        )
+        const resJson= await res.json();
+        console.log(resJson)
+        setFollowerData([...resJson])    
+        } catch(err) {
+            console.error(err);
+        }
+    }
+    console.log(followerData);
+
     setTimeout(() => {
-        document.querySelector('h1').textContent = 'Followers'
-        window.scrollTo(0,0)
+        document.querySelector('h1').textContent = 'Follower'
+        window.scrollTo(0,0);
     }, 0);
+
+    useEffect(()=>{
+        followerList();
+    },[]);
 
     return (
         <SectionFollowers>
             <header>
                 <h2 className='irOnly'>
-                    팔로워 목록
+                    팔로잉 목록
                 </h2>
             </header>
             <ul>
-                <ListItemFollowers>
-                    <UserDesc />
-                    <ButtonFollow>
-                        팔로우
-                    </ButtonFollow>
-                </ListItemFollowers>
-                <ListItemFollowers>
-                    <UserDesc />
-                    <ButtonFollow>
-                        팔로우
-                    </ButtonFollow>
-                </ListItemFollowers>
-                <ListItemFollowers>
-                    <UserDesc />
-                    <ButtonCancel>
-                        취소
-                    </ButtonCancel>
-                </ListItemFollowers>
+                {(followerData.length > 0) &&
+                    followerData.map((item)=>{
+                        return(
+                        <ListItemFollowers key={item._id}>
+                            <UserDesc img={item.image} name={item.username} id={item._id}/>
+                            <FollowingBtn item={item}/>
+                        </ListItemFollowers>
+                    )}
+                )}
             </ul>
         </SectionFollowers>
     )
