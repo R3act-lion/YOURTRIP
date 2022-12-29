@@ -13,7 +13,7 @@ export default function NormalPlaceList({ data, placelist }) {
     return (
         <ListNormalPlace>
             {
-                placelist.map(place => <NormalPlaceListItem data={data} key={place.title} place={place}  />)
+                placelist.map((place, index) => <NormalPlaceListItem data={data} key={index + place.title} place={place}  />)
             }
         </ListNormalPlace>
     )

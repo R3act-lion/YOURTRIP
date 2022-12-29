@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
+import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import IconMarker from '../../assets/images/icon-location-mini.svg'
 import NormalPlaceList from '../../components/PlaceList/NormalPlaceList/NormalPlaceList';
@@ -10,6 +11,7 @@ const { kakao } = window;
 
 const SectionContainer = styled.section`
     min-height: calc(100vh - 108px);
+    z-index: -1;
 `
 
 const ImageBackground = styled.img`
@@ -50,7 +52,6 @@ const ListSection = styled.ul`
 
 const SectionHome = styled.section`
     padding: 30px 22px;
-    display: none;
 `
 
 const HeadingTwoTitle = styled.h2`
@@ -85,7 +86,6 @@ const ParagraphDescription = styled.p`
 
 const SectionNear = styled.section`
     padding: 30px 22px;
-    display: none;
 
     & + section {
         margin-top: -30px;
@@ -93,7 +93,7 @@ const SectionNear = styled.section`
 `
 
 const SectionComment = styled.section`
-    display: none;
+    
 `
 
 const SectionMap = styled.section`
@@ -105,7 +105,7 @@ const DivMap = styled.div`
     height: 277px;
     margin-bottom: 15px;
     border-radius: 5px;
-    background-color: aqua;
+    z-index: 10;
 `
 
 const ParagraphAddrTItle = styled.p`
@@ -122,6 +122,52 @@ const ParagraphAddress = styled.p`
     line-height: 14px;
 `
 
+const checkArea = (area) => {
+    if (area.length === 2) {
+        if (area === '제주') {
+            area = '제주특별자치도';
+        }
+        else if (area === '서울') {
+            area = '서울특별시';
+        }
+        else {
+            area += '광역시';
+        }
+    }
+
+    return area;
+}
+
+const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    });
+}
+
+const modifyTitle = (title) => {
+    document.querySelector('h1').textContent = title;
+}
+
+const tabOn = (element) => {
+    element.style.borderBottom = '3px solid black';
+    element.style.color = 'black';
+}
+
+const tabOff = (element) => {
+    element.style.borderBottom = '0';
+    element.style.color = '#858585';
+}
+
+const sectionOn = (element) => {
+    element.style.display = 'block';
+}
+
+const sectionOff = (element) => {
+    element.style.display = 'none';
+}
+
 const makeOverListener = (map, marker, infowindow) => {
     return function () {
         infowindow.open(map, marker);
@@ -134,72 +180,87 @@ const makeOutListener = (infowindow) => {
     };
 }
 
-const RenderMap = (placelist, navigation) => {
+const RenderMap = (place, navigation) => {
     const container = document.getElementById('map');
     const options = {
-        center: new kakao.maps.LatLng(37.5172, 127.0473),
-        level: 7
+        center: new kakao.maps.LatLng(place.mapy, place.mapx),
+        level: 3
     };
 
     const map = new kakao.maps.Map(container, options);
+    const marker = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(place.mapy, place.mapx),
+        title: place.title
+    });
 
-    for (const place of placelist) {
-        const url = '/placedetail/' + place.title
-        const marker = new kakao.maps.Marker({
-            map: map,
-            position: new kakao.maps.LatLng(place.mapy, place.mapx),
-            title: place.title
-            // image : markerImage // 마커 이미지 
-        });
+    var infowindow = new kakao.maps.InfoWindow({
+        content: place.title
+    });
 
-        var infowindow = new kakao.maps.InfoWindow({
-            content: place.title
-        });
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    kakao.maps.event.addListener(map, 'mousedrag', () => {
 
-        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-        kakao.maps.event.addListener(marker, 'click', () => navigation(url, { state: { ...place } }))
+    })
+}
+
+const selectRandomPlace = (list) => {
+    let placelist = []
+
+    for (let index = 0; index < 4; index++) {
+        placelist.push(list[Math.floor(Math.random() * list.length)]);
     }
+
+    return placelist
+}
+
+const selectTab = (select) => {
+    const btnList = document.querySelectorAll('li > button');
+
+    btnList.forEach((button) => {
+        if (button.id.slice(3) === select) {
+            tabOn(button);
+            sectionOn(document.querySelector('#section' + button.id.slice(3)))
+        }
+        else {
+            tabOff(button);
+            sectionOff(document.querySelector('#section' + button.id.slice(3)))
+        }
+    })
 }
 
 export default function PlaceDetail() {
+    const [select, setSelect] = useState('Home');
+
     const navigation = useNavigate();
     const location = useLocation();
-    // const place = location.state;
-    
+
     const place = location.state.place;
     const data = location.state.data;
+    const { placeData } = useSelector(state => state.placeData);
 
-    const detaildata = data.filter(i => i[0] === place.addr1.split(" ")[0]).flat()
+    let area = place.addr1.split(' ')[0]
+    area = checkArea(area);
 
-    function randomplace(selectedItem) {
-        let randomIndexArray = []
-        let placelist = []
-        while (randomIndexArray.length < 4){
-            let randomNum = Math.floor(Math.random() * selectedItem.length)
-            if (randomIndexArray.indexOf(randomNum) === -1) {
-                randomIndexArray.push(randomNum)
-            }
-        }
-        randomIndexArray.map(i => placelist.push(selectedItem[i]))
-        return placelist
-    }
+    useEffect(() => {
+        scrollToTop();
+        modifyTitle(place.title);
+        RenderMap(place, navigation);
+    }, [place])
 
-    /*useEffect(() => {
-        console.log('move');
-        document.querySelector('h1').textContent = place.title;
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-        RenderMap(placelist.list, navigation);
-    }, [place, placelist])*/
-    
-    const placelist = randomplace(detaildata[1].전체_여행지.list)
-    const restaurantlist = randomplace(detaildata[1].전체_식당.list.filter(i => i.detail !== "바/까페"))
-    const cafelist = randomplace(detaildata[1].전체_식당.list.filter(i => i.detail === "바/까페"))
-    
+    useEffect(() => {
+        selectTab(select);
+    }, [select])
+
+    // console.log(area);
+    // console.log(place);
+    // console.log(placeData);
+    // console.log(placeData['area'][area]);
+
+    const placelist = selectRandomPlace(placeData['area'][area].전체여행지.list)
+    const restaurantlist = selectRandomPlace(placeData['area'][area].전체식당.list.filter(i => i.detail !== "바/까페"))
+    const cafelist = selectRandomPlace(placeData['area'][area].전체식당.list.filter(i => i.detail === "바/까페"))
 
     return (
         <SectionContainer>
@@ -211,20 +272,20 @@ export default function PlaceDetail() {
             <ImageBackground src={place.firstimage} alt={place.title} />
             <ListBUtton>
                 <ListItemBUtton>
-                    <ButtonTab>홈</ButtonTab>
+                    <ButtonTab id='btnHome' onClick={() => setSelect('Home')}>홈</ButtonTab>
                 </ListItemBUtton>
                 <ListItemBUtton>
-                    <ButtonTab>주변</ButtonTab>
+                    <ButtonTab id='btnNear' onClick={() => setSelect('Near')}>주변</ButtonTab>
                 </ListItemBUtton>
                 <ListItemBUtton>
-                    <ButtonTab>댓글</ButtonTab>
+                    <ButtonTab id='btnComment' onClick={() => setSelect('Comment')}>댓글</ButtonTab>
                 </ListItemBUtton>
                 <ListItemBUtton>
-                    <ButtonTab>지도</ButtonTab>
+                    <ButtonTab id='btnMap' onClick={() => setSelect('Map')}>지도</ButtonTab>
                 </ListItemBUtton>
             </ListBUtton>
             <ListSection>
-                <li>
+                <li id='sectionHome'>
                     <SectionHome>
                         <header>
                             <HeadingTwoTitle>
@@ -240,7 +301,7 @@ export default function PlaceDetail() {
                         </ParagraphDescription>
                     </SectionHome>
                 </li>
-                <li>
+                <li id='sectionNear'>
                     <SectionNear>
                         <header>
                             <HeadingTwoTitle>
@@ -266,7 +327,7 @@ export default function PlaceDetail() {
                         <NormalPlaceList data={data} placelist={cafelist} />
                     </SectionNear>
                 </li>
-                <li>
+                <li id='sectionComment'>
                     <SectionComment>
                         <header>
                             <h2 className='irOnly'>
@@ -277,7 +338,7 @@ export default function PlaceDetail() {
                         <WriteComment />
                     </SectionComment>
                 </li>
-                <li>
+                <li id='sectionMap'>
                     <SectionMap>
                         <header>
                             <h2 className='irOnly'>
@@ -289,7 +350,9 @@ export default function PlaceDetail() {
                             도로명 주소
                         </ParagraphAddrTItle>
                         <ParagraphAddress>
-                            Lorem ipsum dolor sit amet consectetur
+                            {
+                                place.addr1
+                            }
                         </ParagraphAddress>
                     </SectionMap>
                 </li>

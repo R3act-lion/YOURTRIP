@@ -54,13 +54,17 @@ export default function RecommendListItem({ data, title, placelist, category, ur
                 <Link to={url || '/home/placelist'} state={{data, placelist}}>
                     <HeaderTheme>
                         <ImageListTitle>
-                            {title}
+                            {
+                                !!title
+                                ? title
+                                : '오늘의 추천'
+                            }
                         </ImageListTitle>
                         <ImageArrowRight src={IconArrowRight} alt="" />
                     </HeaderTheme>
                     <ListImage>
                         {
-                            placelist.map(place => <RecommendImage key={place.title} image={place.firstimage} alt={place.title} />)
+                            placelist.map((place, index) => <RecommendImage key={index + place.title} image={place.firstimage} alt={place.title} />)
                         }
                     </ListImage>
                 </Link>

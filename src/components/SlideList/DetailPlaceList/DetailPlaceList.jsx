@@ -12,7 +12,7 @@ export default function DetailPlaceList({data, list}) {
     return (
         <ListDetailPlace>
             {
-                list.map(place => <DetailPlaceListItem data={data} key={place.title} place={place} isSecondary={true} />)
+                list.map((place, index) => <DetailPlaceListItem data={data} key={index + place.title} place={place} isSecondary={true} />)
             }
         </ListDetailPlace>
     )

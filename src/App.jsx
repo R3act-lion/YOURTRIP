@@ -1,3 +1,7 @@
+import React, { useEffect } from 'react'
+import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { asyncGetPlaceData } from './store/Data';
 import { reset } from "styled-reset";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
@@ -93,60 +97,76 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
+    const { placeData } = useSelector(state => state.placeData);
+    const dispatch = useDispatch();
+
+    const getPlaceData = () => {
+        dispatch(asyncGetPlaceData());
+    }
+
+    useEffect(() => {
+        getPlaceData();
+    }, [])
+
     return (
         <>
-            <ThemeProvider theme={theme} >
-                <GlobalStyle />
-                <BrowserRouter>
-                    <Routes>
-                        <Route element={<NavigationLayout />}>
-                            <Route element={<LogoHeaderLayout />}>
-                                <Route path="/" element={<Home />} />
+            {
+                !!!placeData.area
+                ? <></>
+                : <ThemeProvider theme={theme} >
+                    <GlobalStyle />
+                    <BrowserRouter>
+                        <Routes>
+                            <Route element={<NavigationLayout />}>
+                                <Route element={<LogoHeaderLayout />}>
+                                    <Route path="/" element={<Home />} />
 
-                                <Route element={<CategoryNavigationLayout />}>
-                                    <Route path="/location" element={<Location />} />
+                                    <Route element={<CategoryNavigationLayout />}>
+                                        <Route path="/location" element={<Location />} />
+                                    </Route>
                                 </Route>
-                            </Route>
-                            <Route element={<LogoBackHeaderLayout />}>
-                                <Route path="/home/placelist" element={<HomePlaceList />} />
+                                <Route element={<LogoBackHeaderLayout />}>
+                                    <Route path="/home/placelist" element={<HomePlaceList />} />
 
-                                <Route element={<CategoryNavigationLayout />}>
-                                    <Route path="/location/theme" element={<LocationTheme />} />
-                                    <Route path="/location/placelist" element={<LocationPlaceList />} />
+                                    <Route element={<CategoryNavigationLayout />}>
+                                        <Route path="/location/theme" element={<LocationTheme />} />
+                                        <Route path="/location/placelist" element={<LocationPlaceList />} />
+                                    </Route>
                                 </Route>
-                            </Route>
-                            <Route element={<BasicHeaderLayout />}>
-                                <Route path="/placedetail/:id" element={<PlaceDetail />} />
-                                <Route path="/post/:id" element={<Post />} />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/profile/:id" element={<Profile />} />
-                                <Route path="/profile/followers" element={<ProfileFollowers />} />
-                                <Route path="/profile/following" element={<ProfileFollowing />} />
-                            </Route>
-                            <Route element={<SearchHeaderLayout />}>
-                                <Route path="/search" element={<Search />} />
-                            </Route>
-                            <Route element={<LogoMoreHeaderLayout />}>
-                                <Route path="/community" element={<Community />} />
-                            </Route>
-                            <Route element={<ButtonHeaderLayout />}>
-                                <Route path="/community/upload" element={<CommunityUpload />} />
-                                <Route path="/profile/modify" element={<ProfileModify />} />
-                                <Route path="/profile/addquration" element={<ProfileAddQuration />} />
-                                <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
-                            </Route>
+                                <Route element={<BasicHeaderLayout />}>
+                                    <Route path="/placedetail/:id" element={<PlaceDetail />} />
+                                    <Route path="/post/:id" element={<Post />} />
+                                    <Route path="/profile" element={<Profile />} />
+                                    <Route path="/profile/:id" element={<Profile />} />
+                                    <Route path="/profile/followers" element={<ProfileFollowers />} />
+                                    <Route path="/profile/following" element={<ProfileFollowing />} />
+                                </Route>
+                                <Route element={<SearchHeaderLayout />}>
+                                    <Route path="/search" element={<Search />} />
+                                </Route>
+                                <Route element={<LogoMoreHeaderLayout />}>
+                                    <Route path="/community" element={<Community />} />
+                                </Route>
+                                <Route element={<ButtonHeaderLayout />}>
+                                    <Route path="/community/upload" element={<CommunityUpload />} />
+                                    <Route path="/profile/modify" element={<ProfileModify />} />
+                                    <Route path="/profile/addquration" element={<ProfileAddQuration />} />
+                                    <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
+                                </Route>
 
 
-                            <Route path="/signup" element={<SignUp />} />
-                            <Route path="/signup/profile" element={<SignUpProfile />} />
+                                <Route path="/signup" element={<SignUp />} />
+                                <Route path="/signup/profile" element={<SignUpProfile />} />
 
-                            <Route path="/login" element={<Login />} />
+                                <Route path="/login" element={<Login />} />
 
-                        </Route>
-                        <Route path="/notfound" element={<NotFound />} />
-                    </Routes>
-                </BrowserRouter>
-            </ThemeProvider>
+                            </Route>
+                            <Route path="/notfound" element={<NotFound />} />
+                        </Routes>
+                    </BrowserRouter>
+                </ThemeProvider>
+            }
+
         </>
     );
 }

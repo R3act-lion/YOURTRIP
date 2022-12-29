@@ -6,7 +6,7 @@ export default function HomePlaceList() {
     const location = useLocation();
     const list = location.state.placelist
     const data = location.state.data
-    console.log(data);
+    // console.log(location);
     window.scrollTo(0,0)
 
     return (

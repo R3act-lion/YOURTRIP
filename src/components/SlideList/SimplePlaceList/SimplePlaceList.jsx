@@ -17,21 +17,16 @@ const ListPlace = styled.ul`
 `
 
 export default function SimplePlaceList({ selectedItem, category }) {
-
-    let randomIndexArray = []
     let placelist = []
-    while (randomIndexArray.length < 5){
-        let randomNum = Math.floor(Math.random() * selectedItem.length)
-        if (randomIndexArray.indexOf(randomNum) === -1) {
-        randomIndexArray.push(randomNum)
-        }
+
+    for (let index = 0; index < 10; index++) {
+        placelist.push(selectedItem[Math.floor(Math.random() * selectedItem.length)]);
     }
-    randomIndexArray.map(i => placelist.push(selectedItem[i]))
 
     return (
         <ListPlace>
             {
-                placelist.map(place => <SimplePlaceListItem key={place.title} place={place} />)
+                placelist.map((place, index) => <SimplePlaceListItem key={index + place.title} place={place} />)
             }
         </ListPlace>
     )
