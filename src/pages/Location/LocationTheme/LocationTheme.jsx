@@ -6,7 +6,7 @@ import RecommendPlaceList from '../../../components/SlideList/RecommendPlaceList
 import SimplePlaceList from '../../../components/SlideList/SimplePlaceList/SimplePlaceList'
 
 const SectionRecommend = styled.section`
-    padding-top: 28px;
+    padding: 28px 0;
 `
 
 const SectionMost = styled.section`
@@ -22,41 +22,64 @@ const HeadingTwoTitle = styled.h2`
 `
 
 export default function LocationTheme() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     const url = '/location/placelist'
 
     const location = useLocation();
-    const category = location.state.category
-    const selectedItem = location.state.selectedItem
-    const data = location.state.data
-    let title, list;
-    
-    if (category === "place") {
-        let rand = Math.floor(Math.random() * 7);
-        title = selectedItem[rand][0]
-        list = selectedItem[rand][1]
-    }
+    const placeList = location.state.placeList
+    const area = location.state.area
+    const placeData = placeList[area];
 
     return (
         <>
-            {category === "place" ? 
-                <>
-                    <SectionRecommend>
-                        <HeadingTwoTitle>
-                            오늘의 추천
-                        </HeadingTwoTitle>
-                        <RecommendList data={data} title={title} selectedItem={list} category={category} url={url} />
-                    </SectionRecommend>
-                    <SectionMost>
-                        <HeadingTwoTitle>
-                            많이 찾는 여행지
-                        </HeadingTwoTitle>
-                        <SimplePlaceList selectedItem={list} category={category} url={url}/>
-                    </SectionMost>
-                </>
-            :
-                <RecommendPlaceList selectedItem={selectedItem} category={category} />
-            }
+            <SectionRecommend>
+                <header>
+                    <h2 className='irOnly'>
+                        지역별 테마
+                    </h2>
+                </header>
+                <ul>
+                    {
+                        (() => {
+                            const result = [];
+
+                            for (const key in placeData) {
+                                if (key !== 'count' && key !== 'image') {
+                                    result.push(
+                                        <RecommendList key={key} themeData={placeData[key]} theme={key} isLocation={true} url={url} />
+                                    )
+                                }
+                            }
+
+                            return result;
+                        })()
+                    }
+                </ul>
+            </SectionRecommend>
+
         </>
     )
+
+    // return (
+    // <>
+    //     {category === "place" ? 
+    //         <>
+    //             <SectionRecommend>
+    //                 <HeadingTwoTitle>
+    //                     오늘의 추천
+    //                 </HeadingTwoTitle>
+    //                 <RecommendList data={data} title={title} selectedItem={list} category={category} url={url} />
+    //             </SectionRecommend>
+    //             <SectionMost>
+    //                 <HeadingTwoTitle>
+    //                     많이 찾는 여행지
+    //                 </HeadingTwoTitle>
+    //                 <SimplePlaceList selectedItem={list} category={category} url={url}/>
+    //             </SectionMost>
+    //         </>
+    //     :
+    //         <RecommendPlaceList selectedItem={selectedItem} category={category} />
+    //     }
+    // </>
+    // )
 }

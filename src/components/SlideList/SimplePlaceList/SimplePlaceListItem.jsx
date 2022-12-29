@@ -54,7 +54,7 @@ export default function SimplePlaceListItem({ place }) {
 
     return (
         <ListItemPlace>
-            <Link to={url} state={place} >
+            <Link to={url} state={{ place }} >
                 <article>
                     <ImagePlace src={place.firstimage} alt='' />
                     <header>

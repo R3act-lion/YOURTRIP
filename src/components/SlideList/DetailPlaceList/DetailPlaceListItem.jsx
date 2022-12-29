@@ -92,7 +92,7 @@ export default function DetailPlaceListItem({ data, place }) {
                         </ParagraphCategory>
                     </HeaderDetail>
                     <ListImage>
-                        {Array.from(Array(4), (x, i) => <DetailImage key={i} image={place.firstimage} /> )}
+                        {Array.from(Array(2), (x, i) => <DetailImage key={i} image={place.firstimage} /> )}
                     </ListImage>
                 </section>
             </Link>

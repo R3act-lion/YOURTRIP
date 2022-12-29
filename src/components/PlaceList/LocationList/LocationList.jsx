@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import icon_arrow_right from '../../../assets/images/icon-arrow-right.svg'
@@ -50,47 +51,67 @@ const PlaceCount = styled.p`
     font-weight: 400;
 `
 
-export default function LocationList(props) {
-    const { category, data} = props
+export default function LocationList({ category }) {
     let categoryList = [];
+    const { placeData } = useSelector(state => state.placeData);
+    let newData = JSON.parse(JSON.stringify(placeData.area));
+    let url = '';
+
+    if (category === 'place' || category === 'location') {
+        url = '/location/theme';
+
+        for (const areaKey in newData) {
+            const areaData = newData[areaKey];
+
+            newData[areaKey].count -= newData[areaKey]['전체식당'].count;
+
+            for (const themeKey in areaData) {
+                if (themeKey === '전체식당') {
+                    delete areaData[themeKey]
+                }
+            }
+        }
+    }
+    else {
+        url = '/location/placelist';
+
+        for (const areaKey in newData) {
+            const areaData = newData[areaKey];
+
+            newData[areaKey].count -= newData[areaKey]['전체여행지'].count;
+
+            for (const themeKey in areaData) {
+                if (themeKey !== '전체식당' && themeKey !== 'image' &&  themeKey !== 'count') {
+                    delete areaData[themeKey]
+                }
+            }
+        }
+    }
 
     return (
         <Container>
-            {data.map((item) => {
-            let selectedItem= [];
-                for (let key in item[1]) {
-                    if(!categoryList.includes(key)) categoryList.push(key)
-                }
-                if (category === "place") {
-                    categoryList = categoryList.filter(i => i !== "count" && i !== "image" && i !== "전체_식당" && i !== "전체_여행지")
-                    categoryList.map(i => {
-                        selectedItem.push({...[i, item[1][i].list]})
-                    })
-                } else if (category === "location") {
-                    categoryList = categoryList.filter(i => i === "전체_여행지")
-                    selectedItem = item[1][categoryList].list
-                } else if (category === "restaurant") {
-                    categoryList = categoryList.filter(i => i === "전체_식당")
-                    selectedItem = item[1][categoryList].list.filter(i => i.detail !== "바/까페")
-                    
-                } else if (category === "cafe") {
-                    categoryList = categoryList.filter(i => i === "전체_식당")
-                    selectedItem = item[1][categoryList].list.filter(i => i.detail === "바/까페")
-                }
+            {
+                (() => {
+                    const result = [];
 
-                return (
-                    <PlaceContainer key={item[0]}>
-                        <LinkLocation to='/location/theme' state={{data, selectedItem, category}}>
-                            <PlaceImg src={item[1].image} />
-                            <PlaceDescCont>
-                                <PlaceHeader>{item[0]}</PlaceHeader>
-                                <PlaceBtn src={icon_arrow_right}/>
-                                <PlaceCount>{item[1].count}개의 여행지</PlaceCount>
-                            </PlaceDescCont>
-                        </LinkLocation>
-                    </PlaceContainer>  
-                )
-            })}
+                    for (const key in newData) {
+                        result.push(
+                            <PlaceContainer key={key}>
+                                <LinkLocation to={url} state={{ placeList: newData, category, area: key }}>
+                                    <PlaceImg src={newData[key].image} />
+                                    <PlaceDescCont>
+                                        <PlaceHeader>{key}</PlaceHeader>
+                                        <PlaceBtn src={icon_arrow_right} />
+                                        <PlaceCount>{newData[key].count}개의 여행지</PlaceCount>
+                                    </PlaceDescCont>
+                                </LinkLocation>
+                            </PlaceContainer>
+                        )
+                    }
+
+                    return result;
+                })()
+            }
         </Container>
     )
 }
