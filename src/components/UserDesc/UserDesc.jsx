@@ -34,7 +34,7 @@ const UserIntro = styled.p`
 export default function UserDesc({ img, name, id }) {
     return (
         <DivUser>
-            <ProfileImg src={img==null? profile : img} alt="" />
+            <ProfileImg src={img==='' ? profile : img} alt="" />
             <UserDetailDesc>
                 <UserName>{name}</UserName>
                 <UserIntro>{'@' + id}</UserIntro>
