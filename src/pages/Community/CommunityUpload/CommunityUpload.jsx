@@ -1,9 +1,12 @@
-import React, { useRef,useState } from 'react'
+import { React, useRef,useState } from 'react'
 import styled from 'styled-components'
 import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
 import ProfileImage from '../../../assets/images/profile.svg'
 
 const SectionUpload = styled.section`
+    width: 390px;
+    display: flex;
+    align-items: flex-start;
     position: relative;
     min-height: calc(100vh - 108px);
 `
@@ -17,15 +20,12 @@ const ButtonImageUpload = styled.button`
 `
 
 const ImageLabel= styled.label`
+    display: block;
     background-image: url(${UploadImage});
     background-repeat: no-repeat;
     background-size: cover;
     width: 50px;
     height: 50px;
-    position:fixed;
-    right: 750px;
-    bottom: 80px;
-    background-color: #FFFFFF;
     cursor: pointer;
 `
 
@@ -36,15 +36,19 @@ const ImageUpload = styled.input`
 const ImageProfile = styled.img`
     width: 42px;
     margin: 20px 10px 0 20px;
-    vertical-align: top;
+
 `
 
 const FormPost = styled.form`
+    width: 319px;
     display: inline-block;
+    margin: 32px 0 16px;
 `
 
 const TextAreaContent = styled.textarea`
     width: 300px;
+    margin-bottom: 16px;
+    padding: 0;
     font-size: 16px;
     resize: none;
     border: none;
@@ -52,7 +56,6 @@ const TextAreaContent = styled.textarea`
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
-    margin: 29px 0 0 70px;
     color: #C4C4C4;
 
     &::-webkit-scrollbar {
@@ -79,14 +82,21 @@ const ButtonUpload = styled.button`
 `
 
 const PrevImgList= styled.div`
+    width: 100%;
     display: flex;
     gap: 8px;
-    margin-left: 70px;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+  }
 `
 
 const PrevImg= styled.img`
-  width: 168px;
-  height: 126px;
+    width: 168px;
+    height: 126px;
+    border-radius: 10px;
+    flex-shrink: 0;
 `
 
 export default function CommunityUpload() {
@@ -101,18 +111,10 @@ export default function CommunityUpload() {
     const token= localStorage.getItem("Access Token");
     const url = "https://mandarin.api.weniv.co.kr";
     let [content, setContent]=useState("");
-    let [imageFile,setImageFile]=useState([]);
     let [imagesrc,setImagesrc]=useState([]);
     
     // 게시물 포스팅하는 함수
     async function posting(){
-      const imgUrls= [];
-      const files= imageFile;
-      if (files.length <= 3){
-        for (let index=0; index< files.length; index++){
-          const imgUrl= await uploadImage(files, index);
-          imgUrls.push(`${url}/${imgUrl}`);
-        }
         try{   
           const res = await fetch(url+"/post", {
                             method: "POST",
@@ -123,27 +125,23 @@ export default function CommunityUpload() {
                             body : JSON.stringify({
                               "post": {
                                   "content": content,
-                                  "image": imgUrls.join()
+                                  "image": imagesrc.join()
                                 }
                             })
                         });
           const resJson = await res.json();
-          setImageFile([]);
+          setContent('');
           setImagesrc([]);
           console.log(resJson);
+          
         } catch(err){
           console.error(err);
         }
       }
-      else {
-        alert("이미지는 3장까지만 업로드 가능합니다")
-      }
-      
-      }
 
     // 파일 인풋창 열리는 함수 근데 왜 두번열리는지 모르겠음
     const handleClickFileInput=()=>{
-      if (imageFile.length>=3){
+      if (imagesrc.length>=3){
         alert("이미지는 3장까지만 업로드 가능합니다")
       } else{
       fileInputRef.current.click();
@@ -157,13 +155,14 @@ export default function CommunityUpload() {
       if (Blob === undefined){
         return;
       }
-      setImageFile((prevState)=>[...prevState, Blob]);
+      uploadImage(Blob);
     }
       
     // 이미지 서버로 보내고 나서 filename 받는 함수
-    const uploadImage= async(files, index) =>{
+    const uploadImage= async(Blob) =>{
+        if (imagesrc.length <= 3){
         const formData= new FormData();
-        formData.append("image", files[index]);
+        formData.append("image", Blob);
 
         try{
           const res=await fetch(url+"/image/uploadfiles",{
@@ -173,43 +172,39 @@ export default function CommunityUpload() {
           const resJson= await res.json();
           let makeSrc=url+'/'+resJson[0]["filename"];
           setImagesrc((imagesrc)=>[...imagesrc, makeSrc]);
-          console.log(resJson)
-          return(resJson[0]["filename"])
 
         } catch(err) {
           console.error(err);
         }
+      }else{
+          alert("사진은 3장까지만 업로드 가능합니다");
+        }
       }
-    
-    
-    //사진 미리보기 함수
-    // const showImage= useMemo(()=>{
-    //   if (!imageFile && imageFile == null){
-    //     return <img src={BlankImage} alt='사진없음' />
-    //   }
-
-    //   return <ShowFileImage src={imageFile.thumbnail} alt={imageFile.type} onClick={handleClickFileInput}/>},[imageFile]) 
-    
 
     return (
-        <SectionUpload>
-            <ButtonImageUpload>
-                <ImageLabel htmlFor='img-file' onClick={handleClickFileInput}/>
-                <ImageUpload id="img-file" alt='이미지 업로드 버튼' type="file" accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" ref={fileInputRef} onChange={fileInput}/>
-            </ButtonImageUpload>
+        <SectionUpload>   
             <ImageProfile src={ProfileImage} alt='' />
             <FormPost action="">
-                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e)=> {setContent(e.target.value)}}>게시글 입력하기</TextAreaContent>
+                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e)=> {setContent(e.target.value)}}>게시글 입력하기...           
+                </TextAreaContent>
                 <PrevImgList>
-                    <PrevImg src="https://mandarin.api.weniv.co.kr/1672068554121.png"/>
-                    <PrevImg src="https://mandarin.api.weniv.co.kr/1672068554121.png"/>
-                    <PrevImg src="https://mandarin.api.weniv.co.kr/1672068554121.png"/>
+                  {
+                    imagesrc.map((item)=>{
+                      return(
+                        <PrevImg src={item}/>
+                      )
+                    })
+                  }
                 </PrevImgList>
-                  
-                <ButtonUpload onClick={posting}>
-                    업로드
-                </ButtonUpload>
+        
             </FormPost>
+            <ButtonImageUpload>
+                  <ImageLabel htmlFor='img-file' onClick={handleClickFileInput}/>
+                  <ImageUpload id="img-file" alt='이미지 업로드 버튼' type="file" accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" ref={fileInputRef} onChange={fileInput}/>
+            </ButtonImageUpload>               
+            <ButtonUpload onClick={posting}>
+                    업로드
+            </ButtonUpload>
         </SectionUpload>
     )
 }

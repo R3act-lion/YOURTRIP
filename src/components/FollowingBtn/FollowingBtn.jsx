@@ -18,7 +18,6 @@ const ButtonCancel = styled.button`
 export default function FollowingBtn({item}){
     const url= "https://mandarin.api.weniv.co.kr";
     let token= localStorage.getItem('Access Token');
-    console.log(token,"토큰입니다")
     let [isFollow , setIsFollow]= useState(item.isfollow);
 
     //팔로우 함수
