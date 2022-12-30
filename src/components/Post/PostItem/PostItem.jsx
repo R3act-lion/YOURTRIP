@@ -59,56 +59,39 @@ const ParagraphTime = styled.p`
     margin-top: 18px;
 `
 
-export default function PostItem() {
-    const url = "https://mandarin.api.weniv.co.kr";
-    const token = localStorage.getItem("Access Token");
-    
-    let [userName, setUserName]=useState('');
-    let [userId, setUserId]=useState('');
-    let [userImage, setUserImage]=useState('');
-    let [userContent, setUserContent]=useState('');
-    let [heartCount, setHeartCount]=useState(0);
-    let [commentCount, setCommentCount]=useState(0);
-    let [createdAt, setCreatedAt]=useState(''); 
-
-    const getData= async()=>{
-        const res= fetch(url+"/post/feed",{
-            headers: {
-                "Authorization" : `Bearer ${token}`,
-	            "Content-type" : "application/json"
-            }
-        })
-        const resJson= res.json();
-
-        setUserName(resJson.posts["author"].username);
-        setUserId(resJson.posts["author"]._id);
-        setUserContent(resJson.posts["content"]);
-        setUserImage(resJson.posts["image"]);
-        setHeartCount(resJson.posts["heartCount"]);
-        setCommentCount(resJson.posts["commentCount"]);
-        setCreatedAt(resJson.posts["createdAt"]);
-    }
+export default function PostItem({feedData}) {
     return (
-        <DivPost>
-            <UserDesc img={userImage} name={userName} id={userId}/>
-            <ImageMore src={MoreImg} alt='더보기' />
-            <DivContent>
-                <ParagraphContent>
-                    {userContent}
-                </ParagraphContent>
-                <ImageContent src={userImage} alt='' />
-                <ImageAdditional src={HeartImg} alt='좋아요' />
-                <ParagraphAdditional>
-                    {heartCount}
-                </ParagraphAdditional>
-                <ImageAdditional src={CommentImg} alt='댓글' />
-                <ParagraphAdditional>
-                    {commentCount}
-                </ParagraphAdditional>
-                <ParagraphTime>
-                    {createdAt}
-                </ParagraphTime>
-            </DivContent>
-        </DivPost>
+        <>
+        {feedData.map((item)=>{
+            const imageData= item.image.split(',');
+            const createdAt = item.createdAt.split('-');
+
+            return(
+                <DivPost>
+                    <UserDesc img={item.author.image} name={item.author.username} id={item.author.accountname}/>
+                    <ImageMore src={MoreImg} alt='더보기'/>
+                    <DivContent>
+                        <ParagraphContent>
+                            {item.content}
+                        </ParagraphContent>
+                        {(imageData != '') &&
+                            <ImageContent src={imageData[0]} alt='' />
+                        }
+                        <ImageAdditional src={HeartImg} alt='좋아요' />
+                        <ParagraphAdditional>
+                            {item.heartCount}
+                        </ParagraphAdditional>
+                        <ImageAdditional src={CommentImg} alt='댓글' />
+                        <ParagraphAdditional>
+                            {item.commentCount}
+                        </ParagraphAdditional>
+                        <ParagraphTime>
+                            {`${createdAt[0]}년 ${createdAt[1]}월 ${createdAt[2].slice(0,2)}일`}
+                        </ParagraphTime>
+                    </DivContent>
+                </DivPost>
+            )
+        })}
+        </>
     )
 }

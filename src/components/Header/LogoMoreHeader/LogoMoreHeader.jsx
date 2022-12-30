@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState} from 'react'
 import styled from 'styled-components'
 import YourtripImg from '../../../assets/images/sub-logo.svg'
 import SearchImg from '../../../assets/images/icon-search.svg'
@@ -49,8 +49,12 @@ const ButtonMore = styled.button`
 const ImageMore = styled.img`
     width: 100%;
 `
+const Modal= styled.section`
+    border-radius: 10px;
+    height: 110px;
+`
+export default function LogoMoreHeader({ modal, setModal }) {
 
-export default function LogoMoreHeader() {
     return (
         <HeaderContainer>
             <HeadingOneTitle>
@@ -62,7 +66,7 @@ export default function LogoMoreHeader() {
                 <ImageSearch src={SearchImg} alt='검색' />
             </LinkSearch>
             
-            <ButtonMore id='btnMore'>
+            <ButtonMore id='btnMore' onClick={modal === true ? setModal(false) : setModal(true)}>
                 <ImageMore src={MoreImg} alt='더보기' />
             </ButtonMore>
         </HeaderContainer>
