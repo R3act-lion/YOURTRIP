@@ -191,7 +191,7 @@ export default function CommunityUpload() {
                   {
                     imagesrc.map((item)=>{
                       return(
-                        <PrevImg src={item}/>
+                        <PrevImg src={item} />
                       )
                     })
                   }

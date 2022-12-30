@@ -26,17 +26,17 @@ export default function ProfileFollowing() {
     //팔로잉 리스트 확인 함수
     const followingList=async()=>{
         try{
-        const res= await fetch(url+`/profile/${accountname}/following`,{
-            method: "GET",
-            headers:{
-                "Authorization" : `Bearer ${token}`,
-                "Content-type" : "application/json"
+            const res= await fetch(url+`/profile/${accountname}/following`,{
+                method: "GET",
+                headers:{
+                    "Authorization" : `Bearer ${token}`,
+                    "Content-type" : "application/json"
+                    }
                 }
-            }
-        )
-        const resJson= await res.json();
-        console.log(resJson)
-        setFollowingData([...resJson])    
+            )
+            const resJson= await res.json();
+            console.log(resJson)
+            setFollowingData([...resJson])    
         } catch(err) {
             console.error(err);
         }

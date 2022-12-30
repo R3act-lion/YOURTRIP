@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import LeftArrowImg from '../../../assets/images/icon-arrow-left.svg'
 import MoreImg from '../../../assets/images/icon-more.svg'
-import { useNavigate  } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 const HeaderContainer = styled.header`
@@ -43,7 +43,7 @@ const ButtonPrev = styled.button`
     height: 22px;
 `
 
-export default function BasicHeader() {
+export default function BasicHeader({modal, setModal}) {
     const navigation = useNavigate();
 
     return (
