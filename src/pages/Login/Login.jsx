@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -78,8 +78,7 @@ const ResultBtn = styled.button`
         color: #FFFFFF;}
 `
 
-const SignTitle = styled.a`
-
+const SignTitle = styled(Link)`
     cursor: pointer;
     text-align: center;
     color:#767676;
@@ -190,7 +189,7 @@ const loginAxios = axios.create({
         
         <ResultBtn disabled={isBtnActive}>로그인</ResultBtn>
         </form>
-        <SignTitle to='../Signup/Signup'>이메일로 회원가입</SignTitle>
+        <SignTitle to='/Signup'>이메일로 회원가입</SignTitle>
     </Container>
     </>
   )
