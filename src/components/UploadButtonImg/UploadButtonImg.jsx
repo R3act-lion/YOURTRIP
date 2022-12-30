@@ -21,7 +21,7 @@ const ButtonImg = styled.div`
     
 
 
-export default function UploadButtonImg() {
+export default function UploadButtonImg({onChangFunction}) {
 
   return (
     <>
@@ -32,9 +32,9 @@ export default function UploadButtonImg() {
     id="image"
     type='file'
     accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
-
-     />
-     </label>
+    onChange={onChangFunction} />
+    
+    </label>
     </>
   )
 }
