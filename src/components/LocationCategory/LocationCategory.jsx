@@ -8,6 +8,7 @@ import category_place_fill from '../../assets/images/category-place-fill.svg'
 import category_location_fill from '../../assets/images/category-location-fill.svg'
 import category_restaurant_fill from '../../assets/images/category-restaurant-fill.svg'
 import category_cafe_fill from '../../assets/images/category-cafe-fill.svg'
+import { useNavigate } from 'react-router'
 
 const Container = styled.article`
     background-color: #f5f5f5;
@@ -42,6 +43,7 @@ export default function LocationCategory(props) {
     let [locationIcon, setLocationIcon] = useState(false);
     let [restaurantIcon, setRestaurantIcon] = useState(false);
     let [cafeIcon, setCafeIcon] = useState(false);
+    const navigation = useNavigate();
 
     const setCategoryValue = (e) => {
         props.getCategory(e)
@@ -65,7 +67,8 @@ export default function LocationCategory(props) {
                             setLocationIcon(false);
                             setRestaurantIcon(false);
                             setCafeIcon(false);
-                            setCategoryValue("place")
+                            setCategoryValue("place");
+                            navigation('/location');
                         }} />
                     <CategoryName>Today</CategoryName>
                 </CategoryListItem>
@@ -79,7 +82,8 @@ export default function LocationCategory(props) {
                             setLocationIcon(true);
                             setRestaurantIcon(false);
                             setCafeIcon(false);
-                            setCategoryValue("location")
+                            setCategoryValue("location");
+                            navigation('/location');
                         }} />
                     <CategoryName>Place</CategoryName>
                 </CategoryListItem>
@@ -93,7 +97,8 @@ export default function LocationCategory(props) {
                             setLocationIcon(false);
                             setRestaurantIcon(true);
                             setCafeIcon(false);
-                            setCategoryValue("restaurant")
+                            setCategoryValue("restaurant");
+                            navigation('/location');
                         }} />
                     <CategoryName>Restaurant</CategoryName>
                 </CategoryListItem>
@@ -107,7 +112,8 @@ export default function LocationCategory(props) {
                             setLocationIcon(false);
                             setRestaurantIcon(false);
                             setCafeIcon(true);
-                            setCategoryValue("cafe")
+                            setCategoryValue("cafe");
+                            navigation('/location');
                         }} />
                     <CategoryName>Cafe</CategoryName>
                 </CategoryListItem>

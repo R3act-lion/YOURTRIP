@@ -6,13 +6,13 @@ const ListDetailPlace = styled.ul`
     margin: 20px 0;
 `
 
-export default function DetailPlaceList({data, list}) {
+export default function DetailPlaceList({data, placeList}) {
     window.scrollTo(0,0)
 
     return (
         <ListDetailPlace>
             {
-                list.map((place, index) => <DetailPlaceListItem data={data} key={index + place.title} place={place} isSecondary={true} />)
+                placeList.map((place, index) => <DetailPlaceListItem data={data} key={index + place.title} place={place} isSecondary={true} />)
             }
         </ListDetailPlace>
     )

@@ -48,6 +48,8 @@ const ListImage = styled.ul`
 `
 
 export default function RecommendListItem({ data, title, placelist, category, url }) {
+    console.log(placelist);
+
     return (
         <ListItemRecommend>
             <section>

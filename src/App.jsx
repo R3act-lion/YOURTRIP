@@ -121,14 +121,14 @@ function App() {
                                 <Route element={<LogoHeaderLayout />}>
                                     <Route path="/" element={<Home />} />
 
-                                    <Route element={<CategoryNavigationLayout />}>
-                                        <Route path="/location" element={<Location />} />
-                                    </Route>
+                                    {/* <Route element={<CategoryNavigationLayout />}>
+                                    </Route> */}
                                 </Route>
                                 <Route element={<LogoBackHeaderLayout />}>
                                     <Route path="/home/placelist" element={<HomePlaceList />} />
 
                                     <Route element={<CategoryNavigationLayout />}>
+                                        <Route path="/location" element={<Location />} />
                                         <Route path="/location/theme" element={<LocationTheme />} />
                                         <Route path="/location/placelist" element={<LocationPlaceList />} />
                                     </Route>

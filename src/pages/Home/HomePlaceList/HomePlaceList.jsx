@@ -11,7 +11,7 @@ export default function HomePlaceList() {
 
     return (
         <>
-            <DetailPlaceList data={data} list={list} />
+            <DetailPlaceList data={data} placeList={list} />
         </>
     )
 }

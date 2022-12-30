@@ -5,7 +5,7 @@ import DetailPlaceList from '../../../components/SlideList/DetailPlaceList/Detai
 export default function LocationPlaceList() {
     window.scrollTo(0, 0)
     const location = useLocation();
-    const placelist = location.state.placeList;
+    const placelist = location.state.placelist;
     const data = location.state.data;
     const category = location.state.category;
     const area = location.state.area;
@@ -14,8 +14,8 @@ export default function LocationPlaceList() {
         <>
             {
                 category === 'restaurant' || category === 'cafe'
-                ? <DetailPlaceList list={placelist[area]['전체식당']['list']} data={data} />
-                : <DetailPlaceList list={placelist} data={data} />
+                ? <DetailPlaceList placeList={location.state.placeList[area]['전체식당']['list']} data={data} />
+                : <DetailPlaceList placeList={placelist} data={data} />
             }
         </>
     )
