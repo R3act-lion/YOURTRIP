@@ -129,6 +129,8 @@ const ErrorMessage = styled.p`
         headers: { 'Content-type': 'application/json' },
       });
 
+
+
   export default function SignUProfile() {
         const navigate = useNavigate();
         const location = useLocation();
@@ -228,22 +230,10 @@ const ErrorMessage = styled.p`
             password: userPassword,
             accountname: userId,
             intro: userIntro,
-            image: `https://mandarin.api.weniv.co.kr/${userImage}`
+            image: userImage
           },
         };
 
-      const handlerChangeFile = (e) => {
-        let reader = new FileReader();
-        if (e.target.files[0]){
-            reader.readAsDataURL(e.target.files[0]);
-        }
-        reader.onloadend = () =>{
-            const resultImage = reader.result;
-            setUserImage(resultImage)
-            .post('/image/uploadfile')
-        };
-        console.log(e.target.files);
-      }
 
   const submitRegister = async () => {
     try {
@@ -268,7 +258,7 @@ const ErrorMessage = styled.p`
     
         <ProfileImgDiv> 
           <UploadImg src= {userImage ? userImage:Imgsircle} />
-          <UploadImgButton onChangFunction={handlerChangeFile}/>
+          <UploadImgButton stateFunc={setUserImage}/>
         </ProfileImgDiv>     
               
         <ResultValue onSubmit={submitProfile}>
