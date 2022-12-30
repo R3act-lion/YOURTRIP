@@ -34,18 +34,18 @@ const HeaderSubTitle = styled.p`
     text-align: center;
     `
 
-const ProfileImgDiv = styled.form`
+const ProfileImgDiv = styled.div`
     position: relative;
     margin: 0 auto;
-    background-image: url(${Imgsircle});
-    width:110px;
-    height:110px;
     position: relative;
     margin-bottom: 30px;
-    
 `;
 
-
+const UploadImg = styled.img`
+    width:110px;
+    height:110px;
+    border-radius: 50%;
+`
 
 const ResultValue = styled.form`
     display: flex;
@@ -129,6 +129,8 @@ const ErrorMessage = styled.p`
         headers: { 'Content-type': 'application/json' },
       });
 
+
+
   export default function SignUProfile() {
         const navigate = useNavigate();
         const location = useLocation();
@@ -145,6 +147,7 @@ const ErrorMessage = styled.p`
         const [userIdError, setUserIdError] = useState('');
         const [isBtnActive, setIsBtnActive] = useState(true);
         const [userImage, setUserImage] = useState("");
+        
         
       
         const userNameValidation = e => {
@@ -231,18 +234,6 @@ const ErrorMessage = styled.p`
           },
         };
 
-      const handlerChangeFile = (e) => {
-        console.log('d')
-        let reader = new FileReader();
-        if (e.target.files[0]){
-            reader.readAsDataURL(e.target.files[0]);
-        }
-        reader.onloadend = () =>{
-            const resultImage = reader.result;
-            setUserImage(resultImage)
-        };
-        console.log(e.target.files);
-      }
 
   const submitRegister = async () => {
     try {
@@ -258,20 +249,16 @@ const ErrorMessage = styled.p`
       console.log(error.message);
     }
   };
-  
-  
 
-    
-      
-        return (
+  return (
     <>
     <Container>
         <HeaderTitle>프로필설정</HeaderTitle>
         <HeaderSubTitle>나중에 언제든지 변경할 수 있습니다.</HeaderSubTitle>
     
-        <ProfileImgDiv>
-        <label htmlFor='file'></label>
-      <UploadImgButton id='file' onChange={handlerChangeFile}/>
+        <ProfileImgDiv> 
+          <UploadImg src= {userImage ? userImage:Imgsircle} />
+          <UploadImgButton stateFunc={setUserImage}/>
         </ProfileImgDiv>     
               
         <ResultValue onSubmit={submitProfile}>
@@ -302,7 +289,6 @@ const ErrorMessage = styled.p`
         />
         <ResultBtn disabled={isBtnActive}>시작하기</ResultBtn>
         </ResultValue>
-      
     </Container>
     </>
   )
