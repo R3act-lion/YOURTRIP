@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Imgsircle from '../../assets/images/profile.svg'
-
+import UploadImgButton from '../../components/UploadButtonImg/UploadButtonImg'
 
 const Container = styled.div`
     margin: 0 auto;
@@ -14,7 +14,6 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
 `
-
 
 const HeaderTitle = styled.h1`
     margin-top: 54px;
@@ -35,15 +34,18 @@ const HeaderSubTitle = styled.p`
     text-align: center;
     `
 
-const ImgView = styled.img.attrs({
-    src:`${Imgsircle}`,
-    })`
+const ProfileImgDiv = styled.form`
+    position: relative;
+    margin: 0 auto;
+    background-image: url(${Imgsircle});
     width:110px;
     height:110px;
-    margin: 0 auto;
-    margin-bottom: 30px;
     position: relative;
-`
+    margin-bottom: 30px;
+    
+`;
+
+
 
 const ResultValue = styled.form`
     display: flex;
@@ -61,7 +63,6 @@ const ResultTitle = styled.label`
 
 const NameInput = styled.input`
     width: 322px;
-    
     border-top:none;
     border-left:none;
     border-right:none;
@@ -100,7 +101,6 @@ const IntroInput = styled.input`
 const ResultBtn = styled.button`
     width: 322px;
     height: 44px;
-    margin: 30px 34px 20px 34px;
     border: 0px;
     background: #C9D9F0;
     border-radius: 44px;
@@ -119,17 +119,17 @@ const ErrorMessage = styled.p`
     margin-top: 6px;
 `
 
-    const idAxios = axios.create({
+  const idAxios = axios.create({
         baseURL: 'https://mandarin.api.weniv.co.kr/user',
         headers: { 'Content-type': 'application/json' },
       });
       
-      const registerAxios = axios.create({
+  const registerAxios = axios.create({
         baseURL: 'https://mandarin.api.weniv.co.kr/',
         headers: { 'Content-type': 'application/json' },
       });
-      
-      export default function SignUpProfile() {
+
+  export default function SignUProfile() {
         const navigate = useNavigate();
         const location = useLocation();
         const userEmail = location.state.email;
@@ -144,6 +144,8 @@ const ErrorMessage = styled.p`
         const [userNameError, setUserNameError] = useState('');
         const [userIdError, setUserIdError] = useState('');
         const [isBtnActive, setIsBtnActive] = useState(true);
+        const [userImage, setUserImage] = useState("");
+        
       
         const userNameValidation = e => {
           console.log(e.target.value);
@@ -225,29 +227,53 @@ const ErrorMessage = styled.p`
             password: userPassword,
             accountname: userId,
             intro: userIntro,
+            image: userImage
           },
         };
-      
-        const submitRegister = async () => {
-          try {
-            await registerAxios
-              .post('/user', data)
-              .then(response => {
-                console.log(response);
-                console.log('회원가입 성공');
-                navigate('/Login');
-              })
-              .catch(response => console.log(response.data.message));
-          } catch (error) {
-            console.log(error.message);
-          }
+
+      const handlerChangeFile = (e) => {
+        console.log('d')
+        let reader = new FileReader();
+        if (e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+        }
+        reader.onloadend = () =>{
+            const resultImage = reader.result;
+            setUserImage(resultImage)
         };
+        console.log(e.target.files);
+      }
+
+  const submitRegister = async () => {
+    try {
+      await registerAxios
+        .post('/user', data)
+        .then(response => {
+          console.log(response);
+          console.log('회원가입 성공');
+          navigate('/Login');
+        })
+        .catch(response => console.log(response.data.message));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
+  
+
+    
+      
         return (
     <>
     <Container>
         <HeaderTitle>프로필설정</HeaderTitle>
         <HeaderSubTitle>나중에 언제든지 변경할 수 있습니다.</HeaderSubTitle>
-        <ImgView/>
+    
+        <ProfileImgDiv>
+        <label htmlFor='file'></label>
+      <UploadImgButton id='file' onChange={handlerChangeFile}/>
+        </ProfileImgDiv>     
+              
         <ResultValue onSubmit={submitProfile}>
         <ResultTitle htmlFor='userName'>사용자이름</ResultTitle>
         <NameInput
