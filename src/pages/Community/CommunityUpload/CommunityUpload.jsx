@@ -2,6 +2,7 @@ import { React, useRef,useState } from 'react'
 import styled from 'styled-components'
 import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
 import ProfileImage from '../../../assets/images/profile.svg'
+import iconX from '../../../assets/images/icon-x.svg'
 
 const SectionUpload = styled.section`
     width: 390px;
@@ -92,11 +93,26 @@ const PrevImgList= styled.div`
   }
 `
 
-const PrevImg= styled.img`
+const PrevBigImg= styled.img`
+    width: 304px;
+    height: 228px;
+    border-radius: 10px;
+    flex-shrink: 0;
+`
+
+const PrevSmallImg= styled.img`
     width: 168px;
     height: 126px;
     border-radius: 10px;
     flex-shrink: 0;
+`
+
+const PrevXBtn= styled.img`
+    width: 22px;
+    height: 22px;
+    position : relative;
+    right: 35px;
+    top: 8px;
 `
 
 export default function CommunityUpload() {
@@ -147,7 +163,6 @@ export default function CommunityUpload() {
       fileInputRef.current.click();
     }}
 
-
     //파일을 이미지 배열에 넣는 함수
     const fileInput=(e)=>{
       const Blob= e.target.files[0];
@@ -172,6 +187,7 @@ export default function CommunityUpload() {
           const resJson= await res.json();
           let makeSrc=url+'/'+resJson[0]["filename"];
           setImagesrc((imagesrc)=>[...imagesrc, makeSrc]);
+          console.log(imagesrc)
 
         } catch(err) {
           console.error(err);
@@ -185,22 +201,39 @@ export default function CommunityUpload() {
         <SectionUpload>   
             <ImageProfile src={ProfileImage} alt='' />
             <FormPost action="">
-                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e)=> {setContent(e.target.value)}}>게시글 입력하기...           
+                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e)=> {
+                  setContent(e.target.value)}}>게시글 입력하기...           
                 </TextAreaContent>
                 <PrevImgList>
                   {
-                    imagesrc.map((item)=>{
+                    imagesrc.map((item)=>{ 
                       return(
-                        <PrevImg src={item} />
-                      )
-                    })
+                        <>
+                        {imagesrc.length === 1 
+                          ? <PrevBigImg src={item} onClick={()=>{
+                            setImagesrc(imagesrc.filter(src => src !== item))
+                          }} /> 
+                          
+                          : <PrevSmallImg src={item} onClick={()=>{
+                            setImagesrc(imagesrc.filter(src => src !== item))
+                          }}/>
+                        }
+                        <PrevXBtn src={iconX} />
+                        </>
+                    )})
                   }
                 </PrevImgList>
         
             </FormPost>
             <ButtonImageUpload>
                   <ImageLabel htmlFor='img-file' onClick={handleClickFileInput}/>
-                  <ImageUpload id="img-file" alt='이미지 업로드 버튼' type="file" accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" ref={fileInputRef} onChange={fileInput}/>
+                  <ImageUpload 
+                  id="img-file" 
+                  alt='이미지 업로드 버튼' 
+                  type="file" 
+                  accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" 
+                  ref={fileInputRef} 
+                  onChange={fileInput} />
             </ButtonImageUpload>               
             <ButtonUpload onClick={posting}>
                     업로드

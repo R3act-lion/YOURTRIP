@@ -33,6 +33,7 @@ const ImageContent = styled.img`
     height: 228px;
     vertical-align: top;
     margin-bottom: 15px;
+    border-radius: 10px;
 `
 
 const ImageAdditional = styled.img`
