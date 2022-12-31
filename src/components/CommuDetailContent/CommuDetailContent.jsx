@@ -28,6 +28,7 @@ const ComContact = styled.section`
   display: flex;
   flex-direction: column;  
 `
+
 const HeaderId = styled.h1`
   margin-top: 2px;
   font-weight: 400;

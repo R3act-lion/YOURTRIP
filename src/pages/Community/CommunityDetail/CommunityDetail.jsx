@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useLocation, useParams } from 'react-router'
 import { DivPost, ImageMore, DivContent, ParagraphContent, ImageContent, ImageAdditional, ParagraphAdditional, ParagraphTime } from '../../../components/Post/PostItem/PostItem'
@@ -6,13 +6,8 @@ import UserDesc from '../../../components/UserDesc/UserDesc'
 import MoreImg from '../../../assets/images/icon-more.svg'
 import HeartImg from '../../../assets/images/icon-heart.svg'
 import CommentImg from '../../../assets/images/icon-comment.svg'
+import Carousel from '../../../components/Carousel/Carousel'
 
-const ImageList = styled.section`
-  display: flex;
-  overflow-x : hidden;
-  width: 290px;
-  transition: all 0.3s ease-out;
-`
 
 export default function CommunityDetail({ postId, postData }) {
   const item = postData[postId];
@@ -29,15 +24,7 @@ export default function CommunityDetail({ postId, postData }) {
                 <ParagraphContent> 
                     {item.content}
                 </ParagraphContent>
-                <ImageList>
-                {(imageData != '') &&
-                      imageData.map((url)=>{
-                      return(
-                        <ImageContent src={url} alt='' />
-                      )
-                    })
-                  }
-                </ImageList>  
+                <Carousel imageData={imageData}/>
                 <ImageAdditional src={HeartImg} alt='좋아요' />
                 <ParagraphAdditional>
                     {item.heartCount}
