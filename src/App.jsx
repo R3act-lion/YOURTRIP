@@ -25,6 +25,7 @@ import LocationPlaceList from "./pages/Location/LocationPlaceList/LocationPlaceL
 import Search from "./pages/Search/Search";
 
 import Community from "./pages/Community/Community";
+import CommunityDetail from "./pages/Community/CommunityDetail/CommunityDetail";
 import CommunityUpload from "./pages/Community/CommunityUpload/CommunityUpload";
 
 import PlaceDetail from "./pages/PlaceDetail/PlaceDetail";
@@ -43,6 +44,7 @@ import SignUpProfile from "./pages/SignUp/SignUpProfile"
 import Login from "./pages/Login/Login";
 
 import NotFound from "./pages/NotFound/NotFound";
+import CommunityDatail from './pages/Community/CommunityDetail/CommunityDetail';
 
 
 const GlobalStyle = createGlobalStyle`
@@ -159,6 +161,8 @@ function App() {
                                 <Route path="/signup/profile" element={<SignUpProfile />} />
 
                                 <Route path="/login" element={<Login />} />
+
+                            
 
                             </Route>
                             <Route path="/notfound" element={<NotFound />} />

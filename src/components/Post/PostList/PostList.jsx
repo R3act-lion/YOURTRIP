@@ -37,12 +37,10 @@ export default function PostList() {
     },[])
 
     return (
-        <ListPost>
-            <li>
-                <Link to='/post/test'>
-                    <PostItem feedData={[...feedData]}/>
-                </Link>
-            </li>
+        <>
+        <ListPost>            
+                <PostItem feedData={[...feedData]}/>
         </ListPost>
+        </>
     )
 }
