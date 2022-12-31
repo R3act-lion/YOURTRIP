@@ -53,7 +53,7 @@ const Modal= styled.section`
     border-radius: 10px;
     height: 110px;
 `
-export default function LogoMoreHeader({ modal, setModal }) {
+export default function LogoMoreHeader() {
 
     return (
         <HeaderContainer>
@@ -66,7 +66,7 @@ export default function LogoMoreHeader({ modal, setModal }) {
                 <ImageSearch src={SearchImg} alt='검색' />
             </LinkSearch>
             
-            <ButtonMore id='btnMore' onClick={modal === true ? setModal(false) : setModal(true)}>
+            <ButtonMore id='btnMore'>
                 <ImageMore src={MoreImg} alt='더보기' />
             </ButtonMore>
         </HeaderContainer>

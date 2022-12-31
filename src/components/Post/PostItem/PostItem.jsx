@@ -1,49 +1,51 @@
-import { React,useState } from 'react'
+import { React } from 'react'
 import styled from 'styled-components'
 import UserDesc from '../../UserDesc/UserDesc'
 import MoreImg from '../../../assets/images/icon-more.svg'
 import HeartImg from '../../../assets/images/icon-heart.svg'
 import CommentImg from '../../../assets/images/icon-comment.svg'
+import { useNavigate } from 'react-router'
 
-const DivPost = styled.div`
+export const DivPost = styled.div`
     position: relative;
     padding: 20px;
 `
 
-const ImageMore = styled.img`
+export const ImageMore = styled.img`
     position: absolute;
     top: 30px;
     right: 20px;
 `
 
-const DivContent = styled.div`
+export const DivContent = styled.div`
     padding-left: 54px;
     margin-top: 16px;
 `
 
-const ParagraphContent = styled.p`
+export const ParagraphContent = styled.p`
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
     margin-bottom: 15px;
 `
 
-const ImageContent = styled.img`
+export const ImageContent = styled.img`
     width: 290px;
     height: 228px;
     vertical-align: top;
     margin-bottom: 15px;
     border-radius: 10px;
+    flex-shrink: 0;
 `
 
-const ImageAdditional = styled.img`
+export const ImageAdditional = styled.img`
     width: 15px;
     height: 15px;
     vertical-align: middle;
     margin-right: 8px;
 `
 
-const ParagraphAdditional = styled.p`
+export const ParagraphAdditional = styled.p`
     display: inline-block;
     font-weight: 400;
     font-size: 12px;
@@ -52,7 +54,7 @@ const ParagraphAdditional = styled.p`
     margin-right: 18px;
 `
 
-const ParagraphTime = styled.p`
+export const ParagraphTime = styled.p`
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
@@ -61,13 +63,16 @@ const ParagraphTime = styled.p`
 `
 
 export default function PostItem({feedData}) {
+    const navigate= useNavigate();
+
     return (
         <>
-        {feedData.map((item)=>{
-            const imageData= item.image.split(',');
-            const createdAt = item.createdAt.split('-');
+        {feedData.map((item,index)=>{
+                const imageData= item.image.split(',');
+                const createdAt = item.createdAt.split('-');
 
-            return(
+                return(
+                <li onClick={()=>{navigate(`/post/${index}`, {state: {postDetail:feedData}} )}} key={item.id}>
                 <DivPost>
                     <UserDesc img={item.author.image} name={item.author.username} id={item.author.accountname}/>
                     <ImageMore src={MoreImg} alt='더보기'/>
@@ -91,8 +96,9 @@ export default function PostItem({feedData}) {
                         </ParagraphTime>
                     </DivContent>
                 </DivPost>
+            </li>
             )
-        })}
+        })} 
         </>
     )
 }
