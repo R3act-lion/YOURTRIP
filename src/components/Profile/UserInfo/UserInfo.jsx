@@ -83,6 +83,8 @@ const PragraphDesc = styled.p`
 `
 
 export default function UserInfo() {
+    
+
     return (
         <SectionUserInfo>
             <header>
