@@ -21,6 +21,7 @@ const ImageLeftArrow = styled.img`
 
 const ButtonPrev = styled.button`
     height: 22px;
+    cursor: pointer;
 `
 
 

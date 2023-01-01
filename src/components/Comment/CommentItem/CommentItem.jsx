@@ -22,15 +22,15 @@ const ParagraphContent = styled.p`
     line-height: 150%;
 `
 
-export default function CommentItem() {
+export default function CommentItem({ user, content }) {
     return (
         <>
             <DivTop>
-                <UserDesc />
+                <UserDesc img={user.image} name={user.username} id={user.accountname} />
                 <ImageMost src={IconMore} alt='더보기' />
             </DivTop>
             <ParagraphContent>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, quis eum veritatis et ipsa officiis officia harum earum, optio cumque facilis repellat iusto blanditiis, unde quae explicabo enim architecto natus?
+                {content}
             </ParagraphContent>
         </>
     )

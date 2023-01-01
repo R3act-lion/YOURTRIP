@@ -1,4 +1,4 @@
-import { React, useRef,useState } from 'react'
+import { React, useRef, useState } from 'react'
 import styled from 'styled-components'
 import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
 import ProfileImage from '../../../assets/images/profile.svg'
@@ -20,7 +20,7 @@ const ButtonImageUpload = styled.button`
     cursor: pointer;
 `
 
-const ImageLabel= styled.label`
+const ImageLabel = styled.label`
     display: block;
     background-image: url(${UploadImage});
     background-repeat: no-repeat;
@@ -82,7 +82,7 @@ const ButtonUpload = styled.button`
     cursor: pointer;
 `
 
-const PrevImgList= styled.div`
+const PrevImgList = styled.div`
     width: 100%;
     display: flex;
     gap: 8px;
@@ -93,21 +93,21 @@ const PrevImgList= styled.div`
   }
 `
 
-const PrevBigImg= styled.img`
+const PrevBigImg = styled.img`
     width: 304px;
     height: 228px;
     border-radius: 10px;
     flex-shrink: 0;
 `
 
-const PrevSmallImg= styled.img`
+const PrevSmallImg = styled.img`
     width: 168px;
     height: 126px;
     border-radius: 10px;
     flex-shrink: 0;
 `
 
-const PrevXBtn= styled.img`
+const PrevXBtn = styled.img`
     width: 22px;
     height: 22px;
     position : relative;
@@ -116,127 +116,130 @@ const PrevXBtn= styled.img`
 `
 
 export default function CommunityUpload() {
-    const fileInputRef= useRef();
-    const textArea= useRef();
+    const fileInputRef = useRef();
+    const textArea = useRef();
     const handleResizeHeight = () => {
         textArea.current.style.height = 'auto'
         textArea.current.style.height = textArea.current.scrollHeight + 'px'
         textArea.current.style.color = 'black'
     }
 
-    const token= localStorage.getItem("Access Token");
+    const token = localStorage.getItem("Access Token");
     const url = "https://mandarin.api.weniv.co.kr";
-    let [content, setContent]=useState("");
-    let [imagesrc,setImagesrc]=useState([]);
-    
+    let [content, setContent] = useState("");
+    let [imagesrc, setImagesrc] = useState([]);
+
     // 게시물 포스팅하는 함수
-    async function posting(){
-        try{   
-          const res = await fetch(url+"/post", {
-                            method: "POST",
-                            headers: {
-                                "Authorization" : `Bearer ${token}`,
-                                "Content-Type": "application/json",
-                            },
-                            body : JSON.stringify({
-                              "post": {
-                                  "content": content,
-                                  "image": imagesrc.join()
-                                }
-                            })
-                        });
-          const resJson = await res.json();
-          setContent('');
-          setImagesrc([]);
-          console.log(resJson);
-          
-        } catch(err){
-          console.error(err);
+    async function posting() {
+        try {
+            const res = await fetch(url + "/post", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "post": {
+                        "content": content,
+                        "image": imagesrc.join()
+                    }
+                })
+            });
+            const resJson = await res.json();
+            setContent('');
+            setImagesrc([]);
+            console.log(resJson);
+
+        } catch (err) {
+            console.error(err);
         }
-      }
+    }
 
     // 파일 인풋창 열리는 함수 근데 왜 두번열리는지 모르겠음
-    const handleClickFileInput=()=>{
-      if (imagesrc.length>=3){
-        alert("이미지는 3장까지만 업로드 가능합니다")
-      } else{
-      fileInputRef.current.click();
-    }}
+    const handleClickFileInput = () => {
+        if (imagesrc.length >= 3) {
+            alert("이미지는 3장까지만 업로드 가능합니다")
+        } else {
+            fileInputRef.current.click();
+        }
+    }
 
     //파일을 이미지 배열에 넣는 함수
-    const fileInput=(e)=>{
-      const Blob= e.target.files[0];
-      
-      if (Blob === undefined){
-        return;
-      }
-      uploadImage(Blob);
+    const fileInput = (e) => {
+        const Blob = e.target.files[0];
+
+        if (Blob === undefined) {
+            return;
+        }
+        uploadImage(Blob);
     }
-      
+
     // 이미지 서버로 보내고 나서 filename 받는 함수
-    const uploadImage= async(Blob) =>{
-        if (imagesrc.length <= 3){
-        const formData= new FormData();
-        formData.append("image", Blob);
+    const uploadImage = async (Blob) => {
+        if (imagesrc.length <= 3) {
+            const formData = new FormData();
+            formData.append("image", Blob);
 
-        try{
-          const res=await fetch(url+"/image/uploadfiles",{
-              method: "POST",    
-              body : formData
-          })
-          const resJson= await res.json();
-          let makeSrc=url+'/'+resJson[0]["filename"];
-          setImagesrc((imagesrc)=>[...imagesrc, makeSrc]);
-          console.log(imagesrc)
+            try {
+                const res = await fetch(url + "/image/uploadfiles", {
+                    method: "POST",
+                    body: formData
+                })
+                const resJson = await res.json();
+                let makeSrc = url + '/' + resJson[0]["filename"];
+                setImagesrc((imagesrc) => [...imagesrc, makeSrc]);
+                console.log(imagesrc)
 
-        } catch(err) {
-          console.error(err);
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            alert("사진은 3장까지만 업로드 가능합니다");
         }
-      }else{
-          alert("사진은 3장까지만 업로드 가능합니다");
-        }
-      }
+    }
 
     return (
-        <SectionUpload>   
+        <SectionUpload>
             <ImageProfile src={ProfileImage} alt='' />
             <FormPost action="">
-                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e)=> {
-                  setContent(e.target.value)}}>게시글 입력하기...           
+                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
+                    setContent(e.target.value)
+                }}>게시글 입력하기...
                 </TextAreaContent>
                 <PrevImgList>
-                  {
-                    imagesrc.map((item)=>{ 
-                      return(
-                        <>
-                        {imagesrc.length === 1 
-                          ? <PrevBigImg src={item} onClick={()=>{
-                            setImagesrc(imagesrc.filter(src => src !== item))
-                          }} /> 
-                          
-                          : <PrevSmallImg src={item} onClick={()=>{
-                            setImagesrc(imagesrc.filter(src => src !== item))
-                          }}/>
-                        }
-                        <PrevXBtn src={iconX} />
-                        </>
-                    )})
-                  }
+                    {
+                        imagesrc.map((item) => {
+                            return (
+                                <>
+                                    {imagesrc.length === 1
+                                        ? <PrevBigImg src={item} onClick={() => {
+                                            setImagesrc(imagesrc.filter(src => src !== item))
+                                        }} />
+
+                                        : <PrevSmallImg src={item} onClick={() => {
+                                            setImagesrc(imagesrc.filter(src => src !== item))
+                                        }} />
+                                    }
+                                    <PrevXBtn src={iconX} />
+                                </>
+                            )
+                        })
+                    }
                 </PrevImgList>
-        
+
             </FormPost>
             <ButtonImageUpload>
-                  <ImageLabel htmlFor='img-file' onClick={handleClickFileInput}/>
-                  <ImageUpload 
-                  id="img-file" 
-                  alt='이미지 업로드 버튼' 
-                  type="file" 
-                  accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" 
-                  ref={fileInputRef} 
-                  onChange={fileInput} />
-            </ButtonImageUpload>               
+                <ImageLabel htmlFor='img-file' onClick={handleClickFileInput} />
+                <ImageUpload
+                    id="img-file"
+                    alt='이미지 업로드 버튼'
+                    type="file"
+                    accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
+                    ref={fileInputRef}
+                    onChange={fileInput} />
+            </ButtonImageUpload>
             <ButtonUpload onClick={posting}>
-                    업로드
+                업로드
             </ButtonUpload>
         </SectionUpload>
     )

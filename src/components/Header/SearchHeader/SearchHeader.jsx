@@ -32,6 +32,7 @@ const InputSearch = styled.input`
 
 const ButtonPrev = styled.button`
     height: 22px;
+    cursor: pointer;
 `
 
 export default function UploadHeader() {

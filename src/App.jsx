@@ -123,8 +123,6 @@ function App() {
                                 <Route element={<LogoHeaderLayout />}>
                                     <Route path="/" element={<Home />} />
 
-                                    {/* <Route element={<CategoryNavigationLayout />}>
-                                    </Route> */}
                                 </Route>
                                 <Route element={<LogoBackHeaderLayout />}>
                                     <Route path="/home/placelist" element={<HomePlaceList />} />
@@ -156,14 +154,10 @@ function App() {
                                     <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                                 </Route>
 
-
                                 <Route path="/signup" element={<SignUp />} />
                                 <Route path="/signup/profile" element={<SignUpProfile />} />
 
                                 <Route path="/login" element={<Login />} />
-
-                            
-
                             </Route>
                             <Route path="/notfound" element={<NotFound />} />
                         </Routes>

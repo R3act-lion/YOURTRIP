@@ -40,6 +40,7 @@ const ButtonPrev = styled.button`
     height: 22px;
     position: absolute;
     left: 16px;
+    cursor: pointer;
 `
 
 const ImageLeftArrow = styled.img`

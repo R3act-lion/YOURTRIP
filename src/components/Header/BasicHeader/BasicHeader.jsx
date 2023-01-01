@@ -41,6 +41,7 @@ const HeadingOneTitle = styled.h1`
 
 const ButtonPrev = styled.button`
     height: 22px;
+    cursor: pointer;
 `
 
 export default function BasicHeader({modal, setModal}) {
