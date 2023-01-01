@@ -1,4 +1,4 @@
-import React from 'react'
+import { React,useState } from 'react'
 import styled from 'styled-components'
 import CommentItem from '../CommentItem/CommentItem'
 
@@ -8,9 +8,11 @@ const ListItemComment = styled.li`
 `
 
 export default function PostCommentListItem() {
+
     return (
         <ListItemComment>
             <CommentItem />
         </ListItemComment>
+
     )
 }

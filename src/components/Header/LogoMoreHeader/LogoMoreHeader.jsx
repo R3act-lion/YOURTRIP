@@ -1,4 +1,4 @@
-import { React, useState} from 'react'
+import { React } from 'react'
 import styled from 'styled-components'
 import YourtripImg from '../../../assets/images/sub-logo.svg'
 import SearchImg from '../../../assets/images/icon-search.svg'
@@ -53,8 +53,7 @@ const Modal= styled.section`
     border-radius: 10px;
     height: 110px;
 `
-export default function LogoMoreHeader() {
-
+export default function LogoMoreHeader({setMyPostModal}) {
     return (
         <HeaderContainer>
             <HeadingOneTitle>
@@ -67,8 +66,9 @@ export default function LogoMoreHeader() {
             </LinkSearch>
             
             <ButtonMore id='btnMore'>
-                <ImageMore src={MoreImg} alt='더보기' />
+                <ImageMore src={MoreImg} alt='더보기' onClick={()=>{setMyPostModal(true)}}/>
             </ButtonMore>
         </HeaderContainer>
+
     )
 }
