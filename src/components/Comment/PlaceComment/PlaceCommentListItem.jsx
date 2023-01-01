@@ -11,10 +11,12 @@ const ListItemComment = styled.li`
     }
 `
 
-export default function PostCommentList() {
+export default function PostCommentList({ comment }) {
+    const writerData = JSON.parse(comment.link.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'));
+
     return (
         <ListItemComment>
-            <CommentItem />
+            <CommentItem user={writerData} content={comment.itemImage} />
         </ListItemComment>
     )
 }

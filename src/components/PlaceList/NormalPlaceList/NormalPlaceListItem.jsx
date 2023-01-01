@@ -61,9 +61,9 @@ export default function NormalPlaceListItem({ place, data  }) {
                         <HeadingThreeTitle>{place.title}</HeadingThreeTitle>
                     </header>
                     <ParagraphDescription>{place.category}</ParagraphDescription>
-                    <ButtonHeart>
+                    {/* <ButtonHeart>
                         <ImageHeart src={IconHeart} alt='' />
-                    </ButtonHeart>
+                    </ButtonHeart> */}
                 </article>
             </Link>
         </ListItemPlace>

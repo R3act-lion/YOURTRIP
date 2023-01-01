@@ -182,6 +182,9 @@ const makeOutListener = (infowindow) => {
 
 const RenderMap = (place, navigation) => {
     const container = document.getElementById('map');
+
+    // container.childNodes.length = 0
+
     const options = {
         center: new kakao.maps.LatLng(place.mapy, place.mapx),
         level: 3
@@ -232,7 +235,7 @@ const selectTab = (select) => {
 
 export default function PlaceDetail() {
     const [select, setSelect] = useState('Home');
-
+    const [renderFunction, setRenderFunction] = useState();
     const navigation = useNavigate();
     const location = useLocation();
 
@@ -252,11 +255,6 @@ export default function PlaceDetail() {
     useEffect(() => {
         selectTab(select);
     }, [select])
-
-    // console.log(area);
-    // console.log(place);
-    // console.log(placeData);
-    // console.log(placeData['area'][area]);
 
     const placelist = selectRandomPlace(placeData['area'][area].전체여행지.list)
     const restaurantlist = selectRandomPlace(placeData['area'][area].전체식당.list.filter(i => i.detail !== "바/까페"))
@@ -334,8 +332,8 @@ export default function PlaceDetail() {
                                 댓글
                             </h2>
                         </header>
-                        <PlaceCommentList />
-                        <WriteComment />
+                        <PlaceCommentList placeid={place.contentid} setRenderFunction={setRenderFunction} />
+                        <WriteComment placeid={place.contentid} renderFunction={renderFunction} />
                     </SectionComment>
                 </li>
                 <li id='sectionMap'>

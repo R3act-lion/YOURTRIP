@@ -29,12 +29,16 @@ const BasicTitle = styled.h1`
     overflow: hidden;
 `
 
+const LinkPrev = styled(Link)`
+    cursor: pointer;
+`
+
 export default function UploadHeader() {
     return (
         <HeaderContainer>
-            <Link to='/'>
+            <LinkPrev to='/'>
                 <LeftArrowImage src={LeftArrowImg} alt='뒤로가기' />
-            </Link>
+            </LinkPrev>
             <BasicTitle>
                 업로드 페이지
             </BasicTitle>

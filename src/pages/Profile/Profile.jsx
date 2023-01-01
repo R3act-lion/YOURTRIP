@@ -8,6 +8,14 @@ export default function Profile() {
         window.scrollTo(0,0)
     }, 0);
 
+    let userData = '';
+
+    if (!!localStorage.user) {
+        userData = JSON.parse(localStorage.user);
+    }
+
+    console.log(userData);
+
     return (
         <>
             <UserInfo />
