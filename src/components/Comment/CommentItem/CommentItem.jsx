@@ -1,7 +1,8 @@
-import React from 'react'
+import { React, useState } from 'react'
 import styled from 'styled-components'
 import IconMore from '../../../assets/images/icon-more.svg'
 import UserDesc from '../../UserDesc/UserDesc'
+import CommentModal from '../../Modal/CommentModal'
 
 const DivTop = styled.div`
     display: flex;
@@ -14,6 +15,7 @@ const ImageMost = styled.img`
     height: 20px;
     vertical-align: top;
     margin-left: auto;
+    cursor: pointer;
 `
 
 const ParagraphContent = styled.p`
@@ -23,15 +25,18 @@ const ParagraphContent = styled.p`
 `
 
 export default function CommentItem() {
+    let [commentModal, setCommentModal]= useState(false);
+    
     return (
         <>
             <DivTop>
                 <UserDesc />
-                <ImageMost src={IconMore} alt='더보기' />
+                <ImageMost src={IconMore} alt='더보기' onClick={()=>{setCommentModal(true)}}/>
             </DivTop>
             <ParagraphContent>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, quis eum veritatis et ipsa officiis officia harum earum, optio cumque facilis repellat iusto blanditiis, unde quae explicabo enim architecto natus?
             </ParagraphContent>
+            {commentModal === true ? <CommentModal setCommentModal={setCommentModal}/> : null}
         </>
     )
 }

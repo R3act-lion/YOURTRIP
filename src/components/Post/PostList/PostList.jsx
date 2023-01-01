@@ -4,9 +4,7 @@ import PostItem from '../PostItem/PostItem'
 import { Link } from 'react-router-dom'
 
 const ListPost = styled.ul`
-    & > li + li {
-        margin-top: 25px;
-    }
+   
 `
 
 export default function PostList() {

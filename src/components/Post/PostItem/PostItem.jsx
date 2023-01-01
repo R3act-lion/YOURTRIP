@@ -15,6 +15,7 @@ export const ImageMore = styled.img`
     position: absolute;
     top: 30px;
     right: 20px;
+    cursor: pointer;
 `
 
 export const DivContent = styled.div`
@@ -43,6 +44,7 @@ export const ImageAdditional = styled.img`
     height: 15px;
     vertical-align: middle;
     margin-right: 8px;
+
 `
 
 export const ParagraphAdditional = styled.p`

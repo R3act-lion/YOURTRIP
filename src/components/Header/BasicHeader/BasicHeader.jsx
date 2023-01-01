@@ -43,7 +43,7 @@ const ButtonPrev = styled.button`
     height: 22px;
 `
 
-export default function BasicHeader({modal, setModal}) {
+export default function BasicHeader({myPostModal, setMyPostModal}) {
     const navigation = useNavigate();
 
     return (
@@ -55,7 +55,7 @@ export default function BasicHeader({modal, setModal}) {
                 
             </HeadingOneTitle>
             <ButtonMore>
-                <ImageMore src={MoreImg} alt='더보기' />
+                <ImageMore src={MoreImg} alt='더보기' onClick={()=>{setMyPostModal(true)}}/>
             </ButtonMore>
         </HeaderContainer>
     )

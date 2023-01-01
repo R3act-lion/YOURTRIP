@@ -9,7 +9,7 @@ import CommentImg from '../../../assets/images/icon-comment.svg'
 import Carousel from '../../../components/Carousel/Carousel'
 
 
-export default function CommunityDetail({ postId, postData }) {
+export default function CommunityDetail({ postId, postData, setDetailModal }) {
   const item = postData[postId];
   const imageData= item.image.split(',');
   const createdAt = item.createdAt.split('-');
@@ -19,7 +19,7 @@ export default function CommunityDetail({ postId, postData }) {
       <li>
         <DivPost>
             <UserDesc img={item.author.image} name={item.author.username} id={item.author.accountname}/>
-            <ImageMore src={MoreImg} alt='더보기'/>
+            <ImageMore src={MoreImg} alt='더보기' onClick={()=>{setDetailModal(true)} }/>
             <DivContent>
                 <ParagraphContent> 
                     {item.content}
