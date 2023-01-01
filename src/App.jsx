@@ -44,7 +44,7 @@ import SignUpProfile from "./pages/SignUp/SignUpProfile"
 import Login from "./pages/Login/Login";
 
 import NotFound from "./pages/NotFound/NotFound";
-import CommunityDatail from './pages/Community/CommunityDetail/CommunityDetail';
+
 
 
 const GlobalStyle = createGlobalStyle`
@@ -146,6 +146,8 @@ function App() {
                                 </Route>
                                 <Route element={<LogoMoreHeaderLayout />}>
                                     <Route path="/community" element={<Community />} />
+                                    <Route path="/community/detail" element={<CommunityDetail />} />
+
                                 </Route>
                                 <Route element={<ButtonHeaderLayout />}>
                                     <Route path="/community/upload" element={<CommunityUpload />} />
