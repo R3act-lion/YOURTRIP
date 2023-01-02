@@ -108,7 +108,7 @@ export default function UserPlace() {
             }
         }
         getData(id, token);
-    }, [])
+    }, [id])
 
     const itemClick = (value) => {
         const newState = isCategory.map((list) => {
@@ -147,10 +147,19 @@ export default function UserPlace() {
                                 curationData.product.map((item, index) => {
                                     return (
                                         <CurationList key={index}>
-                                            <RecommendList title={item.itemName} subtitle={item.link} placelist={JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
-                                            <Link to="/profile/addquration" state={{checklist, id}}>
-                                                <AddBtn src={AddImage} alt="" />
-                                            </Link>
+                                            <RecommendList title={item.itemName} subtitle={item.link} placelist={
+                                                item.price > 1 ?
+                                                    item.itemImage = []
+                                                :
+                                                    JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
+                                            {
+                                                path.includes('yourprofile') ?
+                                                    false
+                                                    :
+                                                <Link to="/profile/addquration" state={{checklist, id}}>
+                                                    <AddBtn src={AddImage} alt="" />
+                                                </Link>
+                                            }
                                         </CurationList>
                                     )
                                 })

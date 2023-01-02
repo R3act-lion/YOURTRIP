@@ -139,7 +139,7 @@ function App() {
                                     <Route path="/placedetail/:id" element={<PlaceDetail />} />
                                     <Route path="/post/:id" element={<Post />} />
                                     <Route path="/mypost/:id" element={<MyDetailPost/>} />
-                                    <Route path="/profile" element={<Profile />} />
+                                    {/* <Route path="/profile" element={<NotFound />} /> */}
                                     <Route path="/profile/:id" element={<Profile />} />
                                     <Route path="/yourprofile/:id" element={<Profile />} />
                                     <Route path="/profile/followers" element={<ProfileFollowers />} />
@@ -159,13 +159,13 @@ function App() {
                                     <Route path="/profile/addquration" element={<ProfileAddQuration />} />
                                     <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                                 </Route>
-
                             </Route>
                             <Route path="/signup" element={<SignUp />} />
                             <Route path="/signup/profile" element={<SignUpProfile />} />
 
                             <Route path="/login" element={<Login />} />
                             <Route path="/notfound" element={<NotFound />} />
+                            <Route path="/profile" element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
                 </ThemeProvider>

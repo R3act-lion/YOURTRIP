@@ -17,6 +17,7 @@ const ImageProfile = styled.img`
     height: 110px;
     vertical-align: top;
     margin-bottom: 16px;
+    border-radius: ${props => props.theme.borderRadius.circle};
 `
 
 const ParagraphUserName = styled.p`
@@ -88,7 +89,7 @@ export default function UserInfo() {
     const url = "https://mandarin.api.weniv.co.kr";
     const token = localStorage.getItem('Access Token')
     const path = useLocation().pathname
-    const {id} = useParams()
+    const { id } = useParams()
 
     const [userinfo, setUserinfo] = useState({});
     const [followerCount, setFollowerCount] = useState();
@@ -125,7 +126,7 @@ export default function UserInfo() {
             }
         }
         setData(token);
-    }, []);
+    }, [id]);
 
     
     return (
@@ -135,7 +136,7 @@ export default function UserInfo() {
                     유저 정보
                 </h2>
             </header>
-            <ImageProfile src={ProfileImage} alt='프로필 이미지' />
+            <ImageProfile src={userinfo.image} alt='프로필 이미지' />
             <ParagraphUserName>
                 {userinfo.username}
             </ParagraphUserName>
@@ -157,7 +158,7 @@ export default function UserInfo() {
                         프로필 수정
                     </LinkModify>
             }
-            <LinkFollowers to='/profile/followers'>
+            <LinkFollowers to='/profile/followers' state={{userinfo}}>
                 <ParagraphCount>
                     {followerCount}
                 </ParagraphCount>
@@ -165,7 +166,7 @@ export default function UserInfo() {
                     followers
                 </PragraphDesc>
             </LinkFollowers>
-            <LinkFollowing to='/profile/following'>
+            <LinkFollowing to='/profile/following' state={{userinfo}}>
                 <ParagraphCount>
                     {followingCount}
                 </ParagraphCount>

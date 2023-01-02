@@ -2,6 +2,7 @@ import { React,useEffect, useState } from 'react'
 import styled from 'styled-components';
 import UserDesc from '../../../components/UserDesc/UserDesc';
 import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn'
+import { useLocation, useParams } from 'react-router';
 
 const SectionFollowers = styled.section`
     padding: 24px 16px;
@@ -13,15 +14,17 @@ const ListItemFollowers = styled.li`
     align-items: center;
 
     &  + li {
-        margin-top: 16px;
+        margin-top: 20px;
     }
 `
 
 export default function ProfileFollowing() {
     const url= "https://mandarin.api.weniv.co.kr";
-    let token= localStorage.getItem('Access Token');
-    let accountname= localStorage.getItem('user ID');
-    let [followingData, setFollowingData]= useState([]);
+    const token= localStorage.getItem('Access Token');
+    const [followingData, setFollowingData] = useState([]);
+    const location = useLocation()
+    const userinfo = location.state.userinfo
+    const accountname = userinfo.accountname
 
     //팔로잉 리스트 확인 함수
     const followingList=async()=>{
@@ -35,13 +38,11 @@ export default function ProfileFollowing() {
                 }
             )
             const resJson= await res.json();
-            console.log(resJson)
             setFollowingData([...resJson])    
         } catch(err) {
             console.error(err);
         }
     }
-    console.log(followingData)
 
     setTimeout(() => {
         document.querySelector('h1').textContent = 'Following'
@@ -64,8 +65,8 @@ export default function ProfileFollowing() {
                     followingData.map((item)=>{
                         return(
                         <ListItemFollowers key={item._id}>
-                            <UserDesc img={item.image} name={item.username} id={item._id}/>
-                            <FollowingBtn item={item}/>
+                            <UserDesc img={item.image} name={item.username} id={item.accountname}/>
+                                <FollowingBtn userinfo={item} followState={item.isfollow} />
                         </ListItemFollowers>
                     )}
                 )}
