@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import duksu from '../../../../assets/images/test_duksu.png'
 import CheckImage from '../../../../assets/images/icon-check.svg'
+import CheckFillImage from '../../../../assets/images/icon-check-fill.svg'
+
 
 const ListItemResult = styled.li`
     display: flex;
@@ -29,6 +31,10 @@ const ParagraphName = styled.p`
     font-size: 20px;
     line-height: 25px;
     margin-bottom: 8px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 `
 
 const ParagraphDesc = styled.p`
@@ -36,6 +42,10 @@ const ParagraphDesc = styled.p`
     font-size: 14px;
     line-height: 14px;
     color: #676767;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 `
 
 const ButtonCheck = styled.button`
@@ -45,24 +55,38 @@ const ButtonCheck = styled.button`
 `
 
 const ImageCheck = styled.img`
-    width: 100%;
+    flex-grow: 1;
 `
 
-export default function QurationListItem() {
+export default function QurationListItem({ checklist, getChecklist, deleteChecklist, place }) {
+    const [isCheck, setIsCheck] = useState(false)
+
+    const setChecklistValue = (e) => {
+        getChecklist(e)
+    }
+    
+    function handleClick() {
+        setIsCheck(!isCheck)
+        if (!isCheck) setChecklistValue(place)
+        if(checklist.length > 0 && isCheck) {
+            deleteChecklist(place)
+        }     
+    }
+
     return (
         <ListItemResult>
-            <ImageResult src={duksu} />
-            <DivDesc>
-                <ParagraphName>
-                    덕수궁
-                </ParagraphName>
-                <ParagraphDesc>
-                    서울 | 중구 ∙ 궁궐
-                </ParagraphDesc>
-            </DivDesc>
-            <ButtonCheck>
-                <ImageCheck src={CheckImage} alt='선택' />
-            </ButtonCheck>
-        </ListItemResult>
+                <ImageResult src={place.firstimage} />
+                <DivDesc>
+                    <ParagraphName>
+                        {place.title}
+                    </ParagraphName>
+                    <ParagraphDesc>
+                        {place.addr1.split(" ")[0]} | {place.addr1.split(" ")[1]} ∙ {place.detail}
+                    </ParagraphDesc>
+                </DivDesc>
+                <ButtonCheck>
+                <ImageCheck src={isCheck ? CheckFillImage : CheckImage} onClick={handleClick} alt='선택' />
+                </ButtonCheck>
+            </ListItemResult>
     )
 }

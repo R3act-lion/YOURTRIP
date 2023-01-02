@@ -47,7 +47,7 @@ const ListImage = styled.ul`
     }
 `
 
-export default function RecommendListItem({ data, title, placelist, category, url }) {
+export default function RecommendListItem({ data, title, subtilte, placelist, category, url }) {
     // console.log(placelist);
 
     return (

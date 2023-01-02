@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ProfileImage from '../../../assets/images/profile.svg'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import Button from '../../../modules/Button/Button'
 
 const SectionUserInfo = styled.section`
     padding: 30px 0;
@@ -83,8 +84,49 @@ const PragraphDesc = styled.p`
 `
 
 export default function UserInfo() {
-    
+    const url = "https://mandarin.api.weniv.co.kr";
+    const token = localStorage.getItem('Access Token')
+    const path = useLocation().pathname
+    const {id} = useParams()
 
+    const [userinfo, setUserinfo] = useState({});
+    const [followerCount, setFollowerCount] = useState();
+    const [followingCount, setFollowingCount] = useState();
+    const [isFollow, setIsFollow] = useState()
+
+    useEffect(() => {
+        const setData = async (token) => {
+            try {
+                if (path.includes("yourprofile")) {
+                    const res = await fetch(url + `/profile/${id}`, {
+                        headers : {
+                            "Authorization" : `Bearer ${token}`,
+                        }
+                    })
+                    const resJson = await res.json()
+                    setUserinfo(resJson.profile);
+                    setFollowerCount(resJson.profile.followerCount)
+                    setFollowingCount(resJson.profile.followingCount)
+                    setIsFollow(resJson.profile.isfollow)
+                } else {
+                    const res = await fetch(url + `/user/myinfo`, {
+                        headers : {
+                            "Authorization" : `Bearer ${token}`,
+                        }
+                    })
+                    const resJson = await res.json()
+                    setUserinfo(resJson.user);
+                    setFollowerCount(resJson.user.followerCount)
+                    setFollowingCount(resJson.user.followingCount)
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        setData(token);
+    }, []);
+
+    
     return (
         <SectionUserInfo>
             <header>
@@ -94,20 +136,46 @@ export default function UserInfo() {
             </header>
             <ImageProfile src={ProfileImage} alt='프로필 이미지' />
             <ParagraphUserName>
-                이것은 나의 프로필
+                {userinfo.username}
             </ParagraphUserName>
             <ParagraphEmail>
-                @이것은 이메일
+                @ {userinfo.accountname}
             </ParagraphEmail>
             <ParagraphIntroduce>
-                이것은 소개 이것은 소개 이것은 소개 이것은 소개
+                {userinfo.intro}
             </ParagraphIntroduce>
-            <LinkModify to='/profile/modify'>
-                프로필 수정
-            </LinkModify>
+            {
+                path.includes("yourprofile") ?
+                    isFollow ? 
+                        <Button
+                        text="언팔로우"
+                        color = "#767676;" 
+                        backgroundColor = "#FFF"
+                        width="120px"
+                        height="34px"
+                        fontSize="14px"
+                        fontWeight="500"
+                        className="btnChecked"
+                        onClick={() => setIsFollow(!isFollow)}
+                        />
+                    : <Button
+                        text="팔로우"
+                        color = "#FFF" 
+                        backgroundColor = "#3C70BC"
+                        width="120px"
+                        height="34px"
+                        fontSize="14px"
+                        fontWeight="500"
+                        onClick={() => setIsFollow(!isFollow)}
+                        />
+                :
+                    <LinkModify to='/profile/modify'>
+                        프로필 수정
+                    </LinkModify>
+            }
             <LinkFollowers to='/profile/followers'>
                 <ParagraphCount>
-                    200
+                    {followerCount}
                 </ParagraphCount>
                 <PragraphDesc>
                     followers
@@ -115,7 +183,7 @@ export default function UserInfo() {
             </LinkFollowers>
             <LinkFollowing to='/profile/following'>
                 <ParagraphCount>
-                    174
+                    {followingCount}
                 </ParagraphCount>
                 <PragraphDesc>
                     following

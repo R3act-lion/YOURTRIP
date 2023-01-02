@@ -7,24 +7,21 @@ const ListSelected = styled.ul`
     overflow-x: scroll;
     padding: 0 15px;
     display: flex;
-    justify-content: space-between;
     gap: 8px;
     touch-action: pan-x;
-
     &::-webkit-scrollbar {
         display: none;
     }
 `
 
-export default function SelectedList() {
+export default function SelectedList({checklist}) {
     return (
         <ListSelected>
-            <SelectedListItem />
-            <SelectedListItem />
-            <SelectedListItem />
-            <SelectedListItem />
-            <SelectedListItem />
-            <SelectedListItem />
+            {checklist.map(item => {
+                return (
+                    <SelectedListItem place={item} />
+                )
+            })}
         </ListSelected>
     )
 }

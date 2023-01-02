@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../../../assets/images/icon-search.svg'
 import QurationListItem from './QurationListItem';
@@ -75,10 +77,45 @@ const ButtonSave = styled.button`
 `
 
 export default function QurationPlaceList() {
+    const { placeData } = useSelector(state => state.placeData);
+    const [input, setInput] = useState('')
+    const [checklist, setChecklist] = useState('');
+    const data = Object.entries(placeData.area);
+    const location = useLocation();
+    const id = location.state.id
+
+    const getChecklist = (e) => {
+        let newArr = [...checklist, e]
+        setChecklist(newArr)
+    }
+
+    const deleteChecklist = (e) => {
+        let newArr = checklist.filter(i => i !== e)
+        setChecklist(newArr)
+    }
+
+    const handleInput = (e) => {
+        setInput(e.target.value)
+    }
+
     setTimeout(() => {
         document.querySelector('h1').textContent = ''
         window.scrollTo(0, 0)
     }, 0);
+
+    let placelist = []
+    data.map(i => placelist.push(i[1].전체여행지.list.concat(i[1].전체식당.list)))
+    placelist = placelist.flat();
+
+    let searchlist = []
+    placelist.forEach(place => {
+        if (place.title.indexOf(input) === -1) {
+            return
+        }
+        searchlist.push(place)
+    })
+
+    let savedlist = [placelist[1], placelist[2]]
 
     return (
         <SectionList>
@@ -89,22 +126,41 @@ export default function QurationPlaceList() {
             </header>
             <FormSearch action=''>
                 <label htmlFor="inputSearch" className='irOnly'>여행지 검색</label>
-                <InputSearch id='inputSearch' placeholder='검색' />
+                <InputSearch id='inputSearch' onChange={handleInput} placeholder='검색' />
                 <ButtonSearch>
                     <ImageSearch src={SearchIcon} alt='검색' />
                 </ButtonSearch>
             </FormSearch>
-            <ParagraphResult>
-                내가 저장한 공간
-            </ParagraphResult>
-            <ListResult>
-                <QurationListItem />
-                <QurationListItem />
-                <QurationListItem />
-                <QurationListItem />
-                <QurationListItem />
-            </ListResult>
-            <ButtonSave>저장</ButtonSave>
+            {
+                input.length ?
+                    <>
+                        <ListResult>
+                            {
+                                searchlist.map(item => {
+                                    return (
+                                        <QurationListItem checklist={checklist} getChecklist={getChecklist} key={item.contentid} deleteChecklist={deleteChecklist} place={item} />    
+                                    )
+                                })
+                            }
+                        </ListResult>
+                    </> 
+                    :
+                    <>
+                        <ParagraphResult>
+                            내가 저장한 공간
+                        </ParagraphResult>
+                        <ListResult>
+                            {savedlist.map(item => {
+                                return (
+                                    <QurationListItem checklist={checklist} getChecklist={getChecklist} key={item.contentid} deleteChecklist={deleteChecklist} place={ item } />
+                                )
+                            })}
+                        </ListResult>
+                    </>
+            }
+            <Link to='/profile/addquration' state={{checklist, id}} >
+                <ButtonSave className={checklist.length > 0 ? "on" : false}>저장</ButtonSave>
+            </Link>
         </SectionList>
     )
 }

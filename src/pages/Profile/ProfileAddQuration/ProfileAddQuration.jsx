@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SelectedList from '../../../components/SlideList/SelectedList/SelectedList'
 import AddImage from '../../../assets/images/icon-add.svg'
+import {uploadProduct} from '../../../Upload/api'
 
 const SectionModity = styled.section`
     padding: 30px 35px;
@@ -72,13 +73,64 @@ const ButtonSave = styled.button`
     right: calc(50vw - 179px);
     z-index: 30;
     cursor: pointer;
+    &.on{
+        background-color: ${props => props.theme.color.primary.main};
+    }
 `
 
-export default function ProfileModify() {
+export default function ProfileAddQuration() {
+    const url= "https://mandarin.api.weniv.co.kr";
+    let token = localStorage.getItem('Access Token');
+
+    const location = useLocation();
+    const checklist = location.state.checklist
+    const id = location.state.id
+
+    const [title, setTitle] = useState(() =>
+        JSON.parse(window.localStorage.getItem("title")) || ''
+    )
+    const [subtitle, setSubtitle] = useState(() =>
+        JSON.parse(window.localStorage.getItem("subtitle")) || ''
+    )
+
+    async function addCuration() {
+        const userCurationlist = JSON.stringify(checklist).replaceAll(/{/g, '(').replaceAll(/}/g, ')');
+        try {
+            await fetch(url + '/product', {
+                method: "POST",
+                headers: {
+                    "Authorization" : `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify({
+                    "product":{
+                        "itemName": title,
+                        "price": 1,
+                        "link": subtitle,
+                        "itemImage": userCurationlist
+                    }
+                })
+            })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    
+    useEffect(() => {
+        window.localStorage.setItem("title", JSON.stringify(title))
+        window.localStorage.setItem("subtitle", JSON.stringify(subtitle))
+    }, [title, subtitle])
+    
+
     setTimeout(() => {
         document.querySelector('h1').textContent = '큐레이션 추가'
         window.scrollTo(0, 0)
     }, 0);
+
+    function handleRemoveLocal() {
+        window.localStorage.removeItem("title")
+        window.localStorage.removeItem("subtitle")
+    }
 
     return (
         <SectionModity>
@@ -87,18 +139,29 @@ export default function ProfileModify() {
             </header>
             <FormPost>
                 <LabelInput htmlFor='inputQuration' >큐레이션 제목</LabelInput>
-                <InputUser id='inputQuration' placeholder='큐레이션 이름을 적어주세요.' />
+                <InputUser value={title} required id='inputQuration' placeholder='큐레이션 이름을 적어주세요.' onChange={(e) => setTitle(e.target.value)}/>
                 <LabelInput htmlFor='inputUserIntro' >소개</LabelInput>
-                <InputUser id='inputUserIntro' placeholder='큐레이션에 대해 간단한 소개를 적어주세요. ' />
+                <InputUser value={subtitle} required id='inputUserIntro' placeholder='큐레이션에 대해 간단한 소개를 적어주세요.' onChange={(e) => setSubtitle(e.target.value)} />
                 <LabelInput>선택한 여행지</LabelInput>
                 <DivPlaceSelect>
-                    <SelectedList />
-                    <LinkAddPlace to='/profile/addquration/list'>
+                    {checklist ? <SelectedList checklist={checklist} /> : <></>}
+                    <LinkAddPlace to='/profile/addquration/list' state={{id}}>
                         <ImageAdd src={AddImage} alt='추가' />
                     </LinkAddPlace>
                 </DivPlaceSelect>
-                <ButtonSave>저장</ButtonSave>
-            </FormPost>
+                <Link to={`/profile/${id}`}
+                    state={{ title, subtitle, checklist }}
+                >
+                    {
+                        checklist ? 
+                            <ButtonSave className={title.length > 0 && subtitle.length > 0 ? "on" : false} onClick={() => {
+                                handleRemoveLocal()
+                                addCuration()
+                            }}>저장</ButtonSave>
+                    : <ButtonSave>저장</ButtonSave>
+                }
+                </Link>
+                </FormPost>
         </SectionModity>
     )
 }
