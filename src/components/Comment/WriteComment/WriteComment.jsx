@@ -29,8 +29,8 @@ const ButtonPost = styled.button`
 `
 
 const writeComment = async (placeid, comment, renderFunction) => {
-    const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
-    const userAccount = localStorage.getItem('user').replaceAll(/{/g, '(').replaceAll(/}/g, ')');
+    const token = localStorage.getItem('Access Token');
+    const accountname= localStorage.getItem('user ID');
     const url = "https://mandarin.api.weniv.co.kr";
     const placeId = 'yourtrip_' + placeid;
 
@@ -38,14 +38,14 @@ const writeComment = async (placeid, comment, renderFunction) => {
         const res = await fetch(url + "/product", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${uploadAccount.token}`,
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "product": {
                     "itemName": placeId,
                     "price": 1,
-                    "link": userAccount,
+                    "link": accountname,
                     "itemImage": comment
                 }
             })

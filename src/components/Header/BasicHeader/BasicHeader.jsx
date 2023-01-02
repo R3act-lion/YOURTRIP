@@ -56,7 +56,7 @@ export default function BasicHeader({myPostModal, setMyPostModal}) {
                 
             </HeadingOneTitle>
             <ButtonMore>
-                <ImageMore src={MoreImg} alt='더보기' onClick={()=>{setMyPostModal(true)}}/>
+                <ImageMore src={MoreImg} alt='더보기'/>
             </ButtonMore>
         </HeaderContainer>
     )

@@ -5,6 +5,7 @@ export const ModalListItem= styled.div`
     width: 290px;
     height: 46px;
     padding: 14px 26px;
+    cursor: pointer;
 `
 
 export default function ModalList() {

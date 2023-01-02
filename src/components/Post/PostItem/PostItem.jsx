@@ -1,10 +1,11 @@
-import { React } from 'react'
+import { React,useState } from 'react'
 import styled from 'styled-components'
 import UserDesc from '../../UserDesc/UserDesc'
 import MoreImg from '../../../assets/images/icon-more.svg'
 import HeartImg from '../../../assets/images/icon-heart.svg'
 import CommentImg from '../../../assets/images/icon-comment.svg'
 import { useNavigate } from 'react-router'
+import DetailMyPostModal from '../../Modal/DetailMyPostModal'
 
 export const DivPost = styled.div`
     position: relative;
@@ -64,8 +65,9 @@ export const ParagraphTime = styled.p`
     margin-top: 18px;
 `
 
-export default function PostItem({feedData}) {
+export default function PostItem({feedData, detailMyPostModal, setDetailMyPostModal}) {
     const navigate= useNavigate();
+    
 
     return (
         <>
@@ -74,10 +76,12 @@ export default function PostItem({feedData}) {
                 const createdAt = item.createdAt.split('-');
 
                 return(
-                <li onClick={()=>{navigate(`/post/${index}`, {state: {postDetail:feedData}} )}} key={item.id}>
+                <li onClick={()=>{navigate(`/mypost/${index}`, {state: {postDetail:feedData}} )}} key={item.id}>
                 <DivPost>
                     <UserDesc img={item.author.image} name={item.author.username} id={item.author.accountname}/>
-                    <ImageMore src={MoreImg} alt='더보기'/>
+                    <ImageMore src={MoreImg} alt='더보기' onClick={()=>{
+                        setDetailMyPostModal(true);
+                        }}/>
                     <DivContent>
                         <ParagraphContent>
                             {item.content}

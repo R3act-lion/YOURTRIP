@@ -8,11 +8,7 @@ const ListPost = styled.ul`
 `
 
 const getToken = () => {
-    let token = JSON.parse(localStorage.getItem("defaultAccount")).token;
-
-    // if (!!!token) {
-    //     token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWVmYjQ3YjJjYjIwNTY2MzgwZDU5OCIsImV4cCI6MTY3NzU5NTk5OSwiaWF0IjoxNjcyNDExOTk5fQ.de_cnB9iqQOvea2ToGiFqP4gtXH64nY0f5lUZgTVev0'
-    // }
+    let token = localStorage.getItem("Access Token");
 
     return token;
 }

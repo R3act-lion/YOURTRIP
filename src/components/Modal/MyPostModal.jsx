@@ -1,9 +1,11 @@
 import { React, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router';
 import { ModalDiv, ModalContainer } from './DetailModal'
 import ModalBar from './ModalBar'
 import { ModalListItem } from './ModalList'
 
 export default function MyPostModal({setMyPostModal}) {
+  const navigate= useNavigate();
   const myPostModalRef= useRef();
 
     useEffect(()=>{
@@ -23,8 +25,12 @@ export default function MyPostModal({setMyPostModal}) {
       <ModalDiv>
       <ModalContainer ref={myPostModalRef}>
         <ModalBar />
-        <ModalListItem>나의 게시물 보기</ModalListItem>
-      </ModalContainer>
+        <ModalListItem onClick={()=>{
+          navigate("/mypost")
+          setMyPostModal(false)}
+          }>내가 작성한 글</ModalListItem>
+      
+        </ModalContainer>
       </ModalDiv>
     )
 }
