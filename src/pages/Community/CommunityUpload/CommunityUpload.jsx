@@ -124,13 +124,19 @@ export default function CommunityUpload() {
         textArea.current.style.color = 'black'
     }
 
-    const token = localStorage.getItem("Access Token");
+    const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const url = "https://mandarin.api.weniv.co.kr";
     let [content, setContent] = useState("");
     let [imagesrc, setImagesrc] = useState([]);
 
     // 게시물 포스팅하는 함수
     async function posting() {
+        const userData = localStorage.getItem('user');
+        const newContent = {
+            text: content,
+            user: userData
+        }
+
         try {
             const res = await fetch(url + "/post", {
                 method: "POST",
@@ -140,7 +146,7 @@ export default function CommunityUpload() {
                 },
                 body: JSON.stringify({
                     "post": {
-                        "content": content,
+                        "content": 'yourtrip_post_' + JSON.stringify(newContent).replaceAll(/{/g, '(').replaceAll(/}/g, ')'),
                         "image": imagesrc.join()
                     }
                 })
@@ -200,49 +206,57 @@ export default function CommunityUpload() {
 
     return (
         <SectionUpload>
-            <ImageProfile src={ProfileImage} alt='' />
-            <FormPost action="">
-                <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
-                    setContent(e.target.value)
-                    
-                }}>게시글 입력하기...
-                </TextAreaContent>
-                <PrevImgList>
-                    {
-                        imagesrc.map((item) => {
-                            return (
-                                <>
-                                    {imagesrc.length === 1
-                                        ? <PrevBigImg src={item} onClick={() => {
-                                            setImagesrc(imagesrc.filter(src => src !== item))
-                                        }} />
+            {
+                !!localStorage.user
+                    ? <>
+                        <ImageProfile src={ProfileImage} alt='' />
+                        <FormPost action="">
+                            <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
+                                setContent(e.target.value)
 
-                                        : <PrevSmallImg src={item} onClick={() => {
-                                            setImagesrc(imagesrc.filter(src => src !== item))
-                                        }} />
-                                    }
-                                    <PrevXBtn src={iconX} />
-                                </>
-                            )
-                        })
-                    }
-                </PrevImgList>
+                            }} defaultValue='게시글 입력하기...' />
+                            <PrevImgList>
+                                {
+                                    imagesrc.map((item) => {
+                                        return (
+                                            <>
+                                                {imagesrc.length === 1
+                                                    ? <PrevBigImg src={item} onClick={() => {
+                                                        setImagesrc(imagesrc.filter(src => src !== item))
+                                                    }} />
 
-            </FormPost>
-            <ButtonImageUpload>
-                <ImageLabel onClick={handleClickFileInput} />
-                <ImageUpload
-                    alt='이미지 업로드 버튼'
-                    type="file"
-                    accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
-                    ref={fileInputRef}
-                    onChange={fileInput} />
-            </ButtonImageUpload>
-            <ButtonUpload onClick={posting} style={{backgroundColor: 
-                ((content == "") && (imagesrc == "")) 
-                    ? "#C9D9F0" : "#3C70BC"}}>
-                업로드
-            </ButtonUpload>
+                                                    : <PrevSmallImg src={item} onClick={() => {
+                                                        setImagesrc(imagesrc.filter(src => src !== item))
+                                                    }} />
+                                                }
+                                                <PrevXBtn src={iconX} />
+                                            </>
+                                        )
+                                    })
+                                }
+                            </PrevImgList>
+
+                        </FormPost>
+                        <ButtonImageUpload>
+                            <ImageLabel onClick={handleClickFileInput} />
+                            <ImageUpload
+                                alt='이미지 업로드 버튼'
+                                type="file"
+                                accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
+                                ref={fileInputRef}
+                                onChange={fileInput} />
+                        </ButtonImageUpload>
+                        <ButtonUpload onClick={posting} style={{
+                            backgroundColor:
+                                ((content == "") && (imagesrc == ""))
+                                    ? "#C9D9F0" : "#3C70BC"
+                        }}>
+                            업로드
+                        </ButtonUpload>
+                    </>
+                    : <></>
+            }
+            
         </SectionUpload>
     )
 }

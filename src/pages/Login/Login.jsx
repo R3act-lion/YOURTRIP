@@ -7,7 +7,7 @@ import axios from 'axios';
 const Container = styled.div`
     margin: 0 auto;
     width: 390px;
-    height: 850px;
+    height: 1100px;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;

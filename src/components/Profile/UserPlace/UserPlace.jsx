@@ -74,7 +74,7 @@ const AddBtn = styled.img`
     width: 50px;
     position: fixed;
     bottom: 70px;
-    right: 15px;
+    right: calc(50vw - 180px);
     `
 
 
@@ -102,13 +102,14 @@ export default function UserPlace() {
                     }
                 })
                 const resJson = await res.json()
+                console.log(resJson);
                 setCurationData(resJson)
             } catch (e) {
                 console.log(e);
             }
         }
         getData(id, token);
-    }, [id])
+    }, [])
 
     const itemClick = (value) => {
         const newState = isCategory.map((list) => {
@@ -119,6 +120,8 @@ export default function UserPlace() {
         });
         setIsCategory(newState);
     };
+
+    console.log(curationData);
 
     return (
         <SectionPlace>
@@ -144,22 +147,13 @@ export default function UserPlace() {
                     <ListTheme>
                         {
                             curationData.data ? 
-                                curationData.product.map((item, index) => {
+                                curationData.product.filter((item) => item.itemName.startsWith('yourtrip_quration_')).map((item, index) => {
                                     return (
                                         <CurationList key={index}>
-                                            <RecommendList title={item.itemName} subtitle={item.link} placelist={
-                                                item.price > 1 ?
-                                                    item.itemImage = []
-                                                :
-                                                    JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
-                                            {
-                                                path.includes('yourprofile') ?
-                                                    false
-                                                    :
-                                                <Link to="/profile/addquration" state={{checklist, id}}>
-                                                    <AddBtn src={AddImage} alt="" />
-                                                </Link>
-                                            }
+                                            <RecommendList title={item.itemName.slice(18)} subtitle={item.link} placelist={JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
+                                            <Link to="/profile/addquration" state={{checklist, id}}>
+                                                <AddBtn src={AddImage} alt="" />
+                                            </Link>
                                         </CurationList>
                                     )
                                 })

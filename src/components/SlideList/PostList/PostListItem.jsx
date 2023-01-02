@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import IconCOmmunity from '../../../assets/images/icon-community-mini.svg'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const ListItemCommunity = styled.li`
     flex-basis: 166px;
@@ -10,7 +10,7 @@ const ListItemCommunity = styled.li`
     border-radius: 5px;
 `
 
-const LinkCommunity = styled(Link)`
+const DivCommunity = styled.div`
     height: 147px;
     padding: 12px;
     display: flex;
@@ -33,15 +33,17 @@ const ImageCommunity = styled.img`
     width: 16px;
 `
 
-export default function PostListItem({ content }) {
+export default function PostListItem({ content, writer, feedData }) {
+    const navigate = useNavigate();
+
     return (
-        <ListItemCommunity>
-            <LinkCommunity to='/post/test'>
+        <ListItemCommunity onClick={() => { navigate(`/post/${feedData.id}`, { state: { postDetail: feedData, writer: writer, content: content } }) }}>
+            <DivCommunity>
                 <ParagraphContent>
                     {content}
                 </ParagraphContent>
                 <ImageCommunity src={IconCOmmunity} alt='' />
-            </LinkCommunity>
+            </DivCommunity>
         </ListItemCommunity>
     )
 }

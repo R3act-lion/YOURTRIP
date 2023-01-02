@@ -1,4 +1,4 @@
-import { React,useState,useRef,useEffect } from 'react'
+import { React, useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { ImageContent } from '../Post/PostItem/PostItem';
 import dotCurrent from '../../assets/images/icon-dot-current.svg';
@@ -14,7 +14,7 @@ const ImageList = styled.ul`
     display: flex;
 `
 
-const ImageDiv= styled.div`
+const ImageDiv = styled.div`
     position: relative;
 `
 
@@ -39,52 +39,53 @@ const DotCurrentIcon = styled.li`
     background-image: url(${dotCurrent});
 `
 
-export default function Carousel({imageData}){
+export default function Carousel({ imageData }) {
     const [current, setCurrent] = useState(0);
     const [style, setStyle] = useState({
-        marginLeft: `-${current}00%;`
+        marginLeft: `-${current}00%`
     });
     const imgSize = imageData.length;
 
-    const moveSlide= (i)=>{
-        let nextIndex = current+i;
+    const moveSlide = (i) => {
+        let nextIndex = current + i;
         if (nextIndex >= imgSize) {
-            nextIndex=0;
+            nextIndex = 0;
         }
-            setCurrent(nextIndex);
+        setCurrent(nextIndex);
     }
 
-    useEffect(()=>{
-        setStyle({marginLeft: `-${current}00%`});
+    useEffect(() => {
+        setStyle({ marginLeft: `-${current}00%` });
         console.log(current);
     }, [current]);
 
-    return(
+    return (
         <ImageCont>
             <ImageList style={style}>
                 {(imageData != '') &&
-                imageData.map((url)=>{
-                    return(
-                        <>
-                        <ImageContent src={url} alt='' onClick={()=>{moveSlide(1)}} />
-                        <ImageDiv>
-                        <DotIconList>
-                            {imageData.map((item,index)=>{
-                                return(
-                                    <>
-                                    {index === current ? <DotCurrentIcon /> : <DotIcon />} 
-                                    </>                       
-                                )
-                            })}
-                        
-                        </DotIconList>
-                        </ImageDiv>
-                        </>
+                    imageData.map((url) => {
+                        return (
+                            <>
+                                <ImageContent src={url} alt='' onClick={() => { moveSlide(1) }} />
+                                <ImageDiv>
+                                    <DotIconList>
+                                        {imageData.map((item, index) => {
+                                            return (
+                                                <>
+                                                    {index === current ? <DotCurrentIcon /> : <DotIcon />}
+                                                </>
+                                            )
+                                        })}
 
-                        )}  
+                                    </DotIconList>
+                                </ImageDiv>
+                            </>
+
+                        )
+                    }
                     )
                 }
-            </ImageList>  
+            </ImageList>
         </ImageCont>
     )
 }

@@ -28,25 +28,20 @@ const ButtonPost = styled.button`
 
 `
 
-const writeComment = async (placeid, comment, renderFunction) => {
-    const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
-    const userAccount = localStorage.getItem('user').replaceAll(/{/g, '(').replaceAll(/}/g, ')');
+const writeComment = async (posdId, comment, renderFunction) => {
+    const uploadAccount = JSON.parse(localStorage.getItem('user'));
     const url = "https://mandarin.api.weniv.co.kr";
-    const placeId = 'yourtrip_placeComment_' + placeid;
 
     try {
-        const res = await fetch(url + "/product", {
+        const res = await fetch(url + "/post/" + posdId + '/comments', {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${uploadAccount.token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "product": {
-                    "itemName": placeId,
-                    "price": 1,
-                    "link": userAccount,
-                    "itemImage": comment
+                "comment": {
+                    "content": comment
                 }
             })
         });
@@ -62,13 +57,13 @@ const writeComment = async (placeid, comment, renderFunction) => {
     }
 }
 
-export default function WriteComment({ placeid, renderFunction }) {
+export default function WritePlaceComment({ postId, renderFunction }) {
     const [comment, setComment] = useState('');
     const commentContent = useRef();
 
     const onClickPost = (e) => {
         e.preventDefault();
-        writeComment(placeid, comment, renderFunction);
+        writeComment(postId, comment, renderFunction);
         setComment('');
     }
 

@@ -1,4 +1,4 @@
-import { React,useState } from 'react'
+import { React, useState } from 'react'
 import styled from 'styled-components'
 import PostCommentList from '../../components/Comment/PostComment/PostCommentList'
 import WriteComment from '../../components/Comment/WriteComment/WriteComment'
@@ -14,10 +14,9 @@ const SectionContainer = styled.section`
 export default function Post() {
     window.scroll(0, 0);
     const location = useLocation();
-    const data= location.state.postDetail;
-    let [detailModal, setDetailModal]= useState(false);
+    let [detailModal, setDetailModal] = useState(false);
 
-    let {id} = useParams();
+    // console.log(location.state);
 
     return (
         <SectionContainer>
@@ -26,14 +25,14 @@ export default function Post() {
                     게시물 상세 페이지
                 </h2>
             </header>
-            <CommunityDetail postId={id} postData={data} setDetailModal={setDetailModal} />
+            <CommunityDetail postContent={location.state.content} postWriter={location.state.writer} postData={location.state.postDetail} setDetailModal={setDetailModal} />
             {/* <PostCommentList/>
             <WriteComment /> */}
-            {detailModal === true 
+            {detailModal === true
                 ? <DetailModal setDetailModal={setDetailModal} />
                 : null}
 
         </SectionContainer>
-        
+
     )
 }

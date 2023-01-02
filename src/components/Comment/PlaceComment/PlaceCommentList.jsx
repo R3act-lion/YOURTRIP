@@ -9,7 +9,6 @@ const ListComment = styled.ul`
 const getComments = async (callBack) => {
     const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
     const url = "https://mandarin.api.weniv.co.kr";
-    
 
     try {
         const res = await fetch(url + "/product/" + uploadAccount.accountname + '/?limit=10000&skip=0', {
@@ -21,7 +20,6 @@ const getComments = async (callBack) => {
         });
         const resJson = await res.json();
         // console.log(resJson);
-        
         callBack(resJson.product)
     } catch (err) {
         console.error(err);
@@ -39,12 +37,12 @@ export default function PlaceCommentList({ placeid, setRenderFunction }) {
         })
     }, [updateTarget])
 
-    // console.log(comments);
+    console.log(comments);
 
     return (
         <ListComment>
             {
-                comments.filter((comment) => comment.itemName === 'yourtrip_' + placeid).map((comment) => {
+                comments.filter((comment) => comment.itemName === 'yourtrip_placeComment_' + placeid).map((comment) => {
                     return <PlaceCommentListItem key={comment.id} comment={comment} />
                 })
             }
