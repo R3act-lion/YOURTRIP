@@ -102,6 +102,7 @@ export default function UserPlace() {
                     }
                 })
                 const resJson = await res.json()
+                console.log(resJson);
                 setCurationData(resJson)
             } catch (e) {
                 console.log(e);
@@ -144,10 +145,10 @@ export default function UserPlace() {
                     <ListTheme>
                         {
                             curationData.data ? 
-                                curationData.product.map((item, index) => {
+                                curationData.product.filter((item) => item.itemName.startsWith('yourtrip_quration_')).map((item, index) => {
                                     return (
                                         <CurationList key={index}>
-                                            <RecommendList title={item.itemName} subtitle={item.link} placelist={JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
+                                            <RecommendList title={item.itemName.slice(18)} subtitle={item.link} placelist={JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
                                             <Link to="/profile/addquration" state={{checklist, id}}>
                                                 <AddBtn src={AddImage} alt="" />
                                             </Link>

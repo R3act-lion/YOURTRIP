@@ -26,8 +26,8 @@ const ParagraphContent = styled.p`
 
 export default function CommentItem({ user, content }) {
     let [commentModal, setCommentModal]= useState(false);
-    console.log(user)
-    console.log(content)
+    // console.log(user)
+    // console.log(content)
     
     return (
         <>

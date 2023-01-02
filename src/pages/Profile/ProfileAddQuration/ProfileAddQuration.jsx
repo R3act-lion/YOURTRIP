@@ -104,7 +104,7 @@ export default function ProfileAddQuration() {
                 },
                 body : JSON.stringify({
                     "product":{
-                        "itemName": title,
+                        "itemName": 'yourtrip_quration_' + title,
                         "price": 1,
                         "link": subtitle,
                         "itemImage": userCurationlist

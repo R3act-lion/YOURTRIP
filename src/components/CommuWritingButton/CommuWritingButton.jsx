@@ -9,8 +9,8 @@ const UploadButton = styled.button`
   height:50px;
   display: block;
   position: fixed;
-  bottom: 11%;
-  right: 600px;
+  bottom: 10%;
+  right: calc(50vw - 170px);
   border: none;
   background-color: #FFFFFF;
   cursor: pointer;

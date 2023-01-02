@@ -29,36 +29,33 @@ const ButtonPost = styled.button`
 `
 
 const writeComment = async (placeid, comment, renderFunction) => {
-    const token = localStorage.getItem('Access Token');
-    const accountname= localStorage.getItem('user ID');
+    const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
+    const userAccount = localStorage.getItem('user').replaceAll(/{/g, '(').replaceAll(/}/g, ')');
     const url = "https://mandarin.api.weniv.co.kr";
-    const placeId = 'yourtrip_' + placeid;
+    const placeId = 'yourtrip_placeComment_' + placeid;
 
     try {
         const res = await fetch(url + "/product", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${uploadAccount.token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "product": {
                     "itemName": placeId,
                     "price": 1,
-                    "link": accountname,
+                    "link": userAccount,
                     "itemImage": comment
                 }
             })
         });
         const resJson = await res.json();
         console.log(resJson);
-
-        setTimeout(() => {
-            renderFunction(() => {
-                console.log('render');
-                return {}
-            });
-        }, 0);
+        renderFunction(() => {
+            console.log('render');
+            return {}
+        });
         
     } catch (err) {
         console.error(err);
