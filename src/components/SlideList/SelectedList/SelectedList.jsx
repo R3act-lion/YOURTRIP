@@ -19,7 +19,7 @@ export default function SelectedList({checklist}) {
         <ListSelected>
             {checklist.map(item => {
                 return (
-                    <SelectedListItem place={item} />
+                    <SelectedListItem key={item.contentid} place={item} />
                 )
             })}
         </ListSelected>

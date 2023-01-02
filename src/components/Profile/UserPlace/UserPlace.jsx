@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import RecommendList from '../../SlideList/RecommendList/RecommendList'
 import DetailPlaceList from '../../SlideList/DetailPlaceList/DetailPlaceList'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import Button from '../../../modules/Button/Button'
 import AddImage from '../../../assets/images/icon-add.svg'
 
@@ -81,6 +81,7 @@ const AddBtn = styled.img`
 export default function UserPlace() {
     const url= "https://mandarin.api.weniv.co.kr";
     let token = localStorage.getItem('Access Token');
+    const path = useLocation().pathname
     const { id } = useParams();
     const [curationData, setCurationData] = useState([])
     
@@ -154,6 +155,11 @@ export default function UserPlace() {
                                     )
                                 })
                                 :
+                                path.includes("yourprofile") ?
+                                <GuidePost>
+                                        <GuideDesc>아직 큐레이션이 없습니다.</GuideDesc>
+                                </GuidePost>     
+                                :    
                                 <GuidePost>
                                 <GuideDesc>당신만의 큐레이션을 만들어보세요.</GuideDesc>
                                 <Link to="/profile/addquration" state={{checklist, id}}>

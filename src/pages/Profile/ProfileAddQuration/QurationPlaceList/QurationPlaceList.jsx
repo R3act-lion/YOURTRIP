@@ -115,7 +115,7 @@ export default function QurationPlaceList() {
         searchlist.push(place)
     })
 
-    let savedlist = [placelist[1], placelist[2]]
+    let savedlist = []
 
     return (
         <SectionList>

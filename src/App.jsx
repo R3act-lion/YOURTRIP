@@ -47,6 +47,7 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
 import CommunityDatail from './pages/Community/CommunityDetail/CommunityDetail';
 import MyDetailPost from './pages/Post/MyPost/MyDetailPost';
+import { SearchContext } from './context/Context';
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -143,10 +144,10 @@ function App() {
                                     <Route path="/yourprofile/:id" element={<Profile />} />
                                     <Route path="/profile/followers" element={<ProfileFollowers />} />
                                     <Route path="/profile/following" element={<ProfileFollowing />} />
-                                </Route>
+                                    </Route>
                                 <Route element={<SearchHeaderLayout />}>
                                     <Route path="/search" element={<Search />} />
-                                </Route>
+                                        </Route>
                                 <Route element={<LogoMoreHeaderLayout />}>
                                     <Route path="/community" element={<Community />} />
                                     <Route path="/mypost" element={<MyPost />} />
