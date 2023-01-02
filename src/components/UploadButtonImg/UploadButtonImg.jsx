@@ -8,11 +8,11 @@ const ButtonImg = styled.div`
     background-repeat: no-repeat;
     border: 0;
     background-size: cover;
-    width:50px;
-    height:50px;
+    width:35px;
+    height:35px;
     cursor: pointer;
     position: absolute;
-    top:70px;
+    top:85px;
     left:70px;
     `
 
