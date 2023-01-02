@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import RecommendListItem from './RecommendListItem'
 
 export default function RecommendList({ title, subtitle, placelist, selectedItem, category, url, themeData, theme, isLocation }) {
-    // let placelist = []
-    
     if (isLocation) {
         placelist = []
         for (const key in themeData['list']) {

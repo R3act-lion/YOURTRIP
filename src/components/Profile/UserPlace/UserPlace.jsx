@@ -29,7 +29,7 @@ const ListItemButton = styled.li`
     flex-grow: 1;
 `
 
-const CurationList = styled.li`
+const CurationList = styled.div`
     margin-top: 30px;
 `
 

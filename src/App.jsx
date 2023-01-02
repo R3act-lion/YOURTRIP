@@ -156,11 +156,11 @@ function App() {
                                     <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                                 </Route>
 
-                                <Route path="/signup" element={<SignUp />} />
-                                <Route path="/signup/profile" element={<SignUpProfile />} />
-
-                                <Route path="/login" element={<Login />} />
                             </Route>
+                            <Route path="/signup" element={<SignUp />} />
+                            <Route path="/signup/profile" element={<SignUpProfile />} />
+
+                            <Route path="/login" element={<Login />} />
                             <Route path="/notfound" element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
