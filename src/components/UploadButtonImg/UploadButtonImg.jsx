@@ -24,7 +24,7 @@ const imgAxios = axios.create({
  });
 
 
-export default function UploadButtonImg( {stateFunc}) {
+export default function UploadButtonImg({stateFunc}) {
   
    const submitImg =  async (e) => {
     const value = e.target.files[0]
