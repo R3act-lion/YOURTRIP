@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import profile from '../../assets/images/profile.svg'
+import ProfileImage from '../../assets/images/profile.svg'
 
 const DivUser = styled(Link)`
     list-style: none;
@@ -35,7 +35,7 @@ const UserIntro = styled.p`
 export default function UserDesc({ img, name, id, addr, detail, place }) {
     return (
         <DivUser to={addr ? `/placedetail/${name}` : `/yourprofile/${id}`} state={addr ? {place} : false}>
-            <ProfileImg src={img === undefined ? profile : img} alt="" />
+            <ProfileImg src={img} onError={(e) => e.target.src = ProfileImage} alt="프로필 이미지" />
             <UserDetailDesc>
                 <UserName>{name}</UserName>
                 {

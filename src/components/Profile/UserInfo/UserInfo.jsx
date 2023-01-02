@@ -128,7 +128,6 @@ export default function UserInfo() {
         setData(token);
     }, [id]);
 
-    
     return (
         <SectionUserInfo>
             <header>
@@ -136,7 +135,7 @@ export default function UserInfo() {
                     유저 정보
                 </h2>
             </header>
-            <ImageProfile src={userinfo.image} alt='프로필 이미지' />
+            <ImageProfile src={userinfo.image} onError={(e) => e.target.src = ProfileImage} alt='프로필 이미지' />
             <ParagraphUserName>
                 {userinfo.username}
             </ParagraphUserName>
@@ -154,7 +153,7 @@ export default function UserInfo() {
                         followingCount={setFollowingCount}
                         userinfo={userinfo} />
                 :
-                    <LinkModify to='/profile/modify' state={{userinfo}}>
+                    <LinkModify to='/profile/modify'>
                         프로필 수정
                     </LinkModify>
             }
