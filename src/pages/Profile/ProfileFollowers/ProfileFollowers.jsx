@@ -2,6 +2,7 @@ import {React, useState, useEffect} from 'react'
 import styled from 'styled-components';
 import UserDesc from '../../../components/UserDesc/UserDesc';
 import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn';
+import { useLocation } from 'react-router';
 
 const SectionFollowers = styled.section`
     padding: 24px 16px;
@@ -13,14 +14,16 @@ const ListItemFollowers = styled.li`
     align-items: center;
 
     &  + li {
-        margin-top: 16px;
+        margin-top: 20px;
     }
 `
 
 export default function ProfileFollowers() {
     const url= "https://mandarin.api.weniv.co.kr";
-    let token= localStorage.getItem('Access Token');
-    let accountname= localStorage.getItem('user ID');
+    let token = localStorage.getItem('Access Token');
+    const location = useLocation()
+    const userinfo = location.state.userinfo
+    const accountname = userinfo.accountname
     let [followerData, setFollowerData]= useState([]);
 
     //팔로워 리스트 확인 함수
@@ -35,13 +38,11 @@ export default function ProfileFollowers() {
             }
         )
         const resJson= await res.json();
-        console.log(resJson)
         setFollowerData([...resJson])    
         } catch(err) {
             console.error(err);
         }
     }
-    console.log(followerData);
 
     setTimeout(() => {
         document.querySelector('h1').textContent = 'Follower'
@@ -61,10 +62,10 @@ export default function ProfileFollowers() {
             </header>
             <ul>
                 {(followerData.length > 0) &&
-                    followerData.map((item)=>{
+                    followerData.map((item) => {
                         return(
                         <ListItemFollowers key={item._id}>
-                            <UserDesc img={item.image} name={item.username} id={item._id}/>
+                            <UserDesc img={item.image} name={item.username} id={item.accountname}/>
                             <FollowingBtn item={item}/>
                         </ListItemFollowers>
                     )}

@@ -79,9 +79,6 @@ const ResultBtn = styled.button`
     line-height: 18px;
     color: #FFFFFF;
     cursor: pointer;
-    &:disabled{
-        background-color: #3C70BC;
-        color: #FFFFFF;}
 `
 
 const ErrorMessage = styled.p`
@@ -197,7 +194,10 @@ export default function Signup() {
         />
         <ErrorMessage>{pwError}</ErrorMessage>
         </LoginValue>
-        <ResultBtn disabled={isBtnActive}>다음</ResultBtn>
+        <ResultBtn disabled={isBtnActive}
+        style={{backgroundColor: 
+          ((email === "") && (password === "")) 
+              ? "#C9D9F0" : "#3C70BC"}}>다음</ResultBtn>
         </form>
     </Container>
         

@@ -8,7 +8,7 @@ export const ModalDiv = styled.section`
     position: fixed;
     width: 390px;
     margin: 0 auto;
-    z-index: 10;
+    z-index: 30;
     top: 0;
     left: 0;
     right: 0;
