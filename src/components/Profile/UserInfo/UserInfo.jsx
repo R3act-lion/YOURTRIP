@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import ProfileImage from '../../../assets/images/profile.svg'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import Button from '../../../modules/Button/Button'
+import FollowingBtn from '../../FollowingBtn/FollowingBtn'
 
 const SectionUserInfo = styled.section`
     padding: 30px 0;
@@ -107,7 +108,7 @@ export default function UserInfo() {
                     setUserinfo(resJson.profile);
                     setFollowerCount(resJson.profile.followerCount)
                     setFollowingCount(resJson.profile.followingCount)
-                    setIsFollow(resJson.profile.isfollow)
+                    setIsFollow(resJson.profile.isfollow)   
                 } else {
                     const res = await fetch(url + `/user/myinfo`, {
                         headers : {
@@ -146,28 +147,11 @@ export default function UserInfo() {
             </ParagraphIntroduce>
             {
                 path.includes("yourprofile") ?
-                    isFollow ? 
-                        <Button
-                        text="언팔로우"
-                        color = "#767676;" 
-                        backgroundColor = "#FFF"
-                        width="120px"
-                        height="34px"
-                        fontSize="14px"
-                        fontWeight="500"
-                        className="btnChecked"
-                        onClick={() => setIsFollow(!isFollow)}
-                        />
-                    : <Button
-                        text="팔로우"
-                        color = "#FFF" 
-                        backgroundColor = "#3C70BC"
-                        width="120px"
-                        height="34px"
-                        fontSize="14px"
-                        fontWeight="500"
-                        onClick={() => setIsFollow(!isFollow)}
-                        />
+                    <FollowingBtn
+                        followState={isFollow}
+                        followerCount={setFollowerCount}
+                        followingCount={setFollowingCount}
+                        userinfo={userinfo} />
                 :
                     <LinkModify to='/profile/modify'>
                         프로필 수정

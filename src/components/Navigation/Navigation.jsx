@@ -74,9 +74,16 @@ export default function Navigation() {
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
-                        <Link to={`/profile/${userName}`} >
-                            <NavigationButtonImage src={icon_profile} alt="프로필" />
-                        </Link>
+                        {
+                            userName ? 
+                                <Link to={`/profile/${userName}`} >
+                                <NavigationButtonImage src={icon_profile} alt="프로필" />
+                                </Link>
+                            :
+                                <Link to={`/login`} >
+                                <NavigationButtonImage src={icon_profile} alt="프로필" />
+                                </Link>
+                        }
                     </NavigationListItem>
                 </NavigationList>
             </NavigationContainer>
