@@ -74,7 +74,7 @@ const AddBtn = styled.img`
     width: 50px;
     position: fixed;
     bottom: 70px;
-    right: 15px;
+    right: calc(50vw - 180px);
     `
 
 
@@ -120,6 +120,8 @@ export default function UserPlace() {
         });
         setIsCategory(newState);
     };
+
+    console.log(curationData);
 
     return (
         <SectionPlace>

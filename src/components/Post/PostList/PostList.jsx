@@ -9,7 +9,6 @@ const ListPost = styled.ul`
 
 const getToken = () => {
     let token = JSON.parse(localStorage.getItem('defaultAccount')).token;
-
     return token;
 }
 
@@ -29,7 +28,7 @@ export default function PostList() {
                 }
             })
             const resJson = await res.json();
-            console.log(resJson);
+            // console.log(resJson);
             setFeedData(resJson.post);
 
         } catch (err) {
@@ -45,6 +44,17 @@ export default function PostList() {
         <>
             <ListPost>
                 {/* <PostItem feedData={[...feedData]} /> */}
+                {
+                    feedData.filter(item => item.content.startsWith('yourtrip_post_')).map(item => {
+                        // console.log(item.content);
+
+                        const contentData = JSON.parse(item.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))
+
+                        // console.log(contentData);
+
+                        return <PostItem key={contentData.text} content={contentData.text} writer={JSON.parse(contentData.user)} feedData={item} />
+                    })
+                }
             </ListPost>
         </>
     )

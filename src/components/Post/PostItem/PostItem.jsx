@@ -1,4 +1,4 @@
-import { React,useState } from 'react'
+import { React, useState } from 'react'
 import styled from 'styled-components'
 import UserDesc from '../../UserDesc/UserDesc'
 import MoreImg from '../../../assets/images/icon-more.svg'
@@ -65,46 +65,43 @@ export const ParagraphTime = styled.p`
     margin-top: 18px;
 `
 
-export default function PostItem({feedData, detailMyPostModal, setDetailMyPostModal}) {
-    const navigate= useNavigate();
-    
+export default function PostItem({ content, writer, feedData, detailMyPostModal, setDetailMyPostModal }) {
+    const navigate = useNavigate();
+    const imageData = feedData.image.split(',');
+    const createdAt = feedData.createdAt.split('-');
+    console.log(content);
+    console.log(writer);
+    console.log(feedData);
 
     return (
         <>
-        {feedData.map((item,index)=>{
-                const imageData= item.image.split(',');
-                const createdAt = item.createdAt.split('-');
-
-                return(
-                <li onClick={()=>{navigate(`/post/${index}`, {state: {postDetail:feedData}} )}} key={item.id}>
+            <li onClick={() => { navigate(`/post/${feedData.id}`, { state: { postDetail: feedData, writer: writer, content: content } }) }} key={feedData.id}>
                 <DivPost>
-                    <UserDesc img={item.author.image} name={item.author.username} id={item.author.accountname}/>
-                    <ImageMore src={MoreImg} alt='더보기' onClick={()=>{
+                    <UserDesc img={writer.image} name={writer.username} id={writer.accountname} />
+                    <ImageMore src={MoreImg} alt='더보기' onClick={() => {
                         setDetailMyPostModal(true);
-                        }}/>
+                    }} />
                     <DivContent>
                         <ParagraphContent>
-                            {item.content}
+                            {content}
                         </ParagraphContent>
                         {(imageData != '') &&
                             <ImageContent src={imageData[0]} alt='' />
                         }
                         <ImageAdditional src={HeartImg} alt='좋아요' />
                         <ParagraphAdditional>
-                            {item.heartCount}
+                            {feedData.heartCount}
                         </ParagraphAdditional>
                         <ImageAdditional src={CommentImg} alt='댓글' />
                         <ParagraphAdditional>
-                            {item.commentCount}
+                            {feedData.commentCount}
                         </ParagraphAdditional>
                         <ParagraphTime>
-                            {`${createdAt[0]}년 ${createdAt[1]}월 ${createdAt[2].slice(0,2)}일`}
+                            {`${createdAt[0]}년 ${createdAt[1]}월 ${createdAt[2].slice(0, 2)}일`}
                         </ParagraphTime>
                     </DivContent>
                 </DivPost>
             </li>
-            )
-        })} 
         </>
     )
 }

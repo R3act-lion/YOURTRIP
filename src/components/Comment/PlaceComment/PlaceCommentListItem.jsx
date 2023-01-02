@@ -11,13 +11,35 @@ const ListItemComment = styled.li`
     }
 `
 
-export default function PlaceCommentListItem({ comment }) {
-    const writerData = JSON.parse(comment.link.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'));
+const ListItemPostComment = styled.li`
+    padding: 20px 10px;
+    position: relative;
+
+    & + li {
+        padding-top: -20px;
+    }
+`
+
+export default function PlaceCommentListItem({ comment, isPost }) {
     // console.log(writerData,'데이터입니다')
 
-    return (
-        <ListItemComment>
-            <CommentItem user={writerData} content={comment.itemImage} />
-        </ListItemComment>
-    )
+    if (isPost) {
+        console.log(comment);
+
+        return (
+            <ListItemPostComment>
+                <CommentItem user={comment.author} content={comment.content} />
+            </ListItemPostComment>
+        )
+    }
+    else {
+        const writerData = JSON.parse(comment.link.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'));
+
+        return (
+            <ListItemComment>
+                <CommentItem user={writerData} content={comment.itemImage} />
+            </ListItemComment>
+        )
+    }
+
 }

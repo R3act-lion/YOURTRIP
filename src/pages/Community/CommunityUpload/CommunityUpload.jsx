@@ -146,7 +146,7 @@ export default function CommunityUpload() {
                 },
                 body: JSON.stringify({
                     "post": {
-                        "content": JSON.stringify(newContent).replaceAll().replaceAll(),
+                        "content": 'yourtrip_post_' + JSON.stringify(newContent).replaceAll(/{/g, '(').replaceAll(/}/g, ')'),
                         "image": imagesrc.join()
                     }
                 })
