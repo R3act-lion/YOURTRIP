@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import IconArrowRight from '../../../assets/images/icon-arrow-right.svg'
@@ -40,8 +40,40 @@ const ListPost = styled.ul`
     }
 `
 
+const getToken = () => {
+    let token = JSON.parse(localStorage.getItem('defaultAccount')).token;
+    return token;
+}
+
 export default function PostList() {
     const content = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure reiciendis distinctio rerum ducimus, eius ipsum quibusdam maxime praesentium. Dolorem eum quas perspiciatis commodi iste? Impedit praesentium corrupti numquam eaque nulla.';
+
+    const url = "https://mandarin.api.weniv.co.kr";
+    let token = getToken();
+    let [feedData, setFeedData] = useState([]);
+
+    console.log(feedData);
+
+    const getData = async () => {
+        try {
+            const res = await fetch(url + "/post/yourtrip_official/userpost", {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                }
+            })
+            const resJson = await res.json();
+            // console.log(resJson);
+            setFeedData(resJson.post);
+
+        } catch (err) {
+            console.err(err);
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
 
     return (
         <SectionPost>
@@ -52,9 +84,20 @@ export default function PostList() {
                 </HeaderCommunidty>
             </Link>
             <ListPost>
+                {/* <PostListItem content={content} />
                 <PostListItem content={content} />
-                <PostListItem content={content} />
-                <PostListItem content={content} />
+                <PostListItem content={content} /> */}
+                {
+                    feedData.filter(item => item.content.startsWith('yourtrip_post_')).map(item => {
+                        console.log(item);
+
+                        const contentData = JSON.parse(item.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))
+
+                        // console.log(contentData);
+
+                        return <PostListItem key={contentData.text} content={contentData.text} writer={JSON.parse(contentData.user)} feedData={item} />
+                    })
+                }
             </ListPost>
         </SectionPost>
     )
