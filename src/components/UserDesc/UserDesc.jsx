@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import profile from '../../assets/images/profile.svg'
 
-const DivUser = styled.div`
+const DivUser = styled(Link)`
     list-style: none;
     display: flex;
     align-items: center;
@@ -10,6 +11,7 @@ const DivUser = styled.div`
 
 const ProfileImg = styled.img`
     width: 42px;
+    height: 42px;
     border-radius: ${props => props.theme.borderRadius.circle};
 `
 
@@ -30,15 +32,21 @@ const UserIntro = styled.p`
     color: ${props => props.theme.color.gray.g1};
 `
 
-// user의 img, name, id를 props로 전달받아서 출력
-export default function UserDesc({ img, name, id }) {
+export default function UserDesc({ img, name, id, addr, detail, place }) {
     return (
-        <DivUser>
+        <DivUser to={addr ? `/placedetail/${name}` : `/yourprofile/${id}`} state={addr ? {place} : false}>
             <ProfileImg src={img === undefined ? profile : img} alt="" />
             <UserDetailDesc>
                 <UserName>{name}</UserName>
-                <UserIntro>{'@' + id}</UserIntro>
-            </UserDetailDesc>
+                {
+                    addr ?
+                    <UserIntro>
+                            {addr.split(" ")[0]} | {addr.split(" ")[1]} • {detail}    
+                    </UserIntro>    
+                    :
+                    <UserIntro>@ {id}</UserIntro>
+                }
+                </UserDetailDesc>
         </DivUser>
     )
 }
