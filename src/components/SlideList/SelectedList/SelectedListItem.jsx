@@ -26,12 +26,12 @@ const ParagraphTitle = styled.p`
     -webkit-line-clamp: 1;
 `
 
-export default function SelectedListItem() {
+export default function SelectedListItem({place}) {
     return (
         <ListItemSelected>
-            <ImageSelected src={duksu} alt='' />
+            <ImageSelected src={place.firstimage} alt='' />
             <ParagraphTitle>
-                덕수궁
+                {place.title}
             </ParagraphTitle>
         </ListItemSelected>
     )

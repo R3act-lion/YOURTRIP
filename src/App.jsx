@@ -136,8 +136,8 @@ function App() {
                                 <Route element={<BasicHeaderLayout />}>
                                     <Route path="/placedetail/:id" element={<PlaceDetail />} />
                                     <Route path="/post/:id" element={<Post />} />
-                                    <Route path="/profile" element={<Profile />} />
                                     <Route path="/profile/:id" element={<Profile />} />
+                                    <Route path="/yourprofile/:id" element={<Profile />} />
                                     <Route path="/profile/followers" element={<ProfileFollowers />} />
                                     <Route path="/profile/following" element={<ProfileFollowing />} />
                                 </Route>
