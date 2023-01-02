@@ -204,6 +204,7 @@ export default function CommunityUpload() {
             <FormPost action="">
                 <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
                     setContent(e.target.value)
+                    
                 }}>게시글 입력하기...
                 </TextAreaContent>
                 <PrevImgList>
@@ -238,7 +239,9 @@ export default function CommunityUpload() {
                     ref={fileInputRef}
                     onChange={fileInput} />
             </ButtonImageUpload>
-            <ButtonUpload onClick={posting}>
+            <ButtonUpload onClick={posting} style={{backgroundColor: 
+                ((content == "") && (imagesrc == "")) 
+                    ? "#C9D9F0" : "#3C70BC"}}>
                 업로드
             </ButtonUpload>
         </SectionUpload>
