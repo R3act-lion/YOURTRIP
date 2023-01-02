@@ -38,7 +38,8 @@ const ModalSelectItem= styled.li`
 export default function LogoutModal({setLogoutModal}) {
   const logoutModalRef= useRef();
   const navigate= useNavigate();
-      
+
+
     return (
       <ModalDiv>
       <ModalHeader ref={logoutModalRef}>
@@ -49,7 +50,14 @@ export default function LogoutModal({setLogoutModal}) {
                 setLogoutModal(false)}}>취소</ModalSelectItem>
             <ModalSelectItem style={{color: "#3C70BC"}} onClick={()=>{
                 navigate('/')
-                setLogoutModal(false)}}>로그아웃</ModalSelectItem>
+                setLogoutModal(false)
+                localStorage.removeItem('Access Token');
+                localStorage.removeItem('user ID');
+                localStorage.removeItem('user');
+                localStorage.removeItem('subtitle');
+                localStorage.removeItem('title');
+            }}
+                >로그아웃</ModalSelectItem>
         </ModalSelectCont>
       </ModalDiv>
     )
