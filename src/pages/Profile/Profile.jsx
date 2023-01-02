@@ -14,8 +14,6 @@ export default function Profile() {
         userData = JSON.parse(localStorage.user);
     }
 
-    console.log(userData);
-
     return (
         <>
             <UserInfo />

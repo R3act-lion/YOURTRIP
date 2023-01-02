@@ -140,6 +140,7 @@ function App() {
                                     <Route path="/mypost/:id" element={<MyDetailPost/>} />
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/profile/:id" element={<Profile />} />
+                                    <Route path="/yourprofile/:id" element={<Profile />} />
                                     <Route path="/profile/followers" element={<ProfileFollowers />} />
                                     <Route path="/profile/following" element={<ProfileFollowing />} />
                                 </Route>
@@ -149,6 +150,7 @@ function App() {
                                 <Route element={<LogoMoreHeaderLayout />}>
                                     <Route path="/community" element={<Community />} />
                                     <Route path="/mypost" element={<MyPost />} />
+                                    <Route path="/community/detail" element={<CommunityDetail />} />
                                 </Route>
                                 <Route element={<ButtonHeaderLayout />}>
                                     <Route path="/community/upload" element={<CommunityUpload />} />
@@ -157,11 +159,11 @@ function App() {
                                     <Route path="/profile/addquration/list" element={<QurationPlaceList />} />
                                 </Route>
 
-                                <Route path="/signup" element={<SignUp />} />
-                                <Route path="/signup/profile" element={<SignUpProfile />} />
-
-                                <Route path="/login" element={<Login />} />
                             </Route>
+                            <Route path="/signup" element={<SignUp />} />
+                            <Route path="/signup/profile" element={<SignUpProfile />} />
+
+                            <Route path="/login" element={<Login />} />
                             <Route path="/notfound" element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>

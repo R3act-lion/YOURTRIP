@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import RecommendList from '../../SlideList/RecommendList/RecommendList'
 import DetailPlaceList from '../../SlideList/DetailPlaceList/DetailPlaceList'
+import { Link, useParams } from 'react-router-dom'
+import Button from '../../../modules/Button/Button'
+import AddImage from '../../../assets/images/icon-add.svg'
 
-const SectionPlace = styled.section`
-    
+const SectionPlace = styled.div`
+
+`
+
+const GuidePost = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 135px;
 `
 
 const ListButton = styled.ul`
@@ -17,6 +27,10 @@ const ListButton = styled.ul`
 
 const ListItemButton = styled.li`
     flex-grow: 1;
+`
+
+const CurationList = styled.div`
+    margin-top: 30px;
 `
 
 const ButtonTab = styled.button`
@@ -50,12 +64,50 @@ const HeadingThreeTitle = styled.h3`
     padding-left: 20px;
 `
 
+const GuideDesc = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  color: #858585;
+`
+
+const AddBtn = styled.img`
+    width: 50px;
+    position: fixed;
+    bottom: 70px;
+    right: 15px;
+    `
+
+
 export default function UserPlace() {
-    // 스테이트 생성 및 기본값 지정
+    const url= "https://mandarin.api.weniv.co.kr";
+    let token = localStorage.getItem('Access Token');
+    const { id } = useParams();
+    const [curationData, setCurationData] = useState([])
+    
     const [isCategory, setIsCategory] = useState([
         { value: "큐레이션", selected: true },
         { value: "즐겨찾기", selected: false }
     ]);
+    
+    let checklist;
+    
+    useEffect(() => {
+        const getData = async (id, token) => {
+            try {
+                const res = await fetch(url + `/product/${id}`, {
+                    headers : {
+                        "Authorization" : `Bearer ${token}`,
+                        "Content-type" : "application/json"
+                    }
+                })
+                const resJson = await res.json()
+                setCurationData(resJson)
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        getData(id, token);
+    }, [])
 
     const itemClick = (value) => {
         const newState = isCategory.map((list) => {
@@ -66,29 +118,6 @@ export default function UserPlace() {
         });
         setIsCategory(newState);
     };
-
-    const placelist = {
-        list: [
-            {
-                title: '고양이1',
-                firstimage: 'http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcS-OZTPpZNsnOchlOMmYsSeMprn5sYU4kdOZGPL0_ksM2nHGegFrzLhGlQMBF-amQqPRFs4DzbLrI_o5gA',
-                firstimage2: 'https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/4arX/image/rZ1xSXKCJ4cd-IExOYahRWdrqoo.jpg',
-                category: '나만 없어 고양이'
-            },
-            {
-                title: '고양이2',
-                firstimage: 'https://cdn.popsci.co.kr/news/photo/202205/11966_7101_2744.jpg',
-                firstimage2: 'https://cdn.imweb.me/upload/S201807025b39d1981b0b0/16b98d3e3d30e.jpg',
-                category: '나만 없어 고양이'
-            },
-            {
-                title: '고양이3',
-                firstimage: 'https://img.freepik.com/free-photo/adorable-kitty-looking-like-it-want-to-hunt_23-2149167099.jpg?w=2000',
-                firstimage2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Persian_Cat_%28kitten%29.jpg/1200px-Persian_Cat_%28kitten%29.jpg',
-                category: '나만 없어 고양이'
-            }
-        ]
-    }
 
     return (
         <SectionPlace>
@@ -112,19 +141,44 @@ export default function UserPlace() {
             {
                 isCategory[0].selected ?
                     <ListTheme>
-                        <li>
-                            {/* <RecommendList /> */}
-                        </li>
+                        {
+                            curationData.data ? 
+                                curationData.product.map((item, index) => {
+                                    return (
+                                        <CurationList key={index}>
+                                            <RecommendList title={item.itemName} subtitle={item.link} placelist={JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
+                                            <Link to="/profile/addquration" state={{checklist, id}}>
+                                                <AddBtn src={AddImage} alt="" />
+                                            </Link>
+                                        </CurationList>
+                                    )
+                                })
+                                :
+                                <GuidePost>
+                                <GuideDesc>당신만의 큐레이션을 만들어보세요.</GuideDesc>
+                                <Link to="/profile/addquration" state={{checklist, id}}>
+                                    <Button
+                                        text="만들기"
+                                        margin="15px 0"
+                                        color = "#FFF" 
+                                        backgroundColor = "#3C70BC"
+                                        width="124px"
+                                        height="44px"
+                                        fontSize="16px"
+                                    />
+                                </Link>
+                            </GuidePost>
+                        }
                     </ListTheme>
                     :
                     <ListPlace>
                         <li>
                             <section>
-                                <header>
-                                    <HeadingThreeTitle>
-                                        고양이
-                                    </HeadingThreeTitle>
-                                </header>
+                                <GuidePost>
+                                    <GuideDesc>
+                                        아직 즐겨찾기한 장소가 없습니다.
+                                    </GuideDesc>
+                                </GuidePost>
                                 {/* <DetailPlaceList list={placelist.list} /> */}
                             </section>
                         </li>
@@ -132,4 +186,6 @@ export default function UserPlace() {
             }
         </SectionPlace>
     )
+
 }
+

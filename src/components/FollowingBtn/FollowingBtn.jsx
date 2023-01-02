@@ -1,46 +1,38 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import followBtn from '../../assets/images/btn-follow.svg'
-import unfollowBtn from '../../assets/images/btn-unfollow.svg';
+import { useEffect, useState } from 'react';
+import Button from '../../modules/Button/Button';
 
-const ButtonFollow = styled.button`
-    width: 56px;
-    height: 28px;
-    background-image: url(${followBtn})
-`
-
-const ButtonCancel = styled.button`
-    width: 56px;
-    height: 28px;
-    background-image: url(${unfollowBtn})  
-`
-
-export default function FollowingBtn({item}){
+export default function FollowingBtn({ followState, followerCount, followingCount, userinfo }) {
     const url= "https://mandarin.api.weniv.co.kr";
-    let token= localStorage.getItem('Access Token');
-    let [isFollow , setIsFollow]= useState(item.isfollow);
+    const token = localStorage.getItem('Access Token');
+    const [isFollow, setIsFollow] = useState(followState);
+
+    useEffect(() => {
+    	setIsFollow(followState);
+    }, [followState]);
 
     //팔로우 함수
-    const follow = async()=>{
+    const follow = async () => {
         try{
-        const res= await fetch(url+`/profile/${item.accountname}/follow`,{
+        const res= await fetch(url+`/profile/${userinfo.accountname}/follow`,{
             method: "POST",
             headers: {
                     "Authorization" : `Bearer ${token}`,
                     "Content-type" : "application/json"
                 }
         }) 
-        const resJson= await res.json();
-        console.log(resJson);
+        const resJson = await res.json();
+        followerCount(resJson.profile.followerCount)
+        followingCount(resJson.profile.followingCount)
+            
         } catch(err) {
             console.error(err);
         }
     }
     
     //언팔로우 함수
-    const unfollow = async()=>{
+    const unfollow = async () => {
         try{
-            const res= await fetch(url+`/profile/${item.accountname}/unfollow`,{
+            const res= await fetch(url+`/profile/${userinfo.accountname}/unfollow`,{
                 method: "DELETE",
                 headers: {
                         "Authorization" : `Bearer ${token}`,
@@ -48,7 +40,8 @@ export default function FollowingBtn({item}){
                     }
             }) 
             const resJson= await res.json();
-            console.log(resJson);
+            followerCount(resJson.profile.followerCount)
+            followingCount(resJson.profile.followingCount)
         } catch(err) {
             console.error(err);
         }
@@ -56,15 +49,36 @@ export default function FollowingBtn({item}){
 
     return(
         <>
-        {isFollow === true 
-            ? <ButtonCancel onClick={(e)=>{
-                setIsFollow(false);
-                unfollow();                                   
-            }} /> 
-            : <ButtonFollow onClick={(e)=>{
-                setIsFollow(true);
-                follow();                                   
-            }}/>}
+            {isFollow ?
+                <Button
+                    text="언팔로우"
+                    color="#767676;"
+                    backgroundColor="#FFF"
+                    width="120px"
+                    height="34px"
+                    fontSize="14px"
+                    fontWeight="500"
+                    className="btnChecked"
+                    onClick={() => {
+                        setIsFollow(false);
+                        unfollow();
+                    }}
+                />
+                :
+                <Button
+                    text="팔로우"
+                    color="#FFF"
+                    backgroundColor="#3C70BC"
+                    width="120px"
+                    height="34px"
+                    fontSize="14px"
+                    fontWeight="500"
+                    onClick={() => {
+                        setIsFollow(true);
+                        follow();
+                    }}
+                />
+            }
         </>
     )
 }

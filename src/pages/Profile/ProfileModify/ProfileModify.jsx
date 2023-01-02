@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import Imgsircle from '../../../assets/images/profile.svg'
 import UploadImgButton from '../../../components/UploadButtonImg/UploadButtonImg'
+import {useNavigate} from 'react-router-dom'
 
 
 const Container = styled.div`
@@ -79,21 +79,6 @@ const IntroInput = styled.input`
     }
 `
 
-const ResultBtn = styled.button`
-    width: 322px;
-    height: 44px;
-    border: 0px;
-    background: #C9D9F0;
-    border-radius: 44px;
-    font-size: 14px;
-    line-height: 18px;
-    color: #FFFFFF;
-    cursor: pointer;
-    &:hover{
-        background-color: #C9D9F0;
-        color: #FFFFFF;}
-`
-
 const ErrorMessage = styled.p`
     font-size: 12px;
     color: red;
@@ -119,50 +104,16 @@ const ButtonSave = styled.button`
     cursor: pointer;
 `
 
-// const idAxios = axios.create({
-//     baseURL: 'https://mandarin.api.weniv.co.kr/user',
-//     headers: { 'Content-type': 'application/json' },
-//   });
   
-// const registerAxios = axios.create({
-//     baseURL: 'https://mandarin.api.weniv.co.kr/',
-//     headers: { 'Content-type': 'application/json' },
-//   });
 
-    const userToken = localStorage.getItem('Access Token');
-    const baseURL = process.env.REACT_APP_URL;  
 
-    const instance = axios.create({
-    baseURL,
-    headers: {
-    Authorization: `Bearer ${userToken}`,
-    'Content-type': 'application/json',
-    },
-  });
 
-    const instanceAuth = axios.create({
-    baseURL,
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-      'Content-type': 'application/json',
-    },
-  });
 
-      const getProfile = async accountname => {
-    try {
-      const response = await instanceAuth.get(`/profile/${accountname}`);
-  
-      return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+
+
 
     export default function ProfileModify() {
-        const navigate = useNavigate();
-        const location = useLocation();
-        
-        
+      const navigate = useNavigate();
     
         const [userName, setUserName] = useState('');
         const [userId, setUserId] = useState('');
@@ -175,13 +126,30 @@ const ButtonSave = styled.button`
         const [isBtnActive, setIsBtnActive] = useState(true);
         
 
-        const localID = localStorage.getItem('user ID');
+  const localID = localStorage.getItem('user ID');
+  const userToken = localStorage.getItem('Access Token');  
+
+  const instance = axios.create({
+  baseURL: 'https://mandarin.api.weniv.co.kr/',
+  headers: {
+    Authorization: `Bearer ${userToken}`,
+    'Content-type': 'application/json',
+  },
+});
 
 
-        
+          const getProfile = async accountname => {
+    try {
+  const response = await instance.get(`/profile/${accountname}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
         useEffect(() => {
           getProfile(localID).then(res => {
+            console.log(res)
             const { accountname, username, intro, image } = res.profile;
 
             setUserId(prev => username);
@@ -250,7 +218,7 @@ const ButtonSave = styled.button`
           e.preventDefault();
       
           try {
-            const res = await axios.put('/user', {
+            const res = await instance.put('/user', {
               user: {
                 username: userName,
                 accountname: userId,
@@ -258,27 +226,18 @@ const ButtonSave = styled.button`
                 image: userImage,
               },
             });
-      
-            if (res.data.message === '사용 가능한 계정ID 입니다.') {
-              console.log(res.data.message);
-              await editProfile();
-            } else if (res.data.message === '이미 가입된 계정ID 입니다.') {
-              console.log(res.data.message);
-            } else if (res.data.message === '잘못된 접근입니다.') {
-              console.log(res.data.message);
-            }
+            console.log(res)
+            // if (res.data.message === '사용 가능한 계정ID 입니다.') {
+            //   console.log(res.data.message);
+            localStorage.setItem('user ID', userId);
+            navigate('/profile')
+            // } else if (res.data.message === '이미 가입된 계정ID 입니다.') {
+            //   console.log(res.data.message);
+            // } else if (res.data.message === '잘못된 접근입니다.') {
+            //   console.log(res.data.message);
+            // }
           } catch (error) {
             console.log(error.message);
-          }
-        };
-
-        const editProfile = async () => {
-          try {
-            const response = await instance.put(`/user`);
-        
-            return response.data;
-          } catch (error) {
-            return new Error(error);
           }
         };
 

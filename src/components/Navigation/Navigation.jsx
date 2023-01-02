@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import icon_home from '../../assets/images/nav-home.svg'
 import icon_location from '../../assets/images/nav-location.svg'
@@ -30,6 +30,27 @@ const NavigationButtonImage = styled.img`
 `
 
 export default function Navigation() {
+    const url = "https://mandarin.api.weniv.co.kr";
+    const token = localStorage.getItem('Access Token')
+    const [userName, setUserName] = useState(null)
+
+    useEffect(() => {
+        const setData = async (token) => {
+            try {
+                const res = await fetch(url + `/user/myinfo`, {
+                    headers : {
+                        "Authorization" : `Bearer ${token}`,
+                    }
+                })
+                const resJson = await res.json()
+                setUserName(resJson.user.accountname);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        setData(token);
+    }, []);
+
     return (
         <article>
             <header>
@@ -53,9 +74,16 @@ export default function Navigation() {
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
-                        <Link to='/profile'>
-                            <NavigationButtonImage src={icon_profile} alt="프로필" />
-                        </Link>
+                        {
+                            userName ? 
+                                <Link to={`/profile/${userName}`} >
+                                <NavigationButtonImage src={icon_profile} alt="프로필" />
+                                </Link>
+                            :
+                                <Link to={`/login`} >
+                                <NavigationButtonImage src={icon_profile} alt="프로필" />
+                                </Link>
+                        }
                     </NavigationListItem>
                 </NavigationList>
             </NavigationContainer>
