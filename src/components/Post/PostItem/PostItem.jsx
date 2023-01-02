@@ -76,7 +76,7 @@ export default function PostItem({feedData, detailMyPostModal, setDetailMyPostMo
                 const createdAt = item.createdAt.split('-');
 
                 return(
-                <li onClick={()=>{navigate(`/mypost/${index}`, {state: {postDetail:feedData}} )}} key={item.id}>
+                <li onClick={()=>{navigate(`/post/${index}`, {state: {postDetail:feedData}} )}} key={item.id}>
                 <DivPost>
                     <UserDesc img={item.author.image} name={item.author.username} id={item.author.accountname}/>
                     <ImageMore src={MoreImg} alt='더보기' onClick={()=>{
