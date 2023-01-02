@@ -7,16 +7,15 @@ const ListComment = styled.ul`
 `
 
 const getComments = async (callBack) => {
-    const token = localStorage.getItem('Access Token');
-    const accountname= localStorage.getItem('user ID');
+    const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
     const url = "https://mandarin.api.weniv.co.kr";
     
 
     try {
-        const res = await fetch(url + "/product/" + accountname + '/?limit=10000&skip=0', {
+        const res = await fetch(url + "/product/" + uploadAccount.accountname + '/?limit=10000&skip=0', {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${uploadAccount.token}`,
                 "Content-Type": "application/json",
             }
         });

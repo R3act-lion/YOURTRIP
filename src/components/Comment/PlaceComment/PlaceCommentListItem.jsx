@@ -11,13 +11,13 @@ const ListItemComment = styled.li`
     }
 `
 
-export default function PlaceCommentListItem({ key,comment }) {
+export default function PostCommentList({ comment }) {
     const writerData = JSON.parse(comment.link.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'));
     console.log(writerData,'데이터입니다')
 
     return (
         <ListItemComment>
-            <CommentItem user={comment.link.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')} content={comment.itemImage} />
+            <CommentItem user={writerData} content={comment.itemImage} />
         </ListItemComment>
     )
 }

@@ -12,15 +12,16 @@ const UploadButton = styled.button`
   bottom: 11%;
   right: 600px;
   border: none;
+  border-radius: 50%;
   background-color: #FFFFFF;
   cursor: pointer;
   z-index: 10;
 `
 
-export default function CommuWritingButton() {
+export default function CommuWritingButton(){
   const navigate= useNavigate();
 
   return (
     <><UploadButton onClick={ ()=>{navigate('/community/upload')} }/></>
   )
-}
+  }
