@@ -46,8 +46,7 @@ export default function DetailModal({setDetailModal}) {
     <ModalDiv>
     <ModalContainer ref={modalRef}>
       <ModalBar />
-      <ModalListItem>수정하기</ModalListItem>
-      <ModalListItem>삭제하기</ModalListItem>
+      <ModalListItem>신고하기</ModalListItem>
     </ModalContainer>
     </ModalDiv>
   )

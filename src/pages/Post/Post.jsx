@@ -27,8 +27,8 @@ export default function Post() {
                 </h2>
             </header>
             <CommunityDetail postId={id} postData={data} setDetailModal={setDetailModal} />
-            <PostCommentList/>
-            <WriteComment />
+            {/* <PostCommentList/>
+            <WriteComment /> */}
             {detailModal === true 
                 ? <DetailModal setDetailModal={setDetailModal} />
                 : null}

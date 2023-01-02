@@ -30,6 +30,7 @@ import CommunityUpload from "./pages/Community/CommunityUpload/CommunityUpload";
 
 import PlaceDetail from "./pages/PlaceDetail/PlaceDetail";
 import Post from "./pages/Post/Post";
+import MyPost from "./pages/Post/MyPost/MyPost";
 
 import Profile from "./pages/Profile/Profile";
 import ProfileFollowers from "./pages/Profile/ProfileFollowers/ProfileFollowers";
@@ -44,8 +45,8 @@ import SignUpProfile from "./pages/SignUp/SignUpProfile"
 import Login from "./pages/Login/Login";
 
 import NotFound from "./pages/NotFound/NotFound";
-
-
+import CommunityDatail from './pages/Community/CommunityDetail/CommunityDetail';
+import MyDetailPost from './pages/Post/MyPost/MyDetailPost';
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -136,6 +137,8 @@ function App() {
                                 <Route element={<BasicHeaderLayout />}>
                                     <Route path="/placedetail/:id" element={<PlaceDetail />} />
                                     <Route path="/post/:id" element={<Post />} />
+                                    <Route path="/mypost/:id" element={<MyDetailPost/>} />
+                                    <Route path="/profile" element={<Profile />} />
                                     <Route path="/profile/:id" element={<Profile />} />
                                     <Route path="/yourprofile/:id" element={<Profile />} />
                                     <Route path="/profile/followers" element={<ProfileFollowers />} />
@@ -146,8 +149,8 @@ function App() {
                                 </Route>
                                 <Route element={<LogoMoreHeaderLayout />}>
                                     <Route path="/community" element={<Community />} />
+                                    <Route path="/mypost" element={<MyPost />} />
                                     <Route path="/community/detail" element={<CommunityDetail />} />
-
                                 </Route>
                                 <Route element={<ButtonHeaderLayout />}>
                                     <Route path="/community/upload" element={<CommunityUpload />} />
