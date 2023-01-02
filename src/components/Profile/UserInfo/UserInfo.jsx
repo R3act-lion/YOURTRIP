@@ -153,7 +153,7 @@ export default function UserInfo() {
                         followingCount={setFollowingCount}
                         userinfo={userinfo} />
                 :
-                    <LinkModify to='/profile/modify'>
+                    <LinkModify to='/profile/modify' state={{userinfo}}>
                         프로필 수정
                     </LinkModify>
             }

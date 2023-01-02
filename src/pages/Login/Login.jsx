@@ -188,7 +188,10 @@ export default function Login() {
                         <ErrorMessage>{loginError}</ErrorMessage>
                     </LoginValue>
 
-                    <ResultBtn disabled={isBtnActive}>로그인</ResultBtn>
+                    <ResultBtn disabled={isBtnActive}
+                    style={{backgroundColor: 
+                        ((email === "") && (password === "")) 
+                            ? "#C9D9F0" : "#3C70BC"}}>로그인</ResultBtn>
                 </form>
                 <SignTitle to='/Signup'>이메일로 회원가입</SignTitle>
             </Container>

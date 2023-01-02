@@ -108,9 +108,6 @@ const ResultBtn = styled.button`
     line-height: 18px;
     color: #FFFFFF;
     cursor: pointer;
-    &:hover{
-        background-color: #C9D9F0;
-        color: #FFFFFF;}
 `
 
 const ErrorMessage = styled.p`
@@ -287,7 +284,12 @@ export default function SignUProfile() {
                         onChange={userIntroCheck}
                         placeholder='나의 소개를 입력 해주세요'
                     />
-                    <ResultBtn disabled={isBtnActive}>시작하기</ResultBtn>
+                    <ResultBtn 
+                    disabled={isBtnActive}
+                    style={{backgroundColor: ((userName === "") && (userId === "") && (userIntro === "") && (userImage === "")) 
+                    ? "#C9D9F0" : "#3C70BC"}}>
+                        시작하기
+                    </ResultBtn>
                 </ResultValue>
             </Container>
         </>

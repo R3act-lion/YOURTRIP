@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Imgsircle from '../../../assets/images/profile.svg'
 import UploadImgButton from '../../../components/UploadButtonImg/UploadButtonImg'
 import {useNavigate} from 'react-router-dom'
+import { useLocation } from 'react-router';
+
 
 
 const Container = styled.div`
@@ -43,46 +45,57 @@ const ResultTitle = styled.label`
 `
 
 const NameInput = styled.input`
-    width: 322px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    padding-bottom: 5px;
+    border: none;
     border-bottom: 1px solid #DBDBDB;
-    &::placeholder{
-        color: #DBDBDB;
+    margin-bottom: 10px;
+    font-size: 14px;
+    ::placeholder{
+    color: #DBDBDB;
     }
+    :focus{
+    outline: none;
+    border-bottom: 1px solid #3C70BC;
+  }
 `
 
 const IdInput = styled.input`
-    width: 322px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    padding-bottom: 5px;
+    border: none;
     border-bottom: 1px solid #DBDBDB;
-    &::placeholder{
-        color: #DBDBDB;
-        line-height: 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    ::placeholder{
+    color: #DBDBDB;
     }
-    
+    :focus{
+    outline: none;
+    border-bottom: 1px solid #3C70BC;
+  }
 `
 
 const IntroInput = styled.input`
     width: 322px;
+    padding-bottom: 5px;
     margin-bottom: 30px;
     border-top:none;
     border-left:none;
     border-right:none;
     border-bottom: 1px solid #DBDBDB;
-    &::placeholder{
-        color: #DBDBDB;
-        line-height: 14px;
+    ::placeholder{
+    color: #DBDBDB;
+    }
+    :focus{
+    outline: none;
+    border-bottom: 1px solid #3C70BC;
     }
 `
 
 const ErrorMessage = styled.p`
     font-size: 12px;
     color: red;
-    margin-top: 6px;
+    margin: 0;
+    padding: 0;
 `
 
 
@@ -112,18 +125,17 @@ const ButtonSave = styled.button`
 
 
 
-    export default function ProfileModify() {
-      const navigate = useNavigate();
-    
-        const [userName, setUserName] = useState('');
-        const [userId, setUserId] = useState('');
-        const [userIntro, setUserIntro] = useState('');
-        const [userImage, setUserImage] = useState("");
+export default function ProfileModify() {
+  const navigate = useNavigate();
 
-    
-        const [userNameError, setUserNameError] = useState('');
-        const [userIdError, setUserIdError] = useState('');
-        const [isBtnActive, setIsBtnActive] = useState(true);
+  const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userIntro, setUserIntro] = useState('');
+  const [userImage, setUserImage] = useState("")
+
+  const [userNameError, setUserNameError] = useState('');
+  const [userIdError, setUserIdError] = useState('');
+  const [isBtnActive, setIsBtnActive] = useState(true);
         
 
   const localID = localStorage.getItem('user ID');
@@ -138,7 +150,7 @@ const ButtonSave = styled.button`
 });
 
 
-          const getProfile = async accountname => {
+  const getProfile = async accountname => {
     try {
   const response = await instance.get(`/profile/${accountname}`);
       return response.data;
@@ -147,99 +159,103 @@ const ButtonSave = styled.button`
     }
   };
 
-        useEffect(() => {
-          getProfile(localID).then(res => {
-            console.log(res)
-            const { accountname, username, intro, image } = res.profile;
+  useEffect(() => {
+    getProfile(localID).then(res => {
+      console.log(res)
+      const { accountname, username, intro, image } = res.profile;
 
-            setUserId(prev => username);
-            setUserName(prev => accountname);
-            setUserIntro(prev => intro);
-            setUserImage(prev => image);
-          })
-        },[]);
+      setUserId(username);
+      setUserName(accountname);
+      setUserIntro(intro);
+      setUserImage(image);
+      })
+    },[]);
 
-        useEffect(() => {
-          if (!userNameError && !userIdError) {
-            if (!!userName && !!userId) {
-              setIsBtnActive(prev => false);
-            } else {
-              setIsBtnActive(prev => true);
-            }
+    useEffect(() => {
+      if (!userNameError && !userIdError) {
+        if (!!userName && !!userId) {
+          setIsBtnActive(prev => false);
+        } else {
+          setIsBtnActive(prev => true);
+          }
           } else {
             setIsBtnActive(prev => true);
           }
         }, [userId, userName, userNameError, userIdError]);
 
+   
 
-        const userNameValidation = e => {
-          const value = e.target.value;
-      
-          setUserName(prev => value);
-      
-          if ((value.length < 2 && value !== '') || value.length > 10) {
-            setUserNameError('2~10자 이내여야 합니다.');
-          } else if (value === '') {
-            setUserNameError('사용자 이름을 입력해주세요.');
-          } else {
-            setUserNameError('');
-          }
-        };
-      
-        // 계정 ID 유효성 검사
-        const userIdValidation = e => {
-          const value = e.target.value;
-          const userIdRegex = /^[_A-Za-z0-9.]*$/;
-      
-          setUserId(prev => value);
-      
-          if (!userIdRegex.test(value)) {
-            setUserIdError('영문, 숫자, 특수문자(,),(_)만 사용가능합니다.');
-          } else if (value === '') {
-            setUserIdError('계정 ID를 입력해주세요.');
-          } else {
-            setUserIdError('');
-          }
-        };
-      
-        // 소개 유효성 검사
-        const userIntroCheck = e => {
-          const value = e.target.value;
-      
-          if (value === '') {
-            setUserIntro('');
-          } else {
-            setUserIntro(prev => value);
-          }
-        };
 
+  const userNameValidation = e => {
+    const value = e.target.value;
+
+    setUserName(prev => value);
+
+    if ((value.length < 2 && value !== '') || value.length > 10) {
+      setUserNameError('2~10자 이내여야 합니다.');
+    } else if (value === '') {
+      setUserNameError('사용자 이름을 입력해주세요.');
+    } else {
+      setUserNameError('');
+    }
+  };
       
-        const submitProfile = async e => {
-          e.preventDefault();
+    // 계정 ID 유효성 검사
+  const userIdValidation = e => {
+    const value = e.target.value;
+    const userIdRegex = /^[_A-Za-z0-9.]*$/;
+
+    setUserId(prev => value);
+
+    if (!userIdRegex.test(value)) {
+      setUserIdError('영문, 숫자, 특수문자(,),(_)만 사용가능합니다.');
+    } else if (value === '') {
+      setUserIdError('계정 ID를 입력해주세요.');
+    } else {
+      setUserIdError('');
+    }
+  };
       
-          try {
-            const res = await instance.put('/user', {
-              user: {
-                username: userName,
-                accountname: userId,
-                intro: userIntro,
-                image: userImage,
-              },
-            });
-            console.log(res)
-            // if (res.data.message === '사용 가능한 계정ID 입니다.') {
-            //   console.log(res.data.message);
-            localStorage.setItem('user ID', userId);
-            navigate('/profile')
-            // } else if (res.data.message === '이미 가입된 계정ID 입니다.') {
-            //   console.log(res.data.message);
-            // } else if (res.data.message === '잘못된 접근입니다.') {
-            //   console.log(res.data.message);
-            // }
-          } catch (error) {
-            console.log(error.message);
-          }
-        };
+    // 소개 유효성 검사
+    const userIntroCheck = e => {
+      const value = e.target.value;
+  
+      if (value === '') {
+        setUserIntro('');
+      } else {
+        setUserIntro(prev => value);
+      }
+    }
+  
+    const submitProfile = async e => {
+      e.preventDefault();
+  
+      try {
+        const res = await instance.put('/user', {
+          user: {
+            username: userName,
+            accountname: userId,
+            intro: userIntro,
+            image: userImage,
+          },
+        });
+        console.log(res)
+        // if (res.data.message === '사용 가능한 계정ID 입니다.') {
+        //   console.log(res.data.message);
+        localStorage.setItem('user ID', userId);
+        navigate(`/profile/${userName}`)
+        // } else if (res.data.message === '이미 가입된 계정ID 입니다.') {
+        //   console.log(res.data.message);
+        // } else if (res.data.message === '잘못된 접근입니다.') {
+        //   console.log(res.data.message);
+        // }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+      
+
+
 
 
     return (
@@ -253,15 +269,18 @@ const ButtonSave = styled.button`
       <ResultValue onSubmit={submitProfile}>
         <ResultTitle htmlFor='userName'>사용자이름</ResultTitle>
         <NameInput
-         id='userName'
-         type='text' 
-         onChange={userNameValidation}
-         placeholder='2~10자 이내여야 합니다.'
-         required
-        />
+          value={userName}
+          id='userName'
+          type='text' 
+          onChange={userNameValidation}
+          placeholder='2~10자 이내여야 합니다.'
+          required
+        >
+        </NameInput>
         <ErrorMessage>{userNameError}</ErrorMessage>
         <ResultTitle>계정ID</ResultTitle>
         <IdInput 
+        value={userId}
         id='userId'
         type='text' 
         onChange={userIdValidation}
@@ -270,13 +289,21 @@ const ButtonSave = styled.button`
          />
          <ErrorMessage>{userIdError}</ErrorMessage>
         <ResultTitle>소개</ResultTitle>
-        <IntroInput 
+        <IntroInput
+        value={userIntro} 
         id='userDesc'
         type='text'
         onChange={userIntroCheck}
         placeholder='나의 소개를 입력 해주세요'
         />
-        <ButtonSave disabled={isBtnActive}>저장</ButtonSave>
+        <ButtonSave 
+        disabled={isBtnActive}
+        style={{backgroundColor: 
+          ((userName === "") && (userId === "") && (userIntro === "") ) 
+              ? "#C9D9F0" : "#3C70BC"}}
+        >
+          저장
+        </ButtonSave>
       </ResultValue>
     </Container>
         
