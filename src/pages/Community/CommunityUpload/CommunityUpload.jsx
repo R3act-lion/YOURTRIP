@@ -20,7 +20,7 @@ const ButtonImageUpload = styled.button`
     cursor: pointer;
 `
 
-const ImageLabel = styled.label`
+const ImageLabel = styled.button`
     display: block;
     background-image: url(${UploadImage});
     background-repeat: no-repeat;
@@ -238,9 +238,8 @@ export default function CommunityUpload() {
 
                         </FormPost>
                         <ButtonImageUpload>
-                            <ImageLabel htmlFor='img-file' onClick={handleClickFileInput} />
+                            <ImageLabel onClick={handleClickFileInput} />
                             <ImageUpload
-                                id="img-file"
                                 alt='이미지 업로드 버튼'
                                 type="file"
                                 accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
@@ -257,7 +256,7 @@ export default function CommunityUpload() {
                     </>
                     : <></>
             }
-
+            
         </SectionUpload>
     )
 }
