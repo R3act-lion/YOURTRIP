@@ -44,7 +44,7 @@ const ButtonPrev = styled.button`
     cursor: pointer;
 `
 
-export default function BasicHeader({myPostModal, setMyPostModal}) {
+export default function BasicHeader({setProfileModal}) {
     const navigation = useNavigate();
 
     return (
@@ -56,7 +56,7 @@ export default function BasicHeader({myPostModal, setMyPostModal}) {
                 
             </HeadingOneTitle>
             <ButtonMore>
-                <ImageMore src={MoreImg} alt='더보기'/>
+                <ImageMore src={MoreImg} alt='더보기' onClick={()=>{setProfileModal(true)}}/>
             </ButtonMore>
         </HeaderContainer>
     )
