@@ -29,7 +29,7 @@ export default function ProfileFollowing() {
     //팔로잉 리스트 확인 함수
     const followingList=async()=>{
         try{
-            const res= await fetch(url+`/profile/${accountname}/following`,{
+            const res= await fetch(url+`/profile/${accountname}/following?limit=Number&skip=Number`,{
                 method: "GET",
                 headers:{
                     "Authorization" : `Bearer ${token}`,

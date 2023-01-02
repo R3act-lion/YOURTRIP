@@ -17,6 +17,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
 `
+
 const ProfileImgDiv = styled.div`
     position: relative;
     margin: 0 auto;
@@ -37,7 +38,7 @@ const ResultValue = styled.form`
 `
 
 const ResultTitle = styled.label`
-    margin-bottom: 10px;
+    margin: 15px 0 10px;
     color:#767676;
     font-weight: 500;
     font-size: 12px;
@@ -98,7 +99,6 @@ const ErrorMessage = styled.p`
     padding: 0;
 `
 
-
 const ButtonSave = styled.button`
     width: 90px;
     height: 32px;
@@ -116,14 +116,6 @@ const ButtonSave = styled.button`
     z-index: 30;
     cursor: pointer;
 `
-
-  
-
-
-
-
-
-
 
 export default function ProfileModify() {
   const navigate = useNavigate();
@@ -164,8 +156,8 @@ export default function ProfileModify() {
       console.log(res)
       const { accountname, username, intro, image } = res.profile;
 
-      setUserId(username);
-      setUserName(accountname);
+      setUserId(accountname);
+      setUserName(username);
       setUserIntro(intro);
       setUserImage(image);
       })
@@ -182,9 +174,6 @@ export default function ProfileModify() {
             setIsBtnActive(prev => true);
           }
         }, [userId, userName, userNameError, userIdError]);
-
-   
-
 
   const userNameValidation = e => {
     const value = e.target.value;
@@ -240,26 +229,14 @@ export default function ProfileModify() {
           },
         });
         console.log(res)
-        // if (res.data.message === '사용 가능한 계정ID 입니다.') {
-        //   console.log(res.data.message);
         localStorage.setItem('user ID', userId);
         navigate(`/profile/${userName}`)
-        // } else if (res.data.message === '이미 가입된 계정ID 입니다.') {
-        //   console.log(res.data.message);
-        // } else if (res.data.message === '잘못된 접근입니다.') {
-        //   console.log(res.data.message);
-        // }
       } catch (error) {
         console.log(error.message);
       }
     }
       
-
-
-
-
     return (
-        
     <Container>
         <ProfileImgDiv> 
           <UploadImg src= {userImage ? userImage:Imgsircle} />
