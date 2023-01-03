@@ -230,7 +230,7 @@ export default function ProfileModify() {
         });
         console.log(res)
         localStorage.setItem('user ID', userId);
-        navigate(`/profile/${userName}`)
+        navigate(`/profile/${userId}`)
       } catch (error) {
         console.log(error.message);
       }
