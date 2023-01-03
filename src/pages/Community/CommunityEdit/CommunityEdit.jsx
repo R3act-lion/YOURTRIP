@@ -1,123 +1,10 @@
-import { React, useRef, useState } from 'react'
-import styled from 'styled-components'
-import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
+import { React, useState, useRef } from 'react'
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router'
+import { SectionUpload, ButtonImageUpload, ImageLabel, ImageUpload, ImageProfile, FormPost, TextAreaContent, ButtonUpload, PrevImgList, PrevBigImg, PrevSmallImg, PrevXBtn } from "../CommunityUpload/CommunityUpload"
 import iconX from '../../../assets/images/icon-x.svg'
-import { Link } from 'react-router-dom'
 
-export const SectionUpload = styled.section`
-    width: 390px;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    min-height: calc(100vh - 108px);
-`
-
-export const ButtonImageUpload = styled.div`
-    position: fixed;
-    bottom: 72px;
-    right: calc(50vw - 179px);
-    background-color: rgba(0, 0, 0, 0);
-    cursor: pointer;
-`
-
-export const ImageLabel = styled.button`
-    display: block;
-    background-image: url(${UploadImage});
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-`
-
-export const ImageUpload = styled.input`
-    display: none;
-`
-
-export const ImageProfile = styled.img`
-    width: 42px;
-    height: 42px;
-    margin: 20px 10px 0 20px;
-    border-radius: 50%;
-
-`
-
-export const FormPost = styled.form`
-    width: 319px;
-    display: inline-block;
-    margin: 32px 0 16px;
-`
-
-export const TextAreaContent = styled.textarea`
-    width: 300px;
-    margin-bottom: 16px;
-    padding: 0;
-    font-size: 16px;
-    resize: none;
-    border: none;
-    outline: none;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
-    color: #C4C4C4;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`
-
-export const ButtonUpload = styled.button`
-    width: 90px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #C9D9F0;
-    border-radius: 32px;
-    font-weight: 500;
-    font-size: 14px;
-    position: fixed;
-    top: 8px;
-    right: calc(50vw - 179px);
-    z-index: 30;
-    cursor: pointer;
-`
-
-export const PrevImgList = styled.div`
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-  }
-`
-
-export const PrevBigImg = styled.img`
-    width: 304px;
-    height: 228px;
-    border-radius: 10px;
-    flex-shrink: 0;
-`
-
-export const PrevSmallImg = styled.img`
-    width: 168px;
-    height: 126px;
-    border-radius: 10px;
-    flex-shrink: 0;
-`
-
-export const PrevXBtn = styled.img`
-    width: 22px;
-    height: 22px;
-    position : relative;
-    right: 35px;
-    top: 8px;
-`
-
-export default function CommunityUpload() {
+export default function CommunityEdit() {
     const fileInputRef = useRef();
     const textArea = useRef();
     const handleResizeHeight = () => {
@@ -126,17 +13,23 @@ export default function CommunityUpload() {
         textArea.current.style.color = 'black'
     }
 
+    const location= useLocation();
+    const postId= location.state.postId;
+    const writerImg= location.state.writerImg;
+
     const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const url = "https://mandarin.api.weniv.co.kr";
-    const profileImg= JSON.parse(localStorage.getItem("user")).image;
-    console.log(profileImg);
 
-    let [content, setContent] = useState("");
-    let [imagesrc, setImagesrc] = useState([]);
-    let [authorAccountname, setAuthorAccountname]= useState("");
+    let [content, setContent] = useState(`${location.state.content}`);
+    console.log(content)
+    let [imagesrc, setImagesrc] = useState(
+        location.state.image == [""] 
+        ? [] 
+        : `${location.state.image}`.split(','));
+    console.log(imagesrc)
 
-    // 게시물 포스팅하는 함수
-    async function posting() {
+    // 수정 업로드하는 함수
+    const postEditing= async()=>{
         const userData = localStorage.getItem('user');
         const newContent = {
             text: content,
@@ -144,8 +37,8 @@ export default function CommunityUpload() {
         }
 
         try {
-            const res = await fetch(url + "/post", {
-                method: "POST",
+            const res = await fetch(url + "/post/" + postId, {
+                method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",
@@ -158,14 +51,12 @@ export default function CommunityUpload() {
                 })
             });
             const resJson = await res.json();
-            setContent('');
-            setImagesrc([]);
-            setAuthorAccountname((JSON.parse(JSON.parse
-                (resJson.post.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')).user)).accountname);
+            console.log(resJson);
                 
         } catch (err) {
             console.error(err);
         }
+
     }
 
     // 파일 인풋창 열리는 함수
@@ -201,7 +92,6 @@ export default function CommunityUpload() {
                 const resJson = await res.json();
                 let makeSrc = url + '/' + resJson[0]["filename"];
                 setImagesrc((imagesrc) => [...imagesrc, makeSrc]);
-                console.log(imagesrc)
 
             } catch (err) {
                 console.error(err);
@@ -216,18 +106,22 @@ export default function CommunityUpload() {
             {
                 !!localStorage.user
                     ? <>
-                        <ImageProfile src={profileImg} alt='' />
+                        <ImageProfile src={writerImg} alt='' />
                         <FormPost action="">
                             <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
                                 setContent(e.target.value)
 
-                            }} placeholder='게시글 입력하기...' />
+                            }} placeholder='게시글 입력하기...'>{content}</TextAreaContent>
                             <PrevImgList>
+                                <>
                                 {
                                     imagesrc.map((item) => {
                                         return (
                                             <>
-                                                {imagesrc.length === 1
+                                                {imagesrc == "" 
+                                                ? null
+                                                :
+                                                (imagesrc.length === 1)
                                                     ? <PrevBigImg src={item} onClick={() => {
                                                         setImagesrc(imagesrc.filter(src => src !== item))
                                                     }} />
@@ -241,6 +135,7 @@ export default function CommunityUpload() {
                                         )
                                     })
                                 }
+                                </>
                             </PrevImgList>
 
                         </FormPost>
@@ -250,11 +145,12 @@ export default function CommunityUpload() {
                                 alt='이미지 업로드 버튼'
                                 type="file"
                                 accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
-                                ref={fileInputRef}
-                                onChange={fileInput} />
+                                ref={fileInputRef} 
+                                onChange={fileInput} 
+                                />
                         </ButtonImageUpload>
                         <Link to="/community">
-                            <ButtonUpload onClick={posting} style={{
+                            <ButtonUpload onClick={postEditing} style={{
                                 backgroundColor:
                                     ((content == "") && (imagesrc == ""))
                                         ? "#C9D9F0" : "#3C70BC" }}>
