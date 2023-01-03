@@ -19,27 +19,29 @@ const ListItemFollowers = styled.li`
 `
 
 export default function ProfileFollowers() {
-    const url= "https://mandarin.api.weniv.co.kr";
+    const url = "https://mandarin.api.weniv.co.kr";
     let token = localStorage.getItem('Access Token');
+    let userId = localStorage.getItem('user ID')
     const location = useLocation()
     const userinfo = location.state.userinfo
     const accountname = userinfo.accountname
-    let [followerData, setFollowerData]= useState([]);
+    let [followerData, setFollowerData] = useState([]);
 
     //팔로워 리스트 확인 함수
-    const followerList=async()=>{
-        try{
-        const res= await fetch(url+`/profile/${accountname}/follower?limit=Number&skip=Number`,{
-            method: "GET",
-            headers:{
-                "Authorization" : `Bearer ${token}`,
-                "Content-type" : "application/json"
+    const followerList = async () => {
+        try {
+            const res = await fetch(url + `/profile/${accountname}/follower?limit=Number&skip=Number`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
                 }
             }
-        )
-        const resJson= await res.json();
-        setFollowerData([...resJson])    
-        } catch(err) {
+            )
+            const resJson = await res.json();
+            console.log(resJson);
+            setFollowerData([...resJson])
+        } catch (err) {
             console.error(err);
         }
     }
@@ -65,8 +67,13 @@ export default function ProfileFollowers() {
                     followerData.map((item) => {
                         return(
                         <ListItemFollowers key={item._id}>
-                            <UserDesc img={item.image} name={item.username} id={item.accountname}/>
-                            <FollowingBtn item={item}/>
+                            <UserDesc img={item.image} name={item.username} id={item.accountname} />
+                            {
+                                item.accountname === userId ?
+                                <></>    
+                                :
+                                <FollowingBtn userinfo={item} followState={ item.isfollow} />
+                            }
                         </ListItemFollowers>
                     )}
                 )}
