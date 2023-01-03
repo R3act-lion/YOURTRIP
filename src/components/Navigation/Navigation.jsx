@@ -4,6 +4,11 @@ import icon_home from '../../assets/images/nav-home.svg'
 import icon_location from '../../assets/images/nav-location.svg'
 import icon_community from '../../assets/images/nav-community.svg'
 import icon_profile from '../../assets/images/nav-profile.svg'
+
+import icon_home_fill from '../../assets/images/nav-home-fill.svg'
+import icon_location_fill from '../../assets/images/nav-location-fill.svg'
+import icon_community_fill from '../../assets/images/nav-community-fill.svg'
+import icon_profile_fill from '../../assets/images/nav-profile-fill.svg'
 import { Link } from 'react-router-dom'
 
 const NavigationContainer = styled.nav`
@@ -34,6 +39,11 @@ export default function Navigation() {
     const token = localStorage.getItem('Access Token')
     const [userName, setUserName] = useState(null)
 
+    const [home, setHome] = useState(true)
+    const [location, setLocation] = useState(false)
+    const [community, setCommunity] = useState(false)
+    const [profile, setProfile] = useState(false)
+
     useEffect(() => {
         const setData = async (token) => {
             try {
@@ -60,24 +70,57 @@ export default function Navigation() {
                 <NavigationList>
                     <NavigationListItem>
                         <Link to='/'>
-                            <NavigationButtonImage src={icon_home} alt="홈" />
+                            <NavigationButtonImage
+                                src={home ? icon_home_fill : icon_home}
+                                onClick={() => {
+                                    setHome(true)
+                                    setLocation(false)
+                                    setCommunity(false)
+                                    setProfile(false)
+                                }}
+                                alt="홈" />
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
                         <Link to='/location'>
-                            <NavigationButtonImage src={icon_location} alt="지역별" />
+                            <NavigationButtonImage
+                                src={location ? icon_location_fill : icon_location}
+                                onClick={() => {
+                                    setHome(false)
+                                    setLocation(true)
+                                    setCommunity(false)
+                                    setProfile(false)
+                                }}
+                                alt="지역별" />
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
                         <Link to='/community'>
-                            <NavigationButtonImage src={icon_community} alt="커뮤니티" />
+                            <NavigationButtonImage
+                                src={community ? icon_community_fill : icon_community}
+                                onClick={() => {
+                                    setHome(false)
+                                    setLocation(false)
+                                    setCommunity(true)
+                                    setProfile(false)
+                                }}
+                                alt="커뮤니티" />
                         </Link>
                     </NavigationListItem>
                     <NavigationListItem>
                         {
                             userName ? 
                                 <Link to={`/profile/${userName}`} >
-                                <NavigationButtonImage src={icon_profile} alt="프로필" />
+                                    <NavigationButtonImage
+                                        src=
+                                        {profile ? icon_profile_fill : icon_profile}
+                                        onClick={() => {
+                                            setHome(false)
+                                            setLocation(false)
+                                            setCommunity(false)
+                                            setProfile(true)
+                                        }}
+                                        alt="프로필" />
                                 </Link>
                             :
                                 <Link to={`/login`} >
