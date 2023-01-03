@@ -15,8 +15,12 @@ export default function Community() {
                     게시물
                 </h2>
             </header>
-            <PostList />     
-            <CommuWritingButton/>
+            <PostList />
+            {
+                localStorage.getItem('user')
+                ?<CommuWritingButton/>
+                : <></>
+            }
         </SectionContainer>
     )
 }
