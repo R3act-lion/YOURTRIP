@@ -20,7 +20,8 @@ const ListItemFollowers = styled.li`
 
 export default function ProfileFollowing() {
     const url= "https://mandarin.api.weniv.co.kr";
-    const token= localStorage.getItem('Access Token');
+    const token = localStorage.getItem('Access Token');
+    const userId = localStorage.getItem('user ID')
     const [followingData, setFollowingData] = useState([]);
     const location = useLocation()
     const userinfo = location.state.userinfo
@@ -65,8 +66,12 @@ export default function ProfileFollowing() {
                     followingData.map((item)=>{
                         return(
                         <ListItemFollowers key={item._id}>
-                            <UserDesc img={item.image} name={item.username} id={item.accountname}/>
+                            <UserDesc img={item.image} name={item.username} id={item.accountname} />
+                            {
+                                item.accountname === userId ? <></>    
+                                :
                                 <FollowingBtn userinfo={item} followState={item.isfollow} />
+                            }
                         </ListItemFollowers>
                     )}
                 )}
