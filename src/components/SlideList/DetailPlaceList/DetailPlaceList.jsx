@@ -7,7 +7,7 @@ const ListDetailPlace = styled.ul`
 `
 
 export default function DetailPlaceList({data, placeList}) {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
 
     return (
         <ListDetailPlace>
