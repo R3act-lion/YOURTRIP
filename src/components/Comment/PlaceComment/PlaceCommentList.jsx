@@ -37,7 +37,7 @@ export default function PlaceCommentList({ placeid, setRenderFunction }) {
         })
     }, [updateTarget])
 
-    console.log(comments);
+    // console.log(comments);
 
     return (
         <ListComment>
