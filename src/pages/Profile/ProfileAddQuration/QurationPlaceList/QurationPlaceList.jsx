@@ -83,6 +83,7 @@ export default function QurationPlaceList() {
     const data = Object.entries(placeData.area);
     const location = useLocation();
     const id = location.state.id
+    const list = location.state.checklist
 
     const getChecklist = (e) => {
         let newArr = [...checklist, e]
@@ -115,8 +116,6 @@ export default function QurationPlaceList() {
         searchlist.push(place)
     })
 
-    let savedlist = []
-
     return (
         <SectionList>
             <header>
@@ -147,18 +146,21 @@ export default function QurationPlaceList() {
                     :
                     <>
                         <ParagraphResult>
-                            내가 저장한 공간
+                            현재 선택한 공간
                         </ParagraphResult>
                         <ListResult>
-                            {savedlist.map(item => {
+                            { list ?
+                                list.map(item => {
                                 return (
-                                    <QurationListItem checklist={checklist} getChecklist={getChecklist} key={item.contentid} deleteChecklist={deleteChecklist} place={ item } />
-                                )
-                            })}
+                                    <QurationListItem checklist={checklist} getChecklist={getChecklist} key={item.contentid} deleteChecklist={deleteChecklist} place={item} />
+                                    )
+                                })
+                                : <></>
+                            }
                         </ListResult>
                     </>
             }
-            <Link to='/profile/addquration' state={{checklist, id}} >
+            <Link to='/profile/addquration' state={{ checklist, id}} >
                 <ButtonSave className={checklist.length > 0 ? "on" : false}>저장</ButtonSave>
             </Link>
         </SectionList>

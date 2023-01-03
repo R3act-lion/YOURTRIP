@@ -46,8 +46,6 @@ const getToken = () => {
 }
 
 export default function PostList() {
-    const content = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure reiciendis distinctio rerum ducimus, eius ipsum quibusdam maxime praesentium. Dolorem eum quas perspiciatis commodi iste? Impedit praesentium corrupti numquam eaque nulla.';
-
     const url = "https://mandarin.api.weniv.co.kr";
     let token = getToken();
     let [feedData, setFeedData] = useState([]);
@@ -77,7 +75,7 @@ export default function PostList() {
 
     return (
         <SectionPost>
-            <Link to='/'>
+            <Link to='/community'>
                 <HeaderCommunidty>
                     <HeadingTwoTitle>우리의 이야기</HeadingTwoTitle>
                     <ImageTitle src={IconArrowRight} alt='' />
