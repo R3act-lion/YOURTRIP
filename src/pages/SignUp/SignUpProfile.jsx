@@ -8,7 +8,7 @@ import UploadImgButton from '../../components/UploadButtonImg/UploadButtonImg'
 const Container = styled.div`
     margin: 0 auto;
     width: 390px;
-    height: 950px;
+    height: 100vh;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
