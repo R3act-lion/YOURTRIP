@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useLocation, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { DivPost, ImageMore, DivContent, ParagraphContent, ImageContent, ImageAdditional, ParagraphAdditional, ParagraphTime } from '../../../components/Post/PostItem/PostItem'
 import UserDesc from '../../../components/UserDesc/UserDesc'
 import MoreImg from '../../../assets/images/icon-more.svg'
@@ -33,7 +33,6 @@ const getComments = async (postId, callBack) => {
             }
         });
         const resJson = await res.json();
-        console.log(resJson);
         callBack(resJson.comments)
     } catch (err) {
         console.error(err);
@@ -85,7 +84,7 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
                         <ListComment>
                             {
                                 comments.map((comment) => {
-                                    console.log(comment);
+                                    // console.log(comment);
 
                                     return <PlaceCommentListItem key={comment.id} comment={comment} isPost={true} />
                                 })
