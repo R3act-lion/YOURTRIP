@@ -46,8 +46,8 @@ const getProfile = async (id, callBack) => {
             }
         });
         const resJson = await res.json();
-        // console.log(id);
-        // console.log(resJson);
+        console.log('click');
+
         callBack(resJson.profile);
     } catch (err) {
         console.error(err);
@@ -57,22 +57,21 @@ const getProfile = async (id, callBack) => {
 export default function UserDesc({ img, name, id, addr, detail, place }) {
     const [writer, setWriter] = useState({});
 
-    console.log(writer);
-
-    // console.log(name, id);
-
     useEffect(() => {
         getProfile(id, setWriter);
     }, [])
+
+    console.log(place);
 
     return (
         <>
             {
                 writer
-                    ? <DivUser to={addr ? `/placedetail/${name}` : `/yourprofile/${id}`} state={addr ? { place } : false}>
-                        <ProfileImg src={writer.image} onError={(e) => e.target.src = ProfileImage} alt="프로필 이미지" />
+                    ? <DivUser to={addr ?
+                        `/placedetail/${name}` : `/yourprofile/${id}`} state={addr ? { place } : false}>
+                        <ProfileImg src={addr ? place.firstimage : writer.image} onError={(e) => e.target.src = ProfileImage} alt="프로필 이미지" />
                         <UserDetailDesc>
-                            <UserName>{writer.username}</UserName>
+                            <UserName>{addr? place.title : writer.username}</UserName>
                             {
                                 addr ?
                                     <UserIntro>
