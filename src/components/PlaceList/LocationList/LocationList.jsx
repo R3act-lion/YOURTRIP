@@ -76,7 +76,7 @@ export default function LocationList({ category }) {
         url = '/location/placelist';
 
         for (const areaKey in newData) {
-            let areaData = newData[areaKey];
+            const areaData = newData[areaKey];
 
             newData[areaKey].count = newData[areaKey]['전체여행지'].count;
 
@@ -102,6 +102,9 @@ export default function LocationList({ category }) {
             }
         }
     }
+
+    console.log(newData);
+    console.log(category);
 
     return (
         <Container>

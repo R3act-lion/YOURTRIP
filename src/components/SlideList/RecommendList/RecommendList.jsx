@@ -20,7 +20,7 @@ export default function RecommendList({ title, subtitle, placelist, selectedItem
         <>
             {
                 isLocation
-                ?<RecommendListItem placelist={themeData.list} category={category} url={url} title={theme} />
+                ?<RecommendListItem placelist={themeData.list} url={url} title={theme} />
                 : <RecommendListItem placelist={placelist} category={category} url={url} title={title} subtitle={subtitle} />
             }
         </>

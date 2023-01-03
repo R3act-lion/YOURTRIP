@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
 import iconX from '../../../assets/images/icon-x.svg'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 export const SectionUpload = styled.section`
     width: 390px;
@@ -128,12 +129,14 @@ export default function CommunityUpload() {
 
     const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const url = "https://mandarin.api.weniv.co.kr";
+
     const profileImg= JSON.parse(localStorage.getItem("user")).image;
-    console.log(profileImg);
+    const accountname = localStorage.getItem("user ID");
 
     let [content, setContent] = useState("");
     let [imagesrc, setImagesrc] = useState([]);
-    let [authorAccountname, setAuthorAccountname]= useState("");
+    let [authorAccountname, setAuthorAccountname] = useState("");
+    const navegation = useNavigate();
 
     // 게시물 포스팅하는 함수
     async function posting() {
@@ -162,7 +165,7 @@ export default function CommunityUpload() {
             setImagesrc([]);
             setAuthorAccountname((JSON.parse(JSON.parse
                 (resJson.post.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')).user)).accountname);
-                
+
         } catch (err) {
             console.error(err);
         }
@@ -253,18 +256,20 @@ export default function CommunityUpload() {
                                 ref={fileInputRef}
                                 onChange={fileInput} />
                         </ButtonImageUpload>
-                        <Link to="/community">
-                            <ButtonUpload onClick={posting} style={{
-                                backgroundColor:
-                                    ((content == "") && (imagesrc == ""))
-                                        ? "#C9D9F0" : "#3C70BC" }}>
-                                업로드
-                            </ButtonUpload>
-                        </Link>
+                        <ButtonUpload onClick={() => {
+                            posting()
+                            navegation('/community')
+                        }} style={{
+                            backgroundColor:
+                                ((content === "") && (imagesrc === ""))
+                                    ? "#C9D9F0" : "#3C70BC"
+                        }}>
+                            업로드
+                        </ButtonUpload>
                     </>
                     : <></>
             }
-            
+
         </SectionUpload>
     )
 }

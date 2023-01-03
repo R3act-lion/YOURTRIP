@@ -26,7 +26,7 @@ const CommentImg= styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.25));
+  /* drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.25)); */
 `
 
 const CommentName= styled.div`
