@@ -10,11 +10,14 @@ export default function LocationPlaceList() {
     const category = location.state.category;
     const area = location.state.area;
 
-    let cafelist, restaurantlist;
+    let cafelist, restaurantlist, locationlist;
 
-    if( category === 'restaurant' || category === 'cafe' ){
+    if (category === 'restaurant' || category === 'cafe') {
         cafelist = placelist[area]['전체식당']['list'].filter(i => i.detail === '바/까페')
         restaurantlist = placelist[area]['전체식당']['list'].filter(i => i.detail !== '바/까페')
+    }
+    else if (category === 'location') {
+        locationlist = placelist[area]['전체여행지']['list']
     }
 
     return (
@@ -22,12 +25,14 @@ export default function LocationPlaceList() {
             {
                 category === 'restaurant' || category === 'cafe'
                     ?
-                        category === 'restaurant' ?
+                    category === 'restaurant' ?
                         <DetailPlaceList placeList={restaurantlist} data={data} />
                         :
                         <DetailPlaceList placeList={cafelist} data={data} />
-                    :
-                    <DetailPlaceList placeList={location.state.placelist} data={data} />
+                    : category === 'location' ?
+                        <DetailPlaceList placeList={locationlist} data={data} />
+                        :
+                        <DetailPlaceList placeList={location.state.placelist} data={data} />
             }
         </>
     )
