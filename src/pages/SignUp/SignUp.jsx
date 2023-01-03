@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const Container = styled.div`
     width: 390px;
-    height: 1100px;
+    height: 100vh;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
