@@ -122,7 +122,7 @@ function App() {
                 ? <></>
                 : <ThemeProvider theme={theme} >
                     <GlobalStyle />
-                    <BrowserRouter>
+                    <BrowserRouter basename={process.env.PUBLIC_URL}>
                     <Routes>
                         <Route path="/" element={<SplashPage />}/>
                     </Routes> 

@@ -46,7 +46,7 @@ const getProfile = async (id, callBack) => {
             }
         });
         const resJson = await res.json();
-        console.log('click');
+        // console.log(resJson);
 
         callBack(resJson.profile);
     } catch (err) {
@@ -57,11 +57,15 @@ const getProfile = async (id, callBack) => {
 export default function UserDesc({ img, name, id, addr, detail, place }) {
     const [writer, setWriter] = useState({});
 
+    // console.log(writer);
+    
     useEffect(() => {
-        getProfile(id, setWriter);
+        if (!addr) {
+            getProfile(id, setWriter);
+        }
     }, [])
 
-    console.log(place);
+    // console.log(place);
 
     return (
         <>

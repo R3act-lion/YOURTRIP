@@ -44,30 +44,36 @@ export default function SearchResult() {
         })
     }
 
-    console.log(searchlist);
-
     // user search
-    const url= "https://mandarin.api.weniv.co.kr";
+    const url = "https://mandarin.api.weniv.co.kr";
     let token = localStorage.getItem('Access Token');
 
     useEffect(() => {
-        const getData = async (token) => {
-            try {
-                const res = await fetch(url + `/user/searchuser/?keyword=${searchKeyword}`, {
-                    headers : {
-                        "Authorization" : `Bearer ${token}`,
-                        "Content-type" : "application/json"
+        if (searchKeyword.length !== 0) {
+            const getData = async (token) => {
+                try {
+                    const res = await fetch(url + `/user/searchuser/?keyword=${searchKeyword}`, {
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-type": "application/json"
+                        }
+                    })
+                    const resJson = await res.json()
+                    // console.log(resJson);
+                    if (searchKeyword.length > 0) {
+                        setUserSearchList(resJson)
+
                     }
-                })
-                const resJson = await res.json()
-                if (searchKeyword.length > 0) {
-                    setUserSearchList(resJson)
+                } catch (e) {
+                    console.log(e);
                 }
-            } catch (e) {
-                console.log(e);
             }
+            getData(token);
         }
-        getData(token);
+        else {
+            setUserSearchList([]);
+        }
+
     }, [searchKeyword])
 
 
@@ -80,16 +86,17 @@ export default function SearchResult() {
             </header>
             <ListResult>
                 {
-                    searchlist.length > 0 ?
-                        searchlist.map(item => {
-                            return (
-                                <li key={item.contentid}>
-                                    <UserDesc img={item.firstimage} name={item.title} addr={item.addr1} detail={item.detail} place={item} />
-                                </li>
-                            )
-                        })
-                    : <></>
-                    }
+                    searchlist.map(item => {
+                        return (
+                            <li key={item.contentid}>
+                                {
+                                    console.log('hi')
+                                }
+                                <UserDesc img={item.firstimage} name={item.title} addr={item.addr1} detail={item.detail} place={item} />
+                            </li>
+                        )
+                    })
+                }
             </ListResult>
             <header>
                 <HeadingTwoResult>
@@ -101,7 +108,7 @@ export default function SearchResult() {
                     userSearchList.map(item => {
                         return (
                             <li key={item.accountname}>
-                            <UserDesc img={item.image} name={item.username} id={item.accountname} />
+                                <UserDesc img={item.image} name={item.username} id={item.accountname} />
                             </li>
                         )
                     })
