@@ -69,7 +69,7 @@ export default function Navigation() {
             <NavigationContainer>
                 <NavigationList>
                     <NavigationListItem>
-                        <Link to='/'>
+                        <Link to='/home'>
                             <NavigationButtonImage
                                 src={home ? icon_home_fill : icon_home}
                                 onClick={() => {
