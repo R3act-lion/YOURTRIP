@@ -25,11 +25,12 @@ const ParagraphContent = styled.p`
     line-height: 150%;
 `
 
-export default function CommentItem({ user, content }) {
+export default function CommentItem({ user, content, postId, commentId }) {
     let [myCommentModal, setMyCommentModal]= useState(false);
     let [yourCommentModal, setYourCommentModal]= useState(false);
     const commentAuthor= user.accountname;
     const accountname= localStorage.getItem("user ID");
+    console.log(user)
     
     return (
         <>
@@ -48,11 +49,11 @@ export default function CommentItem({ user, content }) {
 
             </ParagraphContent>
             {myCommentModal === true 
-                ? <MyCommentModal setMyCommentModal={setMyCommentModal} /> 
+                ? <MyCommentModal setMyCommentModal={setMyCommentModal} postId={postId} commentId={commentId}/> 
                 : null}
 
             {yourCommentModal === true
-                ? <YourCommentModal setYourCommentModal={setYourCommentModal} />
+                ? <YourCommentModal setYourCommentModal={setYourCommentModal}/>
                 : null}
         </>
     )

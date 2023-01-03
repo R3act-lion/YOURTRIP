@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useEffect, useRef } from 'react'
 import ModalBar from './ModalBar'
 import { ModalListItem } from './ModalList'
+import { Navigate } from 'react-router'
 
 export const ModalDiv = styled.section`
     position: fixed;
@@ -25,8 +26,9 @@ export const ModalContainer = styled.section`
     background-color: #fff;
 `
 
-export default function MyCommentModal({setMyCommentModal}) {
-
+export default function MyCommentModal({setMyCommentModal, postId, commentId}) {
+  const token = JSON.parse(localStorage.getItem('user')).token;
+  const url = "https://mandarin.api.weniv.co.kr";
   const myCommentModalRef= useRef();
 
   useEffect(()=>{
@@ -41,13 +43,34 @@ export default function MyCommentModal({setMyCommentModal}) {
       document.removeEventListener('mousedown', handler);
     }
   })
+
+  async function deleteComment() {
+    postId = postId;
+    commentId = commentId;
+    
+    try {
+        const res = await fetch(url + "/post/" + postId + "/comments/" + commentId, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            }
+        });
+        const resJson = await res.json();
+        console.log(resJson);
+            
+    } catch (err) {
+        console.error(err);
+    }
+}
     
   return (
     <ModalDiv>
     <ModalContainer ref={myCommentModalRef}>
       <ModalBar />
       <ModalListItem>수정하기</ModalListItem>
-      <ModalListItem>삭제하기</ModalListItem>
+      <ModalListItem onClick={
+        ()=>{deleteComment()}}>삭제하기</ModalListItem>
     </ModalContainer>
     </ModalDiv>
   )

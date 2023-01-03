@@ -20,14 +20,13 @@ const ListItemPostComment = styled.li`
     }
 `
 
-export default function PlaceCommentListItem({ comment, isPost }) {
-
+export default function PlaceCommentListItem({ comment, isPost, postId, commentId }) {
     if (isPost) {
         console.log(comment);
 
         return (
             <ListItemPostComment>
-                <CommentItem user={comment.author} content={comment.content} />
+                <CommentItem user={comment.author} content={comment.content} postId={postId} commentId={commentId}/>
             </ListItemPostComment>
         )
     }
@@ -36,7 +35,7 @@ export default function PlaceCommentListItem({ comment, isPost }) {
 
         return (
             <ListItemComment>
-                <CommentItem user={writerData} content={comment.itemImage} />
+                <CommentItem user={writerData} content={comment.itemImage} postId={postId} commentId={commentId}/>
             </ListItemComment>
         )
     }

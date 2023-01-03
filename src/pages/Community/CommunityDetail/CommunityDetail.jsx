@@ -50,11 +50,11 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
     const [comments, setComments] = useState([]);
     const [updateTarget, updateState] = useState([]);
 
-    console.log(comments);
-
     useEffect(() => {
         getComments(postData.id, setComments)
     }, [updateTarget])
+
+    console.log(postData)
 
     return (
         <>
@@ -89,9 +89,9 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
                         <ListComment>
                             {
                                 comments.map((comment) => {
-                                    // console.log(comment);
+                                    console.log(comment);
 
-                                    return <PlaceCommentListItem key={comment.id} comment={comment} isPost={true} />
+                                    return <PlaceCommentListItem key={comment.id} comment={comment} isPost={true} commentId={comment.id} postId={postData.id}/>
                                 })
                                 
                             }

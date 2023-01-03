@@ -29,6 +29,25 @@ export const ModalContainer = styled.section`
 export default function EditModal({setEditModal, postId, writerImg, image, content}) {
   const navigate= useNavigate();
   const editModalRef= useRef();
+  const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
+  const url = "https://mandarin.api.weniv.co.kr";
+
+  async function Editposting() {
+        try {
+            const res = await fetch(url + "/post/" + postId, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            });
+            const resJson = await res.json();
+            console.log(resJson);
+                
+        } catch (err) {
+            console.error(err);
+        }
+  }
 
   useEffect(()=>{
     const handler = (e)=>{
@@ -51,7 +70,11 @@ export default function EditModal({setEditModal, postId, writerImg, image, conte
         {state : { postId: postId, writerImg: writerImg, image: image, content: content }} 
           )}}>수정하기
       </ModalListItem>
-      <ModalListItem>삭제하기</ModalListItem>
+      <ModalListItem 
+        onClick={()=>{
+          Editposting()
+          navigate("/community")
+        }}>삭제하기</ModalListItem>
     </ModalContainer>
     </ModalDiv>
   )
