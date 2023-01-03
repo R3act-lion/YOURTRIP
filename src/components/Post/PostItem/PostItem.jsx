@@ -65,7 +65,7 @@ export const ParagraphTime = styled.p`
     margin-top: 18px;
 `
 
-export default function PostItem({ content, writer, feedData, detailMyPostModal, setDetailMyPostModal }) {
+export default function PostItem({ content, writer, feedData, setDetailMyPostModal }) {
     const navigate = useNavigate();
     const imageData = feedData.image.split(',');
     const createdAt = feedData.createdAt.split('-');
@@ -76,7 +76,7 @@ export default function PostItem({ content, writer, feedData, detailMyPostModal,
                 <DivPost>
                     <UserDesc img={writer.image} name={writer.username} id={writer.accountname} />
                     <ImageMore src={MoreImg} alt='더보기' onClick={() => {
-                        setDetailMyPostModal(true);
+                        setDetailMyPostModal(true); 
                     }} />
                     <DivContent>
                         <ParagraphContent>

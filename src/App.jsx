@@ -27,6 +27,7 @@ import Search from "./pages/Search/Search";
 import Community from "./pages/Community/Community";
 import CommunityDetail from "./pages/Community/CommunityDetail/CommunityDetail";
 import CommunityUpload from "./pages/Community/CommunityUpload/CommunityUpload";
+import CommunityEdit from "./pages/Community/CommunityEdit/CommunityEdit";
 
 import PlaceDetail from "./pages/PlaceDetail/PlaceDetail";
 import Post from "./pages/Post/Post";
@@ -45,8 +46,8 @@ import SignUpProfile from "./pages/SignUp/SignUpProfile"
 import Login from "./pages/Login/Login";
 
 import NotFound from "./pages/NotFound/NotFound";
-import CommunityDatail from './pages/Community/CommunityDetail/CommunityDetail';
 import { SearchContext } from './context/Context';
+
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -153,6 +154,7 @@ function App() {
                                 </Route>
                                 <Route element={<ButtonHeaderLayout />}>
                                     <Route path="/community/upload" element={<CommunityUpload />} />
+                                    <Route path="/community/edit" element={<CommunityEdit />} />
                                     <Route path="/profile/modify" element={<ProfileModify />} />
                                     <Route path="/profile/addquration" element={<ProfileAddQuration />} />
                                     <Route path="/profile/addquration/list" element={<QurationPlaceList />} />

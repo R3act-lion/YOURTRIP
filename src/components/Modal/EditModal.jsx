@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ModalBar from './ModalBar'
 import { ModalListItem } from './ModalList'
 
@@ -25,8 +26,8 @@ export const ModalContainer = styled.section`
     background-color: #fff;
 `
 
-export default function EditModal({setEditModal}) {
-
+export default function EditModal({setEditModal, postId, writerImg, image, content}) {
+  const navigate= useNavigate();
   const editModalRef= useRef();
 
   useEffect(()=>{
@@ -46,7 +47,10 @@ export default function EditModal({setEditModal}) {
     <ModalDiv>
     <ModalContainer ref={editModalRef}>
       <ModalBar />
-      <ModalListItem>수정하기</ModalListItem>
+      <ModalListItem onClick={()=>{navigate("/community/edit", 
+        {state : { postId: postId, writerImg: writerImg, image: image, content: content }} 
+          )}}>수정하기
+      </ModalListItem>
       <ModalListItem>삭제하기</ModalListItem>
     </ModalContainer>
     </ModalDiv>
