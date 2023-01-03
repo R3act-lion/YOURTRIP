@@ -62,7 +62,7 @@ export default function Carousel({ imageData }) {
     return (
         <ImageCont>
             <ImageList style={style}>
-                {(imageData !== '') &&
+                {(imageData != '') &&
                     imageData.map((url) => {
                         return (
                             <>
@@ -72,7 +72,7 @@ export default function Carousel({ imageData }) {
                                         {imageData.map((item, index) => {
                                             return (
                                                 <>
-                                                    {index === current ? <DotCurrentIcon key={item} /> : <DotIcon key={item} />}
+                                                    {index === current ? <DotCurrentIcon key={item + index} /> : <DotIcon key={item + index} />}
                                                 </>
                                             )
                                         })}

@@ -54,7 +54,7 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
         getComments(postData.id, setComments)
     }, [updateTarget])
 
-    console.log(postData)
+    console.log(imageData)
 
     return (
         <>

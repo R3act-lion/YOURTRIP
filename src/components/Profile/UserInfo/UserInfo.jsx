@@ -85,9 +85,20 @@ const PragraphDesc = styled.p`
     color: #767676;
 `
 
+const LinkLogin = styled(Link)`
+    background: #3C70BC;
+    border-radius: 30px;    
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: white;
+    padding: 8px 40px;
+`
+
 export default function UserInfo() {
     const url = "https://mandarin.api.weniv.co.kr";
-    const token = localStorage.getItem('Access Token')
+    const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const path = useLocation().pathname
     const { id } = useParams()
 
@@ -101,19 +112,19 @@ export default function UserInfo() {
             try {
                 if (path.includes("yourprofile")) {
                     const res = await fetch(url + `/profile/${id}`, {
-                        headers : {
-                            "Authorization" : `Bearer ${token}`,
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
                         }
                     })
                     const resJson = await res.json()
                     setUserinfo(resJson.profile);
                     setFollowerCount(resJson.profile.followerCount)
                     setFollowingCount(resJson.profile.followingCount)
-                    setIsFollow(resJson.profile.isfollow)   
+                    setIsFollow(resJson.profile.isfollow)
                 } else {
                     const res = await fetch(url + `/user/myinfo`, {
-                        headers : {
-                            "Authorization" : `Bearer ${token}`,
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
                         }
                     })
                     const resJson = await res.json()
@@ -147,17 +158,22 @@ export default function UserInfo() {
             </ParagraphIntroduce>
             {
                 path.includes("yourprofile") ?
-                    <FollowingBtn
-                        followState={isFollow}
-                        followerCount={setFollowerCount}
-                        followingCount={setFollowingCount}
-                        userinfo={userinfo} />
-                :
+                    !localStorage.getItem('user')
+                        ? <LinkLogin to='/login'>
+                            팔로우
+                        </LinkLogin>
+                        : <FollowingBtn
+                            followState={isFollow}
+                            followerCount={setFollowerCount}
+                            followingCount={setFollowingCount}
+                            userinfo={userinfo} />
+
+                    :
                     <LinkModify to='/profile/modify'>
                         프로필 수정
                     </LinkModify>
             }
-            <LinkFollowers to='/profile/followers' state={{userinfo}}>
+            <LinkFollowers to='/profile/followers' state={{ userinfo }}>
                 <ParagraphCount>
                     {followerCount}
                 </ParagraphCount>
@@ -165,7 +181,7 @@ export default function UserInfo() {
                     followers
                 </PragraphDesc>
             </LinkFollowers>
-            <LinkFollowing to='/profile/following' state={{userinfo}}>
+            <LinkFollowing to='/profile/following' state={{ userinfo }}>
                 <ParagraphCount>
                     {followingCount}
                 </ParagraphCount>

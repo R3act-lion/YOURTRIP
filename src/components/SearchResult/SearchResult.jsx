@@ -46,7 +46,7 @@ export default function SearchResult() {
 
     // user search
     const url = "https://mandarin.api.weniv.co.kr";
-    let token = localStorage.getItem('Access Token');
+    let token = JSON.parse(localStorage.getItem('defaultAccount')).token;
 
     useEffect(() => {
         if (searchKeyword.length !== 0) {
