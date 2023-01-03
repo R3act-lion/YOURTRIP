@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
 import ProfileImage from '../../../assets/images/profile.svg'
 import iconX from '../../../assets/images/icon-x.svg'
+import { Link } from 'react-router-dom'
 
 const SectionUpload = styled.section`
     width: 390px;
@@ -12,7 +13,7 @@ const SectionUpload = styled.section`
     min-height: calc(100vh - 108px);
 `
 
-const ButtonImageUpload = styled.button`
+const ButtonImageUpload = styled.div`
     position: fixed;
     bottom: 72px;
     right: calc(50vw - 179px);
@@ -218,7 +219,7 @@ export default function CommunityUpload() {
                             <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
                                 setContent(e.target.value)
 
-                            }} defaultValue='게시글 입력하기...' />
+                            }} placeholder='게시글 입력하기...' />
                             <PrevImgList>
                                 {
                                     imagesrc.map((item) => {
@@ -242,26 +243,26 @@ export default function CommunityUpload() {
 
                         </FormPost>
                         <ButtonImageUpload>
-                            <ImageLabel htmlFor='img-file' onClick={handleClickFileInput} />
+                            <ImageLabel onClick={handleClickFileInput} />
                             <ImageUpload
-                                id="img-file"
                                 alt='이미지 업로드 버튼'
                                 type="file"
                                 accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
                                 ref={fileInputRef}
                                 onChange={fileInput} />
                         </ButtonImageUpload>
-                        <ButtonUpload onClick={posting} style={{
-                            backgroundColor:
-                                ((content == "") && (imagesrc == ""))
-                                    ? "#C9D9F0" : "#3C70BC"
-                        }}>
-                            업로드
-                        </ButtonUpload>
+                        <Link to="/community">
+                            <ButtonUpload onClick={posting} style={{
+                                backgroundColor:
+                                    ((content == "") && (imagesrc == ""))
+                                        ? "#C9D9F0" : "#3C70BC" }}>
+                                업로드
+                            </ButtonUpload>
+                        </Link>
                     </>
                     : <></>
             }
-
+            
         </SectionUpload>
     )
 }

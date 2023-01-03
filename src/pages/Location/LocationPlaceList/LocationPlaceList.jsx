@@ -5,17 +5,29 @@ import DetailPlaceList from '../../../components/SlideList/DetailPlaceList/Detai
 export default function LocationPlaceList() {
     window.scrollTo(0, 0)
     const location = useLocation();
-    const placelist = location.state.placelist;
+    const placelist = location.state.placeList;
     const data = location.state.data;
     const category = location.state.category;
     const area = location.state.area;
+
+    let cafelist, restaurantlist;
+
+    if( category === 'restaurant' || category === 'cafe' ){
+        cafelist = placelist[area]['전체식당']['list'].filter(i => i.detail === '바/까페')
+        restaurantlist = placelist[area]['전체식당']['list'].filter(i => i.detail !== '바/까페')
+    }
 
     return (
         <>
             {
                 category === 'restaurant' || category === 'cafe'
-                ? <DetailPlaceList placeList={location.state.placeList[area]['전체식당']['list']} data={data} />
-                : <DetailPlaceList placeList={placelist} data={data} />
+                    ?
+                        category === 'restaurant' ?
+                        <DetailPlaceList placeList={restaurantlist} data={data} />
+                        :
+                        <DetailPlaceList placeList={cafelist} data={data} />
+                    :
+                    <DetailPlaceList placeList={placelist[area]['전체여행지']['list']} data={data} />
             }
         </>
     )

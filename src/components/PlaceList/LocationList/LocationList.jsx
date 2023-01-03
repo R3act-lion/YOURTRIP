@@ -57,7 +57,7 @@ export default function LocationList({ category }) {
     let newData = JSON.parse(JSON.stringify(placeData.area));
     let url = '';
 
-    if (category === 'place' || category === 'location') {
+    if (category === 'place') {
         url = '/location/theme';
 
         for (const areaKey in newData) {
@@ -67,6 +67,21 @@ export default function LocationList({ category }) {
 
             for (const themeKey in areaData) {
                 if (themeKey === '전체식당') {
+                    delete areaData[themeKey]
+                }
+            }
+        }
+    }
+    else if (category === 'location') {
+        url = '/location/placelist';
+
+        for (const areaKey in newData) {
+            let areaData = newData[areaKey];
+
+            newData[areaKey].count = newData[areaKey]['전체여행지'].count;
+
+            for (const themeKey in areaData) {
+                if (themeKey !== '전체여행지' && themeKey !== 'image' &&  themeKey !== 'count') {
                     delete areaData[themeKey]
                 }
             }

@@ -69,9 +69,6 @@ export default function PostItem({ content, writer, feedData, detailMyPostModal,
     const navigate = useNavigate();
     const imageData = feedData.image.split(',');
     const createdAt = feedData.createdAt.split('-');
-    console.log(content);
-    console.log(writer);
-    console.log(feedData);
 
     return (
         <>

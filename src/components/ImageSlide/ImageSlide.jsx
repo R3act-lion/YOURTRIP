@@ -4,6 +4,7 @@ import Image from "../../modules/Image/Image";
 const PlaceDetailCont = styled.section`
     width: 100%;
     display: flex;
+    padding: 2px 22px;
     overflow-x: scroll;
     gap: 13px;
     // 스크롤 숨기기
@@ -14,7 +15,7 @@ const PlaceDetailCont = styled.section`
     }
 `
 
-export default function ImageSlide() {
+export default function ImageSlide({ placelist }) {
   let startX, scrollLeft
   let isDown = false;
 
@@ -42,12 +43,11 @@ export default function ImageSlide() {
   return (
     <PlaceDetailCont
       onMouseLeave={handleMouseLeave} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>
-      {Array.from(Array(8), (x, i) =>
-        <Image key={i}
-          src="https://cdn.pixabay.com/photo/2017/07/28/00/57/christmas-2547356_960_720.jpg"
+      {placelist.map(item => 
+        <Image key={item.contentid}
+          src={item.firstimage}
           width="212px"
           height="280px"
-          margin="15px 0 10px"
           borderRadius="5px" />
       )}
       {/* 후에 데이터에서 순회하는 걸로 변경 */}

@@ -145,7 +145,7 @@ export default function ProfileAddQuration() {
                 <LabelInput>선택한 여행지</LabelInput>
                 <DivPlaceSelect>
                     {checklist ? <SelectedList checklist={checklist} /> : <></>}
-                    <LinkAddPlace to='/profile/addquration/list' state={{id}}>
+                    <LinkAddPlace to='/profile/addquration/list' state={{id, checklist}}>
                         <ImageAdd src={AddImage} alt='추가' />
                     </LinkAddPlace>
                 </DivPlaceSelect>
