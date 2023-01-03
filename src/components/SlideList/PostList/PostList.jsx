@@ -76,7 +76,7 @@ export default function PostList() {
     return (
         <SectionPost>
             <Link to='/community'>
-                <HeaderCommunidty>
+                <HeaderCommunity>
                     <HeadingTwoTitle>우리의 이야기</HeadingTwoTitle>
                     <ImageTitle src={IconArrowRight} alt='' />
                 </HeaderCommunity>
