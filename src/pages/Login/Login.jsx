@@ -160,7 +160,7 @@ export default function Login() {
 
                 console.log(localStorage.getItem('Access Token'))
                 console.log(localStorage.getItem('user ID'))
-                navigate('/');
+                navigate('/home');
             } else {
                 console.log('로그인 실패');
                 console.log(response);
