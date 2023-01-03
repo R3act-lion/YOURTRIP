@@ -57,7 +57,9 @@ export default function LocationList({ category }) {
     let newData = JSON.parse(JSON.stringify(placeData.area));
     let url = '';
 
-    if (category === 'place' || category === 'location') {
+    console.log(category);
+
+    if (category === 'place' ) {
         url = '/location/theme';
 
         for (const areaKey in newData) {
@@ -66,6 +68,7 @@ export default function LocationList({ category }) {
             newData[areaKey].count -= newData[areaKey]['전체식당'].count;
 
             for (const themeKey in areaData) {
+                console.log(themeKey);
                 if (themeKey === '전체식당') {
                     delete areaData[themeKey]
                 }
@@ -75,16 +78,38 @@ export default function LocationList({ category }) {
     else {
         url = '/location/placelist';
 
+        
         for (const areaKey in newData) {
             const areaData = newData[areaKey];
-
-            newData[areaKey].count -= newData[areaKey]['전체여행지'].count;
-
-            for (const themeKey in areaData) {
-                if (themeKey !== '전체식당' && themeKey !== 'image' &&  themeKey !== 'count') {
-                    delete areaData[themeKey]
+            // console.log(areaData);
+            
+            if (category === 'location') {
+                newData[areaKey].count = newData[areaKey]['전체여행지'].count;
+                console.log(newData[areaKey].count);
+    
+                for (const themeKey in areaData) {
+                    if (themeKey !== '전체식당' && themeKey !== 'image' &&  themeKey !== 'count') {
+                        delete areaData[themeKey]
+                    }
+                }
+            } else if (category === 'restaurant') {
+                newData[areaKey].count -= newData[areaKey]['전체여행지'].count;
+    
+                for (const themeKey in areaData) {
+                    if (themeKey !== '전체식당' && themeKey !== 'image' &&  themeKey !== 'count') {
+                        delete areaData[themeKey]
+                    }
+                }
+            } else if (category === 'cafe') {
+                newData[areaKey].count -= newData[areaKey]['전체여행지'].count;
+    
+                for (const themeKey in areaData) {
+                    if (themeKey !== '전체식당' && themeKey !== 'image' &&  themeKey !== 'count') {
+                        delete areaData[themeKey]
+                    }
                 }
             }
+
         }
     }
 

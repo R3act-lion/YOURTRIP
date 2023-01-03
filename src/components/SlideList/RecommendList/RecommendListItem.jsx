@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import IconArrowRight from '../../../assets/images/icon-arrow-right.svg'
 import RecommendImage from './RecommendImage'
+import ImageSlide from '../../ImageSlide/ImageSlide'
 
 const ListItemRecommend = styled.li`
     & + li {
@@ -48,6 +49,7 @@ const ListImage = styled.ul`
 `
 
 export default function RecommendListItem({ data, title, subtilte, placelist, category, url }) {
+    console.log(placelist);
     return (
         <ListItemRecommend>
             <section>
@@ -62,12 +64,15 @@ export default function RecommendListItem({ data, title, subtilte, placelist, ca
                         </ImageListTitle>
                         <ImageArrowRight src={IconArrowRight} alt="" />
                     </HeaderTheme>
-                    <ListImage>
+                    </Link>
+                    <ImageSlide placelist={placelist}/>
+                    {/* <ListImage>
                         {
-                            placelist.map((place, index) => <RecommendImage key={index + place.title} image={place.firstimage} alt={place.title} />)
+                            placelist.map((place, index) =>
+                                <RecommendImage key={place.contentid} image={place.firstimage} alt={place.title} />)
                         }
-                    </ListImage>
-                </Link>
+                    </ListImage> */}
+                
             </section>
         </ListItemRecommend>
     )

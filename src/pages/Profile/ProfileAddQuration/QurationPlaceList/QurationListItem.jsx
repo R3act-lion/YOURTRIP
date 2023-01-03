@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import duksu from '../../../../assets/images/test_duksu.png'
 import CheckImage from '../../../../assets/images/icon-check.svg'
@@ -64,7 +64,7 @@ export default function QurationListItem({ checklist, getChecklist, deleteCheckl
     const setChecklistValue = (e) => {
         getChecklist(e)
     }
-    
+
     function handleClick() {
         setIsCheck(!isCheck)
         if (!isCheck) setChecklistValue(place)

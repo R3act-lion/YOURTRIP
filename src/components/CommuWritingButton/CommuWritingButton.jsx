@@ -13,7 +13,7 @@ const UploadButton = styled.button`
   right: calc(50vw - 170px);
   border: none;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: transparent;
   cursor: pointer;
   z-index: 10;
 `
