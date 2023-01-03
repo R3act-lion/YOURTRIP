@@ -44,6 +44,8 @@ export default function SearchResult() {
         })
     }
 
+    console.log(searchlist);
+
     // user search
     const url= "https://mandarin.api.weniv.co.kr";
     let token = localStorage.getItem('Access Token');
@@ -73,22 +75,6 @@ export default function SearchResult() {
         <SectionResult>
             <header>
                 <HeadingTwoResult>
-                    유저
-                </HeadingTwoResult>
-            </header>
-            <ListResult>
-                {
-                    userSearchList.map(item => {
-                        return (
-                            <li key={item.accountname}>
-                            <UserDesc img={item.image} name={item.username} id={item.accountname} />
-                            </li>
-                        )
-                    })
-                }
-            </ListResult>
-            <header>
-                <HeadingTwoResult>
                     장소
                 </HeadingTwoResult>
             </header>
@@ -104,6 +90,22 @@ export default function SearchResult() {
                         })
                     : <></>
                     }
+            </ListResult>
+            <header>
+                <HeadingTwoResult>
+                    유저
+                </HeadingTwoResult>
+            </header>
+            <ListResult>
+                {
+                    userSearchList.map(item => {
+                        return (
+                            <li key={item.accountname}>
+                            <UserDesc img={item.image} name={item.username} id={item.accountname} />
+                            </li>
+                        )
+                    })
+                }
             </ListResult>
         </SectionResult>
     )

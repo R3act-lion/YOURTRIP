@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+1. 개요
+2. 팀 구성 및 역할 분담
+3. 개발 환경 및 배포 url
+   3.1 개발 환경 및 기술 스택
+   3.1.1 Why Styled-components?
+   3.1.2 Why Redux
+   3.2 깃헙 사용 방식 ?
+4. 프로젝트 구조
+5. 개발 기간 및 이슈 관리
+   5.1 개발 기간
+   5.2 개발 이슈
+   5.2.1 트러블 슈팅
+6. UI 및 페이지 기능 설명 (페이지 따로 구현)
+7. 개발 이슈
+8. 프로젝트를 마치며 (뭐 아쉬운 점 같은 거 적은 곳 있어서 적음)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# YOURTRIP(유어트립)
 
-In the project directory, you can run:
+### 배포 URL : [www.naver.com](www.naver.com)
 
-### `npm start`
+## 1. 프로젝트 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1.1 프로젝트 명 : YOURTRIP
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 싶은 분들께 바치는 SNS입니다.
+여행지와 각각 유명한 식당들에 대한 홍보 혹은 유저들과 소통을 하면서 자유롭게 활동이 가능합니다.
 
-### `npm test`
+회원가입과 로그인 없이도 자유롭게 여행지 추천을 받을 수 있으며, 커뮤니티와 테마 등록 및 여행지 즐겨찾기 기능을 사용하기 위해서는 회원가입이 필요합니다.
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1.2. 개발 환경
 
-### `npm run build`
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### [개발 기간] 2022.12.10 - 2023.01.03
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### [사용 기술]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+<img src="https://img.shields.io/badge/-styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
 
-### `npm run eject`
+> Why Styled-components?
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+> Why Redux
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### [협업 방식]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### [배포]
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
 
-## Learn More
+## 2. 팀 소개 및 역할 분담
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2.1 팀 소개 : R3act 🛫
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+|                                                                    **강규민**                                                                    |                                                                    **박다은**                                                                     |                                                                    **서동현**                                                                     |                                                                    **송예은**                                                                     |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src = "https://user-images.githubusercontent.com/90226948/182023743-d3b3d683-147f-4a42-8454-8273c59182de.jpg" width="225px" height="225px"> | <img src = "https://user-images.githubusercontent.com/90226948/182028714-68f440ac-c77c-4ad4-94af-1a3975ad95b4.jpeg" width="225px" height="225px"> | <img src = "https://user-images.githubusercontent.com/90226948/182649089-1bd05fed-0e34-48b5-822a-5efba03e23b7.jpeg" width="225px" height="225px"> | <img src = "https://user-images.githubusercontent.com/90226948/182028236-71faf3c6-0260-471c-91fd-ea193b72c488.jpeg" width="225px" height="225px"> |
+|                                                   [ThisisMiri](https://github.com/ThisisMiri)                                                    |                                                    [daeun.park](https://github.com/ekdms5566)                                                     |                                                   [myeong-seok](https://github.com/myeong-seok)                                                   |                                                        [dana-y](https://github.com/dana-y)                                                        |
 
-### Code Splitting
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 2.2 역할 분담
 
-### Analyzing the Bundle Size
+### 👩🏻‍💻 강규민 - `팀리더 및 문서화`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 공통 컴포넌트 제작 (이미지 업로드버튼,커뮤니티 컴포넌트)
+- 토큰 관리
+- 스플래쉬 페이지
+- 로그인 페이지
+- 회원가입 페이지
+- 프로필 수정 페이지
+- 로그아웃 기능
 
-### Making a Progressive Web App
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 👩🏻‍💻 박다은 - `프로젝트 기획 및 디자인`
 
-### Advanced Configuration
+- 공통 컴포넌트 제작 ()
+- 데브 타운 아이디어 기획 및 아이콘 디자인
+- 개인 프로필 페이지
+- 상대 프로필 페이지
+- 팔로우 / 언팔로우 기능 구현
+- 프로필 수정
+- nav 및 모달창 구현
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<br>
 
-### Deployment
+### 🧑🏻‍💻 서동현 - `API 통신 및 Redux 환경 구축`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- 공통 컴포넌트 제작 (Auth 인풋, 탭 메뉴, 검색창, 팔로우, 이미지포스트, 상품창)
+- 로그인
+- 회원가입
+- 프로필 설정
+- 토큰 검증
+- 홈 피드리스트
+- 판매 상품 등록, 수정, 삭제
 
-### `npm run build` fails to minify
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 🧑🏻‍💻 송예은 - `API 통신 및 Redux 환경 구축`
+
+- 공통 컴포넌트 제작 ()
+- 게시물 작성, 수정, 삭제
+- 팔로우 언팔로우 기능 및 팔로잉 팔로우 리스트
+- 커뮤니티 피드리스트
+
+<br>
+
+## 3. 폴더 구조 - 넣을지 말지?
+
+## 4. 프로젝트 기능 설명
+
+## 5. 트러블 슈팅
+
+## 6. 프로젝트를 마치며
+
+### 6.1 보완할 점
