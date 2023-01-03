@@ -40,10 +40,12 @@ const getComments = async (postId, callBack) => {
     }
 }
 
-export default function CommunityDetail({ postContent, postWriter, postData, setDetailModal }) {
+export default function CommunityDetail({ postContent, postWriter, postData, setDetailModal, setEditModal, accountname, authorAccountname }) {
     // console.log(postContent);
     // console.log(postWriter);
     // console.log(postData);
+
+    // postwriter와 authoraccountname이 같다면 수정삭제 모달 아니라면 디테일모달(신고하기)
     const imageData = postData.image.split(',');
     const createdAt = postData.createdAt.split('-');
 
@@ -62,7 +64,11 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
                 <>
                     <DivPost>
                         <UserDesc img={postWriter.image} name={postWriter.username} id={postWriter.accountname} />
-                        <ImageMore src={MoreImg} alt='더보기' onClick={() => { setDetailModal(true) }} />
+                        <ImageMore src={MoreImg} alt='더보기' 
+                            onClick={() => {
+                                accountname === authorAccountname
+                                    ? setEditModal(true)
+                                    : setDetailModal(true) }} />
                         <DivContent>
                             <ParagraphContent>
                                 {postContent}
@@ -89,6 +95,7 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
 
                                     return <PlaceCommentListItem key={comment.id} comment={comment} isPost={true} />
                                 })
+                                
                             }
                         </ListComment>
                         <WritePlaceComment postId={postData.id} renderFunction={updateState} />

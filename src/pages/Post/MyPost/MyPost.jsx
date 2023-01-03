@@ -1,9 +1,13 @@
 import { React, useState, useEffect } from 'react'
-import PostItem from '../../../components/Post/PostItem/PostItem';
-import DetailMyPostModal from '../../../components/Modal/DetailMyPostModal';
+import styled from 'styled-components'
+import PostItem from '../../../components/Post/PostItem/PostItem'
+
+const ListPost = styled.ul`
+
+`
 
 const getToken=()=>{
-  let token= localStorage.getItem("Access Token");
+  const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
   return token;
 }
 
@@ -12,7 +16,6 @@ export default function MyPost() {
     let token = getToken();
     let accountname= localStorage.getItem("user ID");
     let [myPostData, setMyPostData] =useState([]);
-    let [detailMyPostModal, setDetailMyPostModal]= useState(false);
   
     const getMyPost = async () => {
       try {
@@ -30,8 +33,6 @@ export default function MyPost() {
     } catch (err) {
         console.err(err);
     }
-
-
     }
   
 
@@ -43,11 +44,13 @@ export default function MyPost() {
   },[])
 
   return (
-    <section>
-      <ul>
-        <PostItem feedData={myPostData}/>
-      </ul>
-    </section>
+      <ListPost>
+          {myPostData.map((item)=>{
+            return(
+              <PostItem key={item._id} content={item.content} writer={item.author} feedData={item} />
+                  )
+                })}
+      </ListPost>
   )
 
   }
