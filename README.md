@@ -17,19 +17,19 @@ YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 
 
 ### 1.2. 개발 환경
 
-<br>
 
 ### [개발 기간] 2022.12.10 - 2023.01.03
 
-<br>
 
 ### [사용 기술]
 
 - Front-End
 
+<div style="display:inline">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/-styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+</div>
 
 <br>
 
@@ -60,7 +60,6 @@ YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 
 - 프로필 수정 페이지
 - 로그아웃 기능
 
-<br>
 
 ### 👩🏻‍💻 박다은
 
@@ -71,13 +70,11 @@ YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 
 - 큐레이션 추가 페이지 구현
 - 유저 및 장소 검색
 
-<br>
 
 ### 🧑🏻‍💻 서동현
 
 - 공통 컴포넌트 제작 ()
 
-<br>
 
 ### 🧑🏻‍💻 송예은
 
