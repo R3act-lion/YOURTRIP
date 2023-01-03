@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Imgsircle from '../../assets/images/profile.svg'
 import UploadImgButton from '../../components/UploadButtonImg/UploadButtonImg'
+import UserDesc from '../../components/UserDesc/UserDesc';
 
 const Container = styled.div`
     margin: 0 auto;
@@ -54,7 +55,7 @@ const ResultValue = styled.form`
 `
 
 const ResultTitle = styled.label`
-    margin-bottom: 10px;
+    margin: 10px 0;
     color:#767676;
     font-weight: 500;
     font-size: 12px;
@@ -63,9 +64,8 @@ const ResultTitle = styled.label`
 
 const NameInput = styled.input`
     width: 322px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    border: none;
+    padding-bottom: 5px;
     border-bottom: 1px solid #DBDBDB;
     &::placeholder{
         color: #DBDBDB;
@@ -74,9 +74,8 @@ const NameInput = styled.input`
 
 const IdInput = styled.input`
     width: 322px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    border: none;
+    padding-bottom: 5px;
     border-bottom: 1px solid #DBDBDB;
     &::placeholder{
         color: #DBDBDB;
@@ -88,9 +87,8 @@ const IdInput = styled.input`
 const IntroInput = styled.input`
     width: 322px;
     margin-bottom: 30px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    border: none;
+    padding-bottom: 5px;
     border-bottom: 1px solid #DBDBDB;
     &::placeholder{
         color: #DBDBDB;
@@ -108,6 +106,9 @@ const ResultBtn = styled.button`
     line-height: 18px;
     color: #FFFFFF;
     cursor: pointer;
+    &.on{
+        background-color: ${props => props.theme.color.primary.main};
+    }
 `
 
 const ErrorMessage = styled.p`
@@ -134,8 +135,6 @@ export default function SignUProfile() {
     const userEmail = location.state.email;
     const userPassword = location.state.password;
 
-    console.log(userEmail, userPassword);
-
     const [userName, setUserName] = useState('');
     const [userId, setUserId] = useState('');
     const [userIntro, setUserIntro] = useState('');
@@ -148,7 +147,6 @@ export default function SignUProfile() {
 
 
     const userNameValidation = e => {
-        console.log(e.target.value);
         const value = e.target.value;
 
         setUserName(prev => value);
@@ -201,19 +199,16 @@ export default function SignUProfile() {
 
     const submitProfile = async e => {
         e.preventDefault();
-        console.log('submit');
-
         try {
-            console.log(userId);
             const response = await idAxios.post('/accountnamevalid', { user: { accountname: userId } });
 
             if (response.data.message === '사용 가능한 계정ID 입니다.') {
                 console.log(response.data.message);
                 await submitRegister();
             } else if (response.data.message === '이미 가입된 계정ID 입니다.') {
-                console.log(response.data.message);
+                alert(response.data.message);
             } else if (response.data.message === '잘못된 접근입니다.') {
-                console.log(response.data.message);
+                alert(response.data.message);
             }
         } catch (error) {
             console.log(error.message);
@@ -237,8 +232,7 @@ export default function SignUProfile() {
             await registerAxios
                 .post('/user', data)
                 .then(response => {
-                    console.log(response);
-                    console.log('회원가입 성공');
+                    alert('회원가입 성공');
                     navigate('/Login');
                 })
                 .catch(response => console.log(response.data.message));
@@ -286,8 +280,8 @@ export default function SignUProfile() {
                     />
                     <ResultBtn 
                     disabled={isBtnActive}
-                    style={{backgroundColor: ((userName === "") && (userId === "") && (userIntro === "") && (userImage === "")) 
-                    ? "#C9D9F0" : "#3C70BC"}}>
+                    className={userName && userId && UserDesc ? "on" : false}
+                    >
                         시작하기
                     </ResultBtn>
                 </ResultValue>

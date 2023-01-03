@@ -39,10 +39,11 @@ const LoginTitle = styled.label`
 const EmailInput = styled.input`
     width: 322px;
     margin-top: 10px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    border:none;
     border-bottom: 1px solid #DBDBDB;
+    margin: 10px 0;
+    padding-bottom: 5px;
+    outline: none;
     &::placeholder{
       color: #DBDBDB;
     }
@@ -58,11 +59,11 @@ const PassWordTitle = styled.label`
 
 const PasswordInput = styled.input`
     width: 322px;
-    margin-top: 10px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    margin: 10px 0;
+    border:none;
     border-bottom: 1px solid #DBDBDB;
+    padding-bottom: 5px;
+    outline: none;
     &::placeholder{
       color: #DBDBDB;
     }
@@ -71,7 +72,7 @@ const PasswordInput = styled.input`
 const ResultBtn = styled.button`
     width: 322px;
     height: 44px;
-    margin: 30px 34px 20px 34px;
+    margin: 20px 34px;
     border: 0px;
     background: #C9D9F0;
     border-radius: 44px;
@@ -79,12 +80,14 @@ const ResultBtn = styled.button`
     line-height: 18px;
     color: #FFFFFF;
     cursor: pointer;
+      &.on{
+        background-color: ${props => props.theme.color.primary.main};
+    }
 `
 
 const ErrorMessage = styled.p`
     font-size: 12px;
     color: #EB5757;
-    margin-top: 6px;
     margin-bottom: 16px;
     `;
 
@@ -195,9 +198,8 @@ export default function Signup() {
         <ErrorMessage>{pwError}</ErrorMessage>
         </LoginValue>
         <ResultBtn disabled={isBtnActive}
-        style={{backgroundColor: 
-          ((email === "") && (password === "")) 
-              ? "#C9D9F0" : "#3C70BC"}}>다음</ResultBtn>
+            className={email && password.length > 5 ? "on" : false}
+            >다음</ResultBtn>
         </form>
     </Container>
         

@@ -39,11 +39,11 @@ const LoginTitle = styled.p`
 
 const EmailInput = styled.input`
     width: 322px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    border:none;
     border-bottom: 1px solid #DBDBDB;
-    
+    margin: 10px 0 0;
+    padding-bottom: 5px;
+    outline: none;
 `
 
 const PassWordTitle = styled.p`
@@ -56,10 +56,11 @@ const PassWordTitle = styled.p`
 
 const PasswordInput = styled.input`
     width: 322px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
+    border: none;
     border-bottom: 1px solid #DBDBDB;
+    margin: 10px 0 0;
+    padding-bottom: 5px;
+    outline: none;
 `
 
 const ResultBtn = styled.button`
@@ -75,7 +76,12 @@ const ResultBtn = styled.button`
     cursor: pointer;
     &:hover{
         background-color: #C9D9F0;
-        color: #FFFFFF;}
+        color: #FFFFFF;
+    }
+    &.on{
+        background-color: ${props => props.theme.color.primary.main};
+    }
+
 `
 
 const SignTitle = styled(Link)`
@@ -146,16 +152,11 @@ export default function Login() {
             });
 
             if (!response.data.user) {
-                console.log(response);
                 setLoginError('이메일 또는 비밀번호가 일치하지 않습니다.');
             } else if (response.data.user) {
-                console.log(response);
                 localStorage.setItem('Access Token', response.data.user.token);
                 localStorage.setItem('user ID', response.data.user.accountname);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
-
-                console.log(localStorage.getItem('Access Token'))
-                console.log(localStorage.getItem('user ID'))
                 navigate('/');
             } else {
                 console.log('로그인 실패');
@@ -183,17 +184,16 @@ export default function Login() {
                     <LoginValue>
                         <LoginTitle>이메일</LoginTitle>
                         <EmailInput id="inputEmail" type="email" onChange={changeHandler} required />
+                        <ErrorMessage>{emailError}</ErrorMessage>
                         <PassWordTitle >비밀번호</PassWordTitle>
                         <PasswordInput id="inputPwd" type="password" onChange={changeHandler} required />
                         <ErrorMessage>{loginError}</ErrorMessage>
                     </LoginValue>
 
                     <ResultBtn disabled={isBtnActive}
-                    style={{backgroundColor: 
-                        ((email === "") && (password === "")) 
-                            ? "#C9D9F0" : "#3C70BC"}}>로그인</ResultBtn>
+                        className={!!email && !!password && !emailError? "on" : false}>로그인</ResultBtn>
                 </form>
-                <SignTitle to='/Signup'>이메일로 회원가입</SignTitle>
+                <SignTitle to='/signup'>이메일로 회원가입</SignTitle>
             </Container>
         </>
     )

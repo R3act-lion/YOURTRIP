@@ -74,6 +74,9 @@ const ButtonSave = styled.button`
     right: calc(50vw - 179px);
     z-index: 30;
     cursor: pointer;
+    &.on{
+        background-color: ${props => props.theme.color.primary.main};
+    }
 `
 
 export default function QurationPlaceList() {

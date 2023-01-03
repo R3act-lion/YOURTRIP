@@ -144,12 +144,12 @@ export default function ProfileModify() {
 
   const getProfile = async accountname => {
     try {
-  const response = await instance.get(`/profile/${accountname}`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+      const response = await instance.get(`/profile/${accountname}`);
+        return response.data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
 
   useEffect(() => {
     getProfile(localID).then(res => {
@@ -188,22 +188,28 @@ export default function ProfileModify() {
       setUserNameError('');
     }
   };
-      
+
     // 계정 ID 유효성 검사
-  const userIdValidation = e => {
+  const userIdValidation = async (e) => {
     const value = e.target.value;
+    setUserId(value);
+
     const userIdRegex = /^[_A-Za-z0-9.]*$/;
 
-    setUserId(prev => value);
-
-    if (!userIdRegex.test(value)) {
-      setUserIdError('영문, 숫자, 특수문자(,),(_)만 사용가능합니다.');
-    } else if (value === '') {
-      setUserIdError('계정 ID를 입력해주세요.');
-    } else {
-      setUserIdError('');
+    try {
+      const response = await instance.post('/user/accountnamevalid', {
+        "user": {
+          "accountname": value
+        }
+      });
+      setUserIdError(response.data.message);
+      if (!userIdRegex.test(value)) {
+        setUserIdError('영문, 숫자, 특수문자(,),(_)만 사용가능합니다.');
+      } 
+    } catch (error) {
+        throw new Error(error);
     }
-  };
+  }
       
     // 소개 유효성 검사
     const userIntroCheck = e => {
@@ -230,7 +236,7 @@ export default function ProfileModify() {
         });
         console.log(res)
         localStorage.setItem('user ID', userId);
-        navigate(`/profile/${userName}`)
+        navigate(`/profile/${userId}`)
       } catch (error) {
         console.log(error.message);
       }
