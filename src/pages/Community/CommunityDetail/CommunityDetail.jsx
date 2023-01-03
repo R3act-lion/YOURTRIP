@@ -44,7 +44,6 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
     // console.log(postWriter);
     // console.log(postData);
 
-    // postwriter와 authoraccountname이 같다면 수정삭제 모달 아니라면 디테일모달(신고하기)
     const imageData = postData.image.split(',');
     const createdAt = postData.createdAt.split('-');
 

@@ -233,9 +233,17 @@ const selectTab = (select) => {
     })
 }
 
+const getDetailData = async (contentid, contenttypeid, callBack) => {
+    const response = await fetch('https://apis.data.go.kr/B551011/KorService/detailCommon?serviceKey=01NkDQGu2Msy2Z7EB05zhmnrUGWIIN%2FobAVqxaIGHlZjBF3WE6AvZWTH0dLvFmR%2BuPcaKEhB5yCl9sXteUddkQ%3D%3D&MobileOS=ETC&MobileApp=AppTest&_type=json&contentId=' + contentid + '&contentTypeId=' + contenttypeid + '&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y');
+    const result = await response.json();
+
+    callBack(result.response.body.items.item[0]);
+}
+
 export default function PlaceDetail() {
     const [select, setSelect] = useState('Home');
     const [renderFunction, setRenderFunction] = useState();
+    const [detailData, setDetailData] = useState();
     const navigation = useNavigate();
     const location = useLocation();
 
@@ -245,6 +253,14 @@ export default function PlaceDetail() {
 
     let area = place.addr1.split(' ')[0]
     area = checkArea(area);
+
+    // console.log(place);
+    console.log(detailData);
+    console.log(!!detailData);
+
+    useEffect(() => {
+        getDetailData(place.contentid, place.contenttypeid, setDetailData);
+    }, [])
 
     useEffect(() => {
         scrollToTop();
@@ -295,7 +311,11 @@ export default function PlaceDetail() {
                             </ParagraphCategory>
                         </header>
                         <ParagraphDescription>
-                            {place.desc}
+                            {
+                                !!detailData
+                                ? detailData.overview
+                                : place.desc
+                            }
                         </ParagraphDescription>
                     </SectionHome>
                 </li>

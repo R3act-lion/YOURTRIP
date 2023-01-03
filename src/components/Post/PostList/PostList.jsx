@@ -17,7 +17,7 @@ export default function PostList() {
     let token = getToken();
     let [feedData, setFeedData] = useState([]);
 
-    console.log(feedData);
+    // console.log(feedData);
 
     const getData = async () => {
         try {
