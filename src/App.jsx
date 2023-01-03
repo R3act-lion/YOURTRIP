@@ -49,6 +49,9 @@ import NotFound from "./pages/NotFound/NotFound";
 import { SearchContext } from './context/Context';
 
 
+import SplashPage from './pages/Splash/Splash'
+
+
 const GlobalStyle = createGlobalStyle`
     ${reset}
 
@@ -120,13 +123,16 @@ function App() {
                 : <ThemeProvider theme={theme} >
                     <GlobalStyle />
                     <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<SplashPage />}/>
+                    </Routes> 
                         <Routes>
                             <Route element={<NavigationLayout />}>
                                 <Route element={<LogoHeaderLayout />}>
-                                    <Route path="/" element={<Home />} />
-
+                                    <Route path="home" element={<Home />} />
                                 </Route>
                                 <Route element={<LogoBackHeaderLayout />}>
+
                                     <Route path="/home/placelist" element={<HomePlaceList />} />
 
                                     <Route element={<CategoryNavigationLayout />}>
@@ -166,6 +172,7 @@ function App() {
                             <Route path="/login" element={<Login />} />
                             <Route path="/notfound" element={<NotFound />} />
                             <Route path="/profile" element={<NotFound />} />
+                            
                         </Routes>
                     </BrowserRouter>
                 </ThemeProvider>

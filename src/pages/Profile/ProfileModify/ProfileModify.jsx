@@ -228,6 +228,13 @@ export default function ProfileModify() {
             image: userImage,
           },
         });
+        if (res.data.message === '사용 가능한 계정ID 입니다.') {
+          console.log(res.data.message);
+      } else if (res.data.message === '이미 가입된 계정ID 입니다.') {
+          console.log(res.data.message);
+      } else if (res.data.message === '잘못된 접근입니다.') {
+          console.log(res.data.message);
+      }
         console.log(res)
         localStorage.setItem('user ID', userId);
         navigate(`/profile/${userId}`)
