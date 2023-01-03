@@ -127,8 +127,10 @@ export default function CommunityUpload() {
 
     const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const url = "https://mandarin.api.weniv.co.kr";
+    const accountname= localStorage.getItem("user ID");
     let [content, setContent] = useState("");
     let [imagesrc, setImagesrc] = useState([]);
+    let [authorAccountname, setAuthorAccountname]= useState("");
 
     // 게시물 포스팅하는 함수
     async function posting() {
@@ -155,14 +157,15 @@ export default function CommunityUpload() {
             const resJson = await res.json();
             setContent('');
             setImagesrc([]);
-            console.log(resJson);
-
+            setAuthorAccountname((JSON.parse(JSON.parse
+                (resJson.post.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')).user)).accountname);
+                
         } catch (err) {
             console.error(err);
         }
     }
 
-    // 파일 인풋창 열리는 함수 근데 왜 두번열리는지 모르겠음
+    // 파일 인풋창 열리는 함수
     const handleClickFileInput = () => {
         if (imagesrc.length >= 3) {
             alert("이미지는 3장까지만 업로드 가능합니다")
@@ -196,6 +199,7 @@ export default function CommunityUpload() {
                 let makeSrc = url + '/' + resJson[0]["filename"];
                 setImagesrc((imagesrc) => [...imagesrc, makeSrc]);
                 console.log(imagesrc)
+                
 
             } catch (err) {
                 console.error(err);

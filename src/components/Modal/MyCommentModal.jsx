@@ -25,14 +25,14 @@ export const ModalContainer = styled.section`
     background-color: #fff;
 `
 
-export default function DetailModal({setDetailModal}) {
+export default function MyCommentModal({setMyCommentModal}) {
 
-  const modalRef= useRef();
+  const myCommentModalRef= useRef();
 
   useEffect(()=>{
     const handler = (e)=>{
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        setDetailModal(false);
+      if (myCommentModalRef.current && !myCommentModalRef.current.contains(e.target)) {
+        setMyCommentModal(false);
       }
     }
     document.addEventListener('mousedown', handler);
@@ -44,9 +44,10 @@ export default function DetailModal({setDetailModal}) {
     
   return (
     <ModalDiv>
-    <ModalContainer ref={modalRef}>
+    <ModalContainer ref={myCommentModalRef}>
       <ModalBar />
-      <ModalListItem>신고하기</ModalListItem>
+      <ModalListItem>수정하기</ModalListItem>
+      <ModalListItem>삭제하기</ModalListItem>
     </ModalContainer>
     </ModalDiv>
   )

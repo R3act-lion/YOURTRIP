@@ -21,7 +21,6 @@ const ListItemPostComment = styled.li`
 `
 
 export default function PlaceCommentListItem({ comment, isPost }) {
-    // console.log(writerData,'데이터입니다')
 
     if (isPost) {
         console.log(comment);

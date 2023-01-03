@@ -25,14 +25,14 @@ export const ModalContainer = styled.section`
     background-color: #fff;
 `
 
-export default function DetailModal({setDetailModal}) {
+export default function EditModal({setEditModal}) {
 
-  const modalRef= useRef();
+  const editModalRef= useRef();
 
   useEffect(()=>{
     const handler = (e)=>{
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        setDetailModal(false);
+      if (editModalRef.current && !editModalRef.current.contains(e.target)) {
+        setEditModal(false);
       }
     }
     document.addEventListener('mousedown', handler);
@@ -44,9 +44,10 @@ export default function DetailModal({setDetailModal}) {
     
   return (
     <ModalDiv>
-    <ModalContainer ref={modalRef}>
+    <ModalContainer ref={editModalRef}>
       <ModalBar />
-      <ModalListItem>신고하기</ModalListItem>
+      <ModalListItem>수정하기</ModalListItem>
+      <ModalListItem>삭제하기</ModalListItem>
     </ModalContainer>
     </ModalDiv>
   )

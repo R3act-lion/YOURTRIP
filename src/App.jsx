@@ -46,7 +46,6 @@ import Login from "./pages/Login/Login";
 
 import NotFound from "./pages/NotFound/NotFound";
 import CommunityDatail from './pages/Community/CommunityDetail/CommunityDetail';
-import MyDetailPost from './pages/Post/MyPost/MyDetailPost';
 import { SearchContext } from './context/Context';
 
 const GlobalStyle = createGlobalStyle`
@@ -138,7 +137,6 @@ function App() {
                                 <Route element={<BasicHeaderLayout />}>
                                     <Route path="/placedetail/:id" element={<PlaceDetail />} />
                                     <Route path="/post/:id" element={<Post />} />
-                                    <Route path="/mypost/:id" element={<MyDetailPost/>} />
                                     {/* <Route path="/profile" element={<NotFound />} /> */}
                                     <Route path="/profile/:id" element={<Profile />} />
                                     <Route path="/yourprofile/:id" element={<Profile />} />

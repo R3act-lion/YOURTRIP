@@ -8,7 +8,7 @@ const SectionPost = styled.section`
     padding: 28px 0;
 `
 
-const HeaderCommunidty = styled.header`
+const HeaderCommunity = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,7 +79,7 @@ export default function PostList() {
                 <HeaderCommunidty>
                     <HeadingTwoTitle>우리의 이야기</HeadingTwoTitle>
                     <ImageTitle src={IconArrowRight} alt='' />
-                </HeaderCommunidty>
+                </HeaderCommunity>
             </Link>
             <ListPost>
                 {/* <PostListItem content={content} />
