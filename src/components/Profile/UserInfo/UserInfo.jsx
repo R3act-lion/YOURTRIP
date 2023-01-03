@@ -111,9 +111,11 @@ export default function UserInfo() {
         const setData = async (token) => {
             try {
                 if (path.includes("yourprofile")) {
+                    const newToken = JSON.parse(localStorage.getItem('defaultAccount')).token;
+
                     const res = await fetch(url + `/profile/${id}`, {
                         headers: {
-                            "Authorization": `Bearer ${token}`,
+                            "Authorization": `Bearer ${newToken}`,
                         }
                     })
                     const resJson = await res.json()
@@ -138,6 +140,10 @@ export default function UserInfo() {
         }
         setData(token);
     }, [id]);
+
+    if (!userinfo) {
+        return
+    }
 
     return (
         <SectionUserInfo>
