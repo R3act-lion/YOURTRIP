@@ -87,13 +87,13 @@ export default function PostList() {
                 <PostListItem content={content} /> */}
                 {
                     feedData.filter(item => item.content.startsWith('yourtrip_post_')).map(item => {
-                        console.log(item);
+                        // console.log(item);
 
                         const contentData = JSON.parse(item.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))
 
                         // console.log(contentData);
 
-                        return <PostListItem key={contentData.text} content={contentData.text} writer={JSON.parse(contentData.user)} feedData={item} />
+                        return <PostListItem key={item.id} content={contentData.text} writer={JSON.parse(contentData.user)} feedData={item} />
                     })
                 }
             </ListPost>

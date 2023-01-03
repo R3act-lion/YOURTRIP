@@ -27,7 +27,7 @@ export default function LocationPlaceList() {
                         :
                         <DetailPlaceList placeList={cafelist} data={data} />
                     :
-                    <DetailPlaceList placeList={placelist[area]['전체여행지']['list']} data={data} />
+                    <DetailPlaceList placeList={location.state.placelist} data={data} />
             }
         </>
     )

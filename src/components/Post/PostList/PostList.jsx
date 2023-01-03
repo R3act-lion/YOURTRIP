@@ -22,17 +22,17 @@ export default function PostList() {
     const getData = async () => {
         try {
             const res = await fetch(url + "/post/yourtrip_official/userpost", {
+                method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 }
             })
             const resJson = await res.json();
-            // console.log(resJson);
             setFeedData(resJson.post);
 
         } catch (err) {
-            console.err(err);
+            console.log(err);
         }
     }
 
@@ -43,7 +43,6 @@ export default function PostList() {
     return (
         <>
             <ListPost>
-                {/* <PostItem feedData={[...feedData]} /> */}
                 {
                     feedData.filter(item => item.content.startsWith('yourtrip_post_')).map(item => {
                         // console.log(item.content);

@@ -103,6 +103,9 @@ export default function LocationList({ category }) {
         }
     }
 
+    console.log(newData);
+    console.log(category);
+
     return (
         <Container>
             {
