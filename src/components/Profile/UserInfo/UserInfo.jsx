@@ -98,7 +98,7 @@ const LinkLogin = styled(Link)`
 
 export default function UserInfo() {
     const url = "https://mandarin.api.weniv.co.kr";
-    const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
+    const token = localStorage.getItem('Access Token');
     const path = useLocation().pathname
     const { id } = useParams()
 
