@@ -35,16 +35,19 @@ YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 
 
 - Back-End: 제공된 API 사용
 
+- 형상 관리 : github-flow 전략 사용  
+  메인 브랜치에서는 충돌이 발생하지 않게 하고, 메인 브랜치의 역할만 할 수 있도록 기능 구현 또는 버그 수정 시 기능 단위별로 브랜치를 생성하는 방식을 사용했다. 각 브랜치의 이름은 어떤 일을 하는 지 알 수 있도록 설정하였으며, push 후에 브랜치를 삭제하는 형태로 사용하여 브랜치를 잘못 사용하는 경우를 방지했다.
+
 <br>
 
 ## 2. 팀 소개 및 역할 분담
 
 ### 2.1 팀 소개 : R3act 🛫
 
-|                                           **강규민**                                            |                                           **박다은**                                            |                                           **서동현**                                            |                                           **송예은**                                            |
-| :---------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: |
-| <img src = "https://avatars.githubusercontent.com/u/78911818?v=4" width="225px" height="225px"> | <img src = "https://avatars.githubusercontent.com/u/78911818?v=4" width="225px" height="225px"> | <img src = "https://avatars.githubusercontent.com/u/78911818?v=4" width="225px" height="225px"> | <img src = "https://avatars.githubusercontent.com/u/78911818?v=4" width="225px" height="225px"> |
-|                           [ThisisMiri](https://github.com/ThisisMiri)                           |                           [daeun.park](https://github.com/ekdms5566)                            |                          [myeong-seok](https://github.com/myeong-seok)                          |                               [dana-y](https://github.com/dana-y)                               |
+|                                            **강규민**                                            |                                           **박다은**                                            |                                           **서동현**                                            |                                            **송예은**                                            |
+| :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: |
+| <img src = "https://avatars.githubusercontent.com/u/110913174?v=4" width="225px" height="225px"> | <img src = "https://avatars.githubusercontent.com/u/78911818?v=4" width="225px" height="225px"> | <img src = "https://avatars.githubusercontent.com/u/82585734?v=4" width="225px" height="225px"> | <img src = "https://avatars.githubusercontent.com/u/110962765?v=4" width="225px" height="225px"> |
+|                              [jattett](https://github.com/jattett)                               |                           [daeun.park](https://github.com/ekdms5566)                            |                          [donghyeon.seo](https://github.com/sdh20282)                           |                       [coding-frog117](https://github.com/coding-frog117)                        |
 
 <br>
 
@@ -71,7 +74,13 @@ YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 
 
 ### 🧑🏻‍💻 서동현
 
-- 공통 컴포넌트 제작 ()
+- 공통 컴포넌트 제작 (하단 네비게이션 바, 여행지 상세 페이지 내부 컴포넌트)
+- 공공 데이터 API 가공 및 주기적 갱신
+- 퍼블리싱 리팩토링
+- 여행지 상세 페이지
+- 데이터 저장
+- 버그 Fix
+- 배포
 
 ### 🧑🏻‍💻 송예은
 
@@ -89,15 +98,15 @@ YOURTRIP 서비스는 지친 일상 속에서 여행을 통해 힐링을 받고 
 
 [페이지별 기능 설명](https://github.com/R3act-lion/YOURTRIP.wiki.git)
 
-| 0. 스플래쉬                                                   | 1. 로그인                                                       | 2. 회원가입                                                     | 3. 프로필 설정                                                        |
-| ------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------- |
-| <img src = "./README_img/Splash.gif" width="200px">           | <img src = "./README_img/Login.gif" width="200px">              | <img src = "./README_img/Signup.gif" width="200px">             | <img src = "./README_img/SignupProfile.gif" width="200px">            |
-| 4. 하단 네비게이션                                            | 5. 홈                                                           | 6. 홈 상세보기                                                  | 7.지역별 리스트                                                       |
-| <img src = "./README_img/navbar.gif" width="200px">           | <img src = "./README_img/home.gif" width="200px">               | <img src = "./README_img/HomeDetail.gif" width="200px">         | <img src = "./README_img/지역별.gif" width="200px">                   |
-| 8.커뮤니티 게시물 업로드                                      | 9. 커뮤니티 게시물 삭제                                         | 10. 커뮤니티 게시물 수정                                        | 11. 다른 사용자 프로필 확인                                           |
-| <img src = "./README_img/커뮤니티업로드.gif" width="200px">   | <img src = "./README_img/커뮤니티삭제.gif" width="200px">       | <img src = "./README_img/커뮤니티게시물수정.gif" width="200px"> | <img src = "./README_img/커뮤니티간유저페이지이동.gif" width="200px"> |
-| 12. 프로필 페이지                                             | 13. 팔로우 팔로잉 리스트                                        | 14. 프로필 수정                                                 | 15. 큐레이션 추가                                                     |
-| <img src = "./README_img/나의프로필페이지.gif" width="200px"> | <img src = "./README_img/프로필팔로워팔로잉.gif" width="200px"> | <img src = "./README_img/프로필수정.gif" width="200px">         | <img src = "./README_img/큐레이션.gif" width="200px">                 |
+| [0. 스플래쉬](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-splash)                                                          | [1. 로그인](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%EB%A1%9C%EA%B7%B8%EC%9D%B8)                                                                        | [2. 회원가입](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85)                                                              | 3. 프로필 설정                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| <img src = "./README_img/Splash.gif" width="200px">                                                                                  | <img src = "./README_img/Login.gif" width="200px">                                                                                                                    | <img src = "./README_img/Signup.gif" width="200px">                                                                                                                    | <img src = "./README_img/SignupProfile.gif" width="200px">                                                                          |
+| [4. 하단 네비게이션](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#1-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EB%B0%94) | [5. 홈](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%ED%99%88)                                                                                              | 6. 홈 상세보기                                                                                                                                                         | [7.지역별 리스트](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC)                       |
+| <img src = "./README_img/navbar.gif" width="200px">                                                                                  | <img src = "./README_img/home.gif" width="200px">                                                                                                                     | <img src = "./README_img/HomeDetail.gif" width="200px">                                                                                                                | <img src = "./README_img/지역별.gif" width="200px">                                                                                 |
+| [8.커뮤니티 게시물 업로드](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EC%9E%91%EC%84%B1)     | [9. 커뮤니티 게시물 삭제](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EC%88%98%EC%A0%95-%EC%82%AD%EC%A0%9C-%EC%8B%A0%EA%B3%A0) | [10. 커뮤니티 게시물 수정](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EC%88%98%EC%A0%95-%EC%82%AD%EC%A0%9C-%EC%8B%A0%EA%B3%A0) | [11. 다른 사용자 프로필 확인](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%EC%9C%A0%EC%A0%80-%ED%94%84%EB%A1%9C%ED%95%84) |
+| <img src = "./README_img/커뮤니티업로드.gif" width="200px">                                                                          | <img src = "./README_img/커뮤니티삭제.gif" width="200px">                                                                                                             | <img src = "./README_img/커뮤니티게시물수정.gif" width="200px">                                                                                                        | <img src = "./README_img/커뮤니티간유저페이지이동.gif" width="200px">                                                               |
+| [12. 프로필 페이지](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#6-%ED%94%84%EB%A1%9C%ED%95%84)                              | [13. 팔로우 팔로잉 리스트](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%ED%8C%94%EB%A1%9C%EC%9B%8C-%EB%B0%8F-%ED%8C%94%EB%A1%9C%EC%9E%89)                   | [14. 프로필 수정](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%ED%94%84%EB%A1%9C%ED%95%84-%EC%88%98%EC%A0%95)                                                | [15. 큐레이션 추가](https://github.com/R3act-lion/YOURTRIP/wiki/YOURTRIP#-%ED%81%90%EB%A0%88%EC%9D%B4%EC%85%98)                     |
+| <img src = "./README_img/나의프로필페이지.gif" width="200px">                                                                        | <img src = "./README_img/프로필팔로워팔로잉.gif" width="200px">                                                                                                       | <img src = "./README_img/프로필수정.gif" width="200px">                                                                                                                | <img src = "./README_img/큐레이션.gif" width="200px">                                                                               |
 
 ### **[프로젝트 주요 기능 설명]**
 
