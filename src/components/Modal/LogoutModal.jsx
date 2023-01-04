@@ -49,7 +49,7 @@ export default function LogoutModal({setLogoutModal}) {
             <ModalSelectItem style={{borderRight: "0.5px solid #DBDBDB"}} onClick={()=>{
                 setLogoutModal(false)}}>취소</ModalSelectItem>
             <ModalSelectItem style={{color: "#3C70BC"}} onClick={()=>{
-                navigate('/login')
+                navigate('/')
                 setLogoutModal(false)
                 localStorage.removeItem('Access Token');
                 localStorage.removeItem('user ID');
