@@ -255,15 +255,12 @@ export default function PlaceDetail() {
     area = checkArea(area);
 
     // console.log(place);
-    console.log(detailData);
-    console.log(!!detailData);
-
-    useEffect(() => {
-        getDetailData(place.contentid, place.contenttypeid, setDetailData);
-    }, [])
+    // console.log(detailData);
+    // console.log(!!detailData);
 
     useEffect(() => {
         scrollToTop();
+        getDetailData(place.contentid, place.contenttypeid, setDetailData);
         modifyTitle(place.title);
         RenderMap(place, navigation);
     }, [place])
