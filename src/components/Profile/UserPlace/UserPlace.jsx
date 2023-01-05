@@ -151,9 +151,14 @@ export default function UserPlace() {
                                     return (
                                         <CurationList key={index}>
                                             <RecommendList title={item.itemName.slice(18)} subtitle={item.link} placelist={JSON.parse(item.itemImage.replaceAll(/\(/g, '{').replaceAll(/\)/g, '}'))} />
-                                            <Link to="/profile/addquration" state={{checklist, id}}>
-                                                <AddBtn src={AddImage} alt="" />
-                                            </Link>
+                                            {
+                                                path.includes('yourprofile') ?
+                                                    <></>
+                                                    :
+                                                    <Link to="/profile/addquration" state={{checklist, id}}>
+                                                        <AddBtn src={AddImage} alt="" />
+                                                    </Link>
+                                            }
                                         </CurationList>
                                     )
                                 })

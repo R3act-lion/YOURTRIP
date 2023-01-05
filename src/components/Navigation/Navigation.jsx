@@ -9,7 +9,7 @@ import icon_home_fill from '../../assets/images/nav-home-fill.svg'
 import icon_location_fill from '../../assets/images/nav-location-fill.svg'
 import icon_community_fill from '../../assets/images/nav-community-fill.svg'
 import icon_profile_fill from '../../assets/images/nav-profile-fill.svg'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const NavigationContainer = styled.nav`
     width: 390px;
@@ -38,11 +38,36 @@ export default function Navigation() {
     const url = "https://mandarin.api.weniv.co.kr";
     const token = localStorage.getItem('Access Token')
     const [userName, setUserName] = useState(null)
+    const path = useLocation().pathname
 
     const [home, setHome] = useState(true)
     const [location, setLocation] = useState(false)
     const [community, setCommunity] = useState(false)
     const [profile, setProfile] = useState(false)
+
+    useEffect(() => {
+        if (path.includes('home') ) {
+            setHome(true)
+            setLocation(false)
+            setCommunity(false)
+            setProfile(false)
+        } else if (path.includes('location')) {
+            setHome(false)
+            setLocation(true)
+            setCommunity(false)
+            setProfile(false)
+        } else if (path.includes('community') || path.includes('post')) {
+            setHome(false)
+            setLocation(false)
+            setCommunity(true)
+            setProfile(false)
+        } else if (path.includes('profile')) {
+            setHome(false)
+            setLocation(false)
+            setCommunity(false)
+            setProfile(true)
+        }
+    },[path])
 
     useEffect(() => {
         const setData = async (token) => {
