@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { useEffect, useRef } from 'react'
 import ModalBar from './ModalBar'
 import { ModalListItem } from './ModalList'
 

@@ -1,7 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 import ModalBar from './ModalBar'
 import { ModalListItem } from './ModalList'
 

@@ -1,8 +1,8 @@
-import { React, useRef, useEffect } from 'react'
+import { React, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { ModalDiv, ModalContainer } from './DetailModal'
-import ModalBar from './ModalBar'
-import { ModalListItem } from './ModalList'
+import { ModalContainer, ModalDiv } from './DetailModal';
+import ModalBar from './ModalBar';
+import { ModalListItem } from './ModalList';
 
 export default function MyPostModal({setMyPostModal}) {
   const navigate= useNavigate();

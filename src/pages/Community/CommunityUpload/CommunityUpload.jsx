@@ -1,9 +1,8 @@
 import { React, useRef, useState } from 'react'
+import { useNavigate } from 'react-router'
 import styled from 'styled-components'
 import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
 import iconX from '../../../assets/images/icon-x.svg'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router'
 
 export const SectionUpload = styled.section`
     width: 390px;

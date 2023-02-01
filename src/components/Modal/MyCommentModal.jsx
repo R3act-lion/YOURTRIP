@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { useEffect, useRef } from 'react'
 import ModalBar from './ModalBar'
 import { ModalListItem } from './ModalList'
-import { Navigate } from 'react-router'
 
 export const ModalDiv = styled.section`
     position: fixed;

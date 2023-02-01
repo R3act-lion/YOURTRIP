@@ -1,7 +1,7 @@
 import { React } from 'react'
 import styled from 'styled-components'
-import PostList from '../../components/Post/PostList/PostList'
 import CommuWritingButton from '../../components/CommuWritingButton/CommuWritingButton'
+import PostList from '../../components/Post/PostList/PostList'
 
 const SectionContainer = styled.section`
     width: 390px;

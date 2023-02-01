@@ -1,10 +1,9 @@
-import styled from 'styled-components'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Imgsircle from '../../../assets/images/profile.svg'
-import UploadImgButton from '../../../components/UploadButtonImg/UploadButtonImg'
-import {useNavigate} from 'react-router-dom'
-import { useLocation } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Imgsircle from '../../../assets/images/profile.svg';
+import UploadImgButton from '../../../components/UploadButtonImg/UploadButtonImg';
 
 
 

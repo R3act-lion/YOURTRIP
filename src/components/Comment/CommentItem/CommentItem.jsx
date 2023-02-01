@@ -1,9 +1,9 @@
 import { React, useState } from 'react'
 import styled from 'styled-components'
 import IconMore from '../../../assets/images/icon-more.svg'
-import UserDesc from '../../UserDesc/UserDesc'
 import MyCommentModal from '../../Modal/MyCommentModal'
 import YourCommentModal from '../../Modal/YourCommentModal'
+import UserDesc from '../../UserDesc/UserDesc'
 
 const DivTop = styled.div`
     display: flex;

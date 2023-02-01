@@ -1,8 +1,8 @@
-import {React, useState, useEffect} from 'react'
-import styled from 'styled-components';
-import UserDesc from '../../../components/UserDesc/UserDesc';
-import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn';
+import { React, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
+import styled from 'styled-components';
+import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn';
+import UserDesc from '../../../components/UserDesc/UserDesc';
 
 const SectionFollowers = styled.section`
     padding: 24px 16px;

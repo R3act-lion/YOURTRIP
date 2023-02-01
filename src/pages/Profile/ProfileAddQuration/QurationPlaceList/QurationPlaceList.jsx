@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchIcon from '../../../../assets/images/icon-search.svg'
+import SearchIcon from '../../../../assets/images/icon-search.svg';
 import QurationListItem from './QurationListItem';
 
 const SectionList = styled.section`

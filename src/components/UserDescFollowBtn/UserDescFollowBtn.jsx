@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import Button from '../../modules/Button/Button'
 import profile from "../../assets/daeun-icon/default-profile.svg"
+import Button from '../../modules/Button/Button'
 
 const UserLi = styled.li`
   list-style: none;

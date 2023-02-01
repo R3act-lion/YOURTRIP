@@ -1,7 +1,7 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import notfound from '../../assets/images/404Logo.svg'
-import { Link, useNavigate } from 'react-router-dom'
 
 const MainContainer = styled.main`
     min-height: calc(100vh);

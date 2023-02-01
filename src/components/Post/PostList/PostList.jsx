@@ -1,7 +1,6 @@
-import { React, useState, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PostItem from '../PostItem/PostItem'
-import { Link } from 'react-router-dom'
 
 const ListPost = styled.ul`
    
@@ -16,8 +15,6 @@ export default function PostList() {
     const url = "https://mandarin.api.weniv.co.kr";
     let token = getToken();
     let [feedData, setFeedData] = useState([]);
-
-    // console.log(feedData);
 
     const getData = async () => {
         try {

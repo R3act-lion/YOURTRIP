@@ -1,8 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import IconMarker from '../../../assets/images/icon-location-mini.svg'
 import DetailImage from './DetailImage'
-import { Link } from 'react-router-dom'
 
 const ListItemDetail = styled.li`
     & + li {

@@ -1,11 +1,9 @@
 import { React, useState } from 'react'
-import styled from 'styled-components'
-import PostCommentList from '../../components/Comment/PostComment/PostCommentList'
-import WriteComment from '../../components/Comment/WriteComment/WriteComment'
 import { useLocation } from 'react-router'
-import CommunityDetail from '../Community/CommunityDetail/CommunityDetail'
+import styled from 'styled-components'
 import DetailModal from '../../components/Modal/DetailModal'
 import EditModal from '../../components/Modal/EditModal'
+import CommunityDetail from '../Community/CommunityDetail/CommunityDetail'
 
 const SectionContainer = styled.section`
     min-height: calc(100vh - 108px);

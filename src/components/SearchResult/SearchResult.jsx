@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import UserDesc from '../UserDesc/UserDesc'
-import { SearchContext } from "../../context/Context"
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { SearchContext } from "../../context/Context"
+import UserDesc from '../UserDesc/UserDesc'
 
 const SectionResult = styled.section`
     padding: 20px;

@@ -2,8 +2,8 @@ import { React, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import BasicHeader from '../../Header/BasicHeader/BasicHeader'
 import MainContainer from '../../MainContainer/MainContainer'
-import ProfileModal from '../../Modal/ProfileModal'
 import LogoutModal from '../../Modal/LogoutModal'
+import ProfileModal from '../../Modal/ProfileModal'
 
 export default function BasicHeaderLayout() {
     let [profileModal, setProfileModal]= useState(false);

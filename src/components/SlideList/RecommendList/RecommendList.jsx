@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import RecommendListItem from './RecommendListItem'
 
 export default function RecommendList({ title, subtitle, placelist, selectedItem, category, url, themeData, theme, isLocation }) {

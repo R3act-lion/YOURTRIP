@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
-import { asyncGetPlaceData } from '../../store/Data'
 
+import PostList from '../../components/SlideList/PostList/PostList'
 import RecommendList from '../../components/SlideList/RecommendList/RecommendList'
 import SimplePlaceList from '../../components/SlideList/SimplePlaceList/SimplePlaceList'
-import PostList from '../../components/SlideList/PostList/PostList'
 
 const SectionRecommend = styled.section`
     padding-top: 28px;

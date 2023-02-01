@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SelectedList from '../../../components/SlideList/SelectedList/SelectedList'
 import AddImage from '../../../assets/images/icon-add.svg'
-import {uploadProduct} from '../../../Upload/api'
 
 const SectionModity = styled.section`
     padding: 30px 35px;

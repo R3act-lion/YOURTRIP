@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
-import IconMarker from '../../assets/images/icon-location-mini.svg'
-import NormalPlaceList from '../../components/PlaceList/NormalPlaceList/NormalPlaceList';
+import IconMarker from '../../assets/images/icon-location-mini.svg';
 import PlaceCommentList from '../../components/Comment/PlaceComment/PlaceCommentList';
 import WriteComment from '../../components/Comment/WriteComment/WriteComment';
+import NormalPlaceList from '../../components/PlaceList/NormalPlaceList/NormalPlaceList';
 
 const { kakao } = window;
 

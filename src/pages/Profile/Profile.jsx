@@ -1,6 +1,6 @@
-import React from 'react'
-import UserInfo from '../../components/Profile/UserInfo/UserInfo'
-import UserPlace from '../../components/Profile/UserPlace/UserPlace'
+import React from 'react';
+import UserInfo from '../../components/Profile/UserInfo/UserInfo';
+import UserPlace from '../../components/Profile/UserPlace/UserPlace';
 
 export default function Profile() {
     setTimeout(() => {

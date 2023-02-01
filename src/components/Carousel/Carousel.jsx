@@ -1,8 +1,8 @@
-import { React, useState, useRef, useEffect } from 'react'
-import styled from 'styled-components'
-import { ImageContent } from '../Post/PostItem/PostItem';
+import { React, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import dotCurrent from '../../assets/images/icon-dot-current.svg';
-import dot from '../../assets/images/icon-dot.svg'
+import dot from '../../assets/images/icon-dot.svg';
+import { ImageContent } from '../Post/PostItem/PostItem';
 
 const ImageCont = styled.section`
     width: 290px;

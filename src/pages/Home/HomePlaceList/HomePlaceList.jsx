@@ -1,5 +1,5 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import DetailPlaceList from '../../../components/SlideList/DetailPlaceList/DetailPlaceList';
 
 export default function HomePlaceList() {

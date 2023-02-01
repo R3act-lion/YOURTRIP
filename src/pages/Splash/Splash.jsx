@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import styled, { keyframes } from 'styled-components';
-import Cloud_Img from '../../assets/images/logo-bg.svg'
-import BalloonImg from '../../assets/images/logo-fg.svg'
-import YourTripImg from '../../assets/images/YourTrip.svg'
+import Cloud_Img from '../../assets/images/logo-bg.svg';
+import BalloonImg from '../../assets/images/logo-fg.svg';
+import YourTripImg from '../../assets/images/YourTrip.svg';
 
 const Animation1 = keyframes`
 0% { transform: translate(-50%, 0); }

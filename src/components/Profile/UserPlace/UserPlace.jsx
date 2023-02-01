@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import RecommendList from '../../SlideList/RecommendList/RecommendList'
-import DetailPlaceList from '../../SlideList/DetailPlaceList/DetailPlaceList'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import Button from '../../../modules/Button/Button'
+import styled from 'styled-components'
 import AddImage from '../../../assets/images/icon-add.svg'
+import Button from '../../../modules/Button/Button'
+import RecommendList from '../../SlideList/RecommendList/RecommendList'
 
 const SectionPlace = styled.div`
 

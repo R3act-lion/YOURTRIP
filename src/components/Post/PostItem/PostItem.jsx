@@ -1,11 +1,10 @@
-import { React, useState } from 'react'
-import styled from 'styled-components'
-import UserDesc from '../../UserDesc/UserDesc'
-import MoreImg from '../../../assets/images/icon-more.svg'
-import HeartImg from '../../../assets/images/icon-heart.svg'
-import CommentImg from '../../../assets/images/icon-comment.svg'
+import { React } from 'react'
 import { useNavigate } from 'react-router'
-import DetailMyPostModal from '../../Modal/DetailMyPostModal'
+import styled from 'styled-components'
+import CommentImg from '../../../assets/images/icon-comment.svg'
+import HeartImg from '../../../assets/images/icon-heart.svg'
+import MoreImg from '../../../assets/images/icon-more.svg'
+import UserDesc from '../../UserDesc/UserDesc'
 
 export const DivPost = styled.div`
     position: relative;

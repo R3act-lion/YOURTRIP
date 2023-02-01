@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import duksu from '../../../../assets/images/test_duksu.png'
-import CheckImage from '../../../../assets/images/icon-check.svg'
 import CheckFillImage from '../../../../assets/images/icon-check-fill.svg'
+import CheckImage from '../../../../assets/images/icon-check.svg'
 
 
 const ListItemResult = styled.li`

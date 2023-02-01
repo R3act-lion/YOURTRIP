@@ -2,8 +2,6 @@ import React from 'react'
 import { useLocation } from 'react-router'
 import styled from 'styled-components'
 import RecommendList from '../../../components/SlideList/RecommendList/RecommendList'
-import RecommendPlaceList from '../../../components/SlideList/RecommendPlaceList/RecommendPlaceList'
-import SimplePlaceList from '../../../components/SlideList/SimplePlaceList/SimplePlaceList'
 
 const SectionRecommend = styled.section`
     padding: 28px 0;

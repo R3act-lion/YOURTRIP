@@ -1,7 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import IconHeart from '../../../assets/images/icon-heart.svg'
+import styled from 'styled-components'
 
 const ListItemPlace = styled.li`
     flex-basis: 190px;

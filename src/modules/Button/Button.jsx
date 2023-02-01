@@ -1,4 +1,4 @@
-import styled  from "styled-components"
+import styled from "styled-components"
 
 const BtnDefault = styled.button`
   border-radius: 50px;

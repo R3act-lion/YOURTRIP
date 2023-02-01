@@ -1,55 +1,53 @@
-import React, { useEffect } from 'react'
-import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
-import { asyncGetPlaceData } from './store/Data';
-import { reset } from "styled-reset";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
-import LogoHeaderLayout from "./components/Layout/LogoHeaderLayout/LogoHeaderLayout";
-import LogoBackHeaderLayout from "./components/Layout/LogoBackHeaderLayout/LogoBackHeaderLayout";
+import { reset } from "styled-reset";
 import BasicHeaderLayout from "./components/Layout/BasicHeaderLayout/BasicHeaderLayout";
 import ButtonHeaderLayout from "./components/Layout/ButtonHeaderLayout/ButtonHeaderLayout";
-import SearchHeaderLayout from "./components/Layout/SearchHeaderLayout/SearchHeaderLayout";
-import LogoMoreHeaderLayout from "./components/Layout/LogoMoreHeaderLayout/LogoMoreHeaderLayout";
 import CategoryNavigationLayout from "./components/Layout/CategoryNavigationLayout/CategoryNavigationLayout";
+import LogoBackHeaderLayout from "./components/Layout/LogoBackHeaderLayout/LogoBackHeaderLayout";
+import LogoHeaderLayout from "./components/Layout/LogoHeaderLayout/LogoHeaderLayout";
+import LogoMoreHeaderLayout from "./components/Layout/LogoMoreHeaderLayout/LogoMoreHeaderLayout";
+import NavigationLayout from "./components/Layout/NavigationLayout/NavigationLayout";
+import SearchHeaderLayout from "./components/Layout/SearchHeaderLayout/SearchHeaderLayout";
+import { asyncGetPlaceData } from './store/Data';
 import { theme } from "./theme";
 
 import Home from "./pages/Home/Home";
 import HomePlaceList from "./pages/Home/HomePlaceList/HomePlaceList";
 
 import Location from "./pages/Location/Location";
-import LocationTheme from "./pages/Location/LocationTheme/LocationTheme";
 import LocationPlaceList from "./pages/Location/LocationPlaceList/LocationPlaceList";
+import LocationTheme from "./pages/Location/LocationTheme/LocationTheme";
 
 import Search from "./pages/Search/Search";
 
 import Community from "./pages/Community/Community";
 import CommunityDetail from "./pages/Community/CommunityDetail/CommunityDetail";
-import CommunityUpload from "./pages/Community/CommunityUpload/CommunityUpload";
 import CommunityEdit from "./pages/Community/CommunityEdit/CommunityEdit";
+import CommunityUpload from "./pages/Community/CommunityUpload/CommunityUpload";
 
 import PlaceDetail from "./pages/PlaceDetail/PlaceDetail";
-import Post from "./pages/Post/Post";
 import MyPost from "./pages/Post/MyPost/MyPost";
+import Post from "./pages/Post/Post";
 
 import Profile from "./pages/Profile/Profile";
+import ProfileAddQuration from "./pages/Profile/ProfileAddQuration/ProfileAddQuration";
+import QurationPlaceList from "./pages/Profile/ProfileAddQuration/QurationPlaceList/QurationPlaceList";
 import ProfileFollowers from "./pages/Profile/ProfileFollowers/ProfileFollowers";
 import ProfileFollowing from "./pages/Profile/ProfileFollowing/ProfileFollowing";
 import ProfileModify from "./pages/Profile/ProfileModify/ProfileModify";
-import ProfileAddQuration from "./pages/Profile/ProfileAddQuration/ProfileAddQuration";
-import QurationPlaceList from "./pages/Profile/ProfileAddQuration/QurationPlaceList/QurationPlaceList";
 
 import SignUp from "./pages/SignUp/SignUp";
-import SignUpProfile from "./pages/SignUp/SignUpProfile"
+import SignUpProfile from "./pages/SignUp/SignUpProfile";
 
 import Login from "./pages/Login/Login";
 
 import NotFound from "./pages/NotFound/NotFound";
-import { SearchContext } from './context/Context';
 
 
-import SplashPage from './pages/Splash/Splash'
+import SplashPage from './pages/Splash/Splash';
 
 
 const GlobalStyle = createGlobalStyle`

@@ -1,7 +1,7 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import IconCOmmunity from '../../../assets/images/icon-community-mini.svg'
-import { useNavigate } from 'react-router-dom'
 
 const ListItemCommunity = styled.li`
     flex-basis: 166px;

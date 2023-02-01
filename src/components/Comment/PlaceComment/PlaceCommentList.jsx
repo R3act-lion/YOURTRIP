@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PlaceCommentListItem from './PlaceCommentListItem'
 
@@ -19,7 +19,6 @@ const getComments = async (callBack) => {
             }
         });
         const resJson = await res.json();
-        // console.log(resJson);
         callBack(resJson.product)
     } catch (err) {
         console.error(err);
@@ -36,8 +35,6 @@ export default function PlaceCommentList({ placeid, setRenderFunction }) {
             return updateState;
         })
     }, [updateTarget])
-
-    // console.log(comments);
 
     return (
         <ListComment>

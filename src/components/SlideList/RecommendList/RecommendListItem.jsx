@@ -1,8 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import IconArrowRight from '../../../assets/images/icon-arrow-right.svg'
-import RecommendImage from './RecommendImage'
 import ImageSlide from '../../ImageSlide/ImageSlide'
 
 const ListItemRecommend = styled.li`

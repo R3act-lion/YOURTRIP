@@ -1,6 +1,6 @@
-import { React, useRef, useEffect } from 'react'
-import styled from 'styled-components'
+import { React, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
 const ModalDiv = styled.section`
     position: fixed;

@@ -1,9 +1,9 @@
-import styled from 'styled-components'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Imgsircle from '../../assets/images/profile.svg'
-import UploadImgButton from '../../components/UploadButtonImg/UploadButtonImg'
+import styled from 'styled-components';
+import Imgsircle from '../../assets/images/profile.svg';
+import UploadImgButton from '../../components/UploadButtonImg/UploadButtonImg';
 
 const Container = styled.div`
     margin: 0 auto;

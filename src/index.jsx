@@ -1,10 +1,10 @@
 import React from "react";
 // import ReactDOM from 'react-dom'; //구버전
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import placeSliceReducer from './store/Data'
 import { configureStore } from "@reduxjs/toolkit";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import App from "./App";
+import placeSliceReducer from './store/Data';
 
 const store = configureStore({
     reducer: {

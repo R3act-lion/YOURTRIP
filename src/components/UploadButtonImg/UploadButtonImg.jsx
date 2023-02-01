@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import styled from 'styled-components'
-import UploadButton from '../../assets/images/btn-upload-img-fill.svg' 
+import UploadButton from '../../assets/images/btn-upload-img-fill.svg'
 
 const ButtonImg = styled.div`
     background-image: url(${UploadButton});

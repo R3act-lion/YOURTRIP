@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import duksu from '../../../assets/images/test_duksu.png'
 
 const ListItemSelected = styled.li`
     flex-basis: 77px;

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import icon_community from '../../assets/images/nav-community.svg'
 import icon_home from '../../assets/images/nav-home.svg'
 import icon_location from '../../assets/images/nav-location.svg'
-import icon_community from '../../assets/images/nav-community.svg'
 import icon_profile from '../../assets/images/nav-profile.svg'
 
+import { Link, useLocation } from 'react-router-dom'
+import icon_community_fill from '../../assets/images/nav-community-fill.svg'
 import icon_home_fill from '../../assets/images/nav-home-fill.svg'
 import icon_location_fill from '../../assets/images/nav-location-fill.svg'
-import icon_community_fill from '../../assets/images/nav-community-fill.svg'
 import icon_profile_fill from '../../assets/images/nav-profile-fill.svg'
-import { Link, useLocation } from 'react-router-dom'
 
 const NavigationContainer = styled.nav`
     width: 390px;

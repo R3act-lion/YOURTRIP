@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { useOutletContext } from 'react-router';
-import LocationList from '../../components/PlaceList/LocationList/LocationList'
+import LocationList from '../../components/PlaceList/LocationList/LocationList';
 
 export default function Location() {
     window.scrollTo(0, 0)

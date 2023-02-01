@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import ProfileImage from '../../../assets/images/profile.svg'
-import { Link, useLocation, useParams } from 'react-router-dom'
-import Button from '../../../modules/Button/Button'
 import FollowingBtn from '../../FollowingBtn/FollowingBtn'
 
 const SectionUserInfo = styled.section`

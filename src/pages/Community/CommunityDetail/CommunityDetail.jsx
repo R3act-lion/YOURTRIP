@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useLocation, useNavigate, useParams } from 'react-router'
-import { DivPost, ImageMore, DivContent, ParagraphContent, ImageContent, ImageAdditional, ParagraphAdditional, ParagraphTime } from '../../../components/Post/PostItem/PostItem'
-import UserDesc from '../../../components/UserDesc/UserDesc'
-import MoreImg from '../../../assets/images/icon-more.svg'
-import HeartImg from '../../../assets/images/icon-heart.svg'
 import CommentImg from '../../../assets/images/icon-comment.svg'
+import HeartImg from '../../../assets/images/icon-heart.svg'
+import MoreImg from '../../../assets/images/icon-more.svg'
 import Carousel from '../../../components/Carousel/Carousel'
 import PlaceCommentListItem from '../../../components/Comment/PlaceComment/PlaceCommentListItem'
 import WritePlaceComment from '../../../components/Comment/WritePlaceComment/WritePlaceComment'
+import { DivContent, DivPost, ImageAdditional, ImageMore, ParagraphAdditional, ParagraphContent, ParagraphTime } from '../../../components/Post/PostItem/PostItem'
+import UserDesc from '../../../components/UserDesc/UserDesc'
 
 const DivWrite = styled.div`
     /* margin-left: -20px; */

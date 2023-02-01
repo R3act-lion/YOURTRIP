@@ -1,8 +1,8 @@
-import { React, useState, useRef } from 'react'
+import { React, useRef, useState } from 'react';
+import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router'
-import { SectionUpload, ButtonImageUpload, ImageLabel, ImageUpload, ImageProfile, FormPost, TextAreaContent, ButtonUpload, PrevImgList, PrevBigImg, PrevSmallImg, PrevXBtn } from "../CommunityUpload/CommunityUpload"
-import iconX from '../../../assets/images/icon-x.svg'
+import iconX from '../../../assets/images/icon-x.svg';
+import { ButtonImageUpload, ButtonUpload, FormPost, ImageLabel, ImageProfile, ImageUpload, PrevBigImg, PrevImgList, PrevSmallImg, PrevXBtn, SectionUpload, TextAreaContent } from "../CommunityUpload/CommunityUpload";
 
 export default function CommunityEdit() {
     const fileInputRef = useRef();
