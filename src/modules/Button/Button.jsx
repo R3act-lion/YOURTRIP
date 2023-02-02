@@ -9,6 +9,7 @@ const BtnDefault = styled.button`
   height: ${props => props.height};
   font-size: ${props => props.fontSize};
   border: none;
+  cursor: pointer;
   &.btnChecked {
     border: 1px solid #dbdbdb;
   }

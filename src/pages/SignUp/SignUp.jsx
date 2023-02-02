@@ -1,7 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 import styled from 'styled-components';
+import Button from '../../modules/Button/Button';
+import { emailvalid } from "../../Upload/api";
 
 const Container = styled.div`
     width: 390px;
@@ -67,17 +68,7 @@ const PasswordInput = styled.input`
     }
 `
 
-const ResultBtn = styled.button`
-    width: 322px;
-    height: 44px;
-    margin: 20px 34px;
-    border: 0px;
-    background: #C9D9F0;
-    border-radius: 44px;
-    font-size: 14px;
-    line-height: 18px;
-    color: #FFFFFF;
-    cursor: pointer;
+const ResultBtn = styled(Button)`
     &.on{
         background-color: ${props => props.theme.color.primary.main};
     }
@@ -89,87 +80,64 @@ const ErrorMessage = styled.p`
     margin-top: 6px;
     margin-bottom: 16px;
     `;
-
-
-const emailAxios = axios.create({
-    baseURL: 'https://mandarin.api.weniv.co.kr/user',
-    headers: { 'Content-type': 'application/json' },
-  });
   
 export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [pwError, setPwError] = useState('');
-    const [isBtnActive, setIsBtnActive] = useState(true);
+    const [isBtnActive, setIsBtnActive] = useState(false);
   
     const navigate = useNavigate();
   
     const emailValidation = e => {
       const value = e.target.value;
-  
-      setEmail(prev => value);
+      setEmail(value);
+
       const emailRegex =
         /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
   
-      if (!emailRegex.test(value)) {
-        setEmailError(prev => {
-          if (value === '') return '';
-          else return '올바른 이메일 형식이 아닙니다.';
-        });
+      if (emailRegex.test(value)) {
+          setEmailError('');
       } else {
-        setEmailError('');
+        setEmailError('올바른 이메일 형식이 아닙니다.');
       }
     };
   
     const pwValidation = e => {
       const value = e.target.value;
   
-      setPassword(prev => value);
+      setPassword(value);
   
-      if (value.length < 6) {
-        if (value === '') {
-          setPwError('');
-        } else {
-          setPwError('6자 이상 입력');
-        }
+      if (value.length > 0 && value.length < 6) {
+        setPwError('6자 이상 입력하세요');
       } else {
         setPwError('');
       }
     };
 
-    useEffect(() => {
-      console.log(emailError, pwError );
-      if (!emailError && !pwError) {
-        if (!!email && !!password) {
-          setIsBtnActive(prev => false);
-        } else {
-          setIsBtnActive(prev => true);
-        }
+  useEffect(() => {
+    if (!!email && !!password && !emailError && !pwError) {
+          setIsBtnActive(true);
       } else {
-        setIsBtnActive(prev => true);
+        setIsBtnActive(false);
       }
-    }, [email, password, emailError, pwError,]);
+    }, [email, password, emailError, pwError]);
   
     const submitEmail = async e => {
       e.preventDefault();
-      console.log('submit');
       try {
-        const response = await emailAxios.post('/emailvalid', { user: { email } });
-  
-        if (response.data.message === '사용 가능한 이메일 입니다.') {
-          console.log('사용가능');
+        const response = await emailvalid({ user: { email } });
+        
+        if (response.message === '사용 가능한 이메일 입니다.') {
           navigate('/signup/profile', { state: { email, password } });
-        } else if (response.data.message === '이미 가입된 이메일 주소 입니다.') {
-          setEmailError('이미 가입된 계정ID 입니다.');
-        } else if (response.data.message === '잘못된 접근입니다.') {
-          console.log('잘못된 접근입니다.');
+        } else {
+          alert(response.message); 
         }
       } catch (error) {
         console.log(error.message);
       }
     };
-  
   
     return (
     <>
@@ -196,9 +164,13 @@ export default function Signup() {
         />
         <ErrorMessage>{pwError}</ErrorMessage>
         </LoginValue>
-        <ResultBtn disabled={isBtnActive}
-        className={email && password.length > 5 ? "on" : false}
-            >다음</ResultBtn>
+        <ResultBtn
+          text="다음" margin="20px 34px"
+          color="white"
+          backgroundColor="#C9D9F0"
+          width="322px" height="44px"
+          fontSize="14px" className={isBtnActive ? "on" : false
+          } />
         </form>
     </Container>
         

@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_URL;
+// const baseURL = process.env.REACT_APP_URL;
+const baseURL = "https://mandarin.api.weniv.co.kr";
 const userToken = process.env.REACT_APP_TOKEN;
 const userAccountName = process.env.REACT_APP_ACCOUNT_NAME;
+
+const instanceUtil = axios.create({
+  baseURL,
+  headers: {
+    'Content-type': 'application/json',
+  },
+});
 
 const instance = axios.create({
   baseURL,
@@ -24,6 +32,28 @@ const instanceForm = axios.create({
   baseURL,
   headers: { 'Content-type': 'multipart/form-data' },
 });
+
+export const signUp = async () => {
+  try {
+    const response = await instance.post(`/user`);
+
+    return response.data.user;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
+
+export const emailvalid = async (user) => {
+  try {
+    const response = await instanceUtil.post(`/user/emailvalid`, user);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
 
 export const getFeedList = async () => {
   try {
