@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router";
 import styled from 'styled-components';
 import Button from '../../modules/Button/Button';
@@ -13,7 +14,6 @@ const Container = styled.div`
     justify-content: flex-start;
 `
 
-
 const HeaderTitle = styled.h1`
     margin-top: 54px;
     font-weight: 500;
@@ -24,48 +24,7 @@ const HeaderTitle = styled.h1`
 `
 
 const LoginValue = styled.div`
-    margin-top: 40px;
-    margin-left: 34px;
-    margin-right: 34px;
-`
-
-const LoginTitle = styled.label`
-    color:#767676;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const EmailInput = styled.input`
-    width: 322px;
-    border:none;
-    margin: 10px 0 0;
-    padding-bottom: 5px;
-    outline: none;
-    border-bottom: 1px solid #DBDBDB;
-    &::placeholder{
-      color: #DBDBDB;
-    }
-    
-`
-
-const PassWordTitle = styled.label`
-    color:#767676;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const PasswordInput = styled.input`
-    width: 322px;
-    border:none;
-    margin: 10px 0 0;
-    padding-bottom: 5px;
-    outline: none;
-    border-bottom: 1px solid #DBDBDB;
-    &::placeholder{
-      color: #DBDBDB;
-    }
+  margin: 30px 34px 0;
 `
 
 const ResultBtn = styled(Button)`
@@ -74,61 +33,52 @@ const ResultBtn = styled(Button)`
     }
 `
 
+const Label = styled.label`
+    color:#767676;
+    font-weight: 500;
+    display : inline-block;
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 15px;
+`
+
+const Input = styled.input`
+    width: 322px;
+    border:none;
+    margin: 10px 0 0;
+    padding-bottom: 5px;
+    outline: none;
+    border-bottom: 1px solid #DBDBDB;
+    &::placeholder{
+      color: #DBDBDB;
+    }
+`
+
 const ErrorMessage = styled.p`
     font-size: 12px;
     color: #EB5757;
     margin-top: 6px;
-    margin-bottom: 16px;
-    `;
+`
   
 export default function Signup() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [pwError, setPwError] = useState('');
-    const [isBtnActive, setIsBtnActive] = useState(false);
-  
-    const navigate = useNavigate();
-  
-    const emailValidation = e => {
-      const value = e.target.value;
-      setEmail(value);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
 
-      const emailRegex =
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-  
-      if (emailRegex.test(value)) {
-          setEmailError('');
-      } else {
-        setEmailError('올바른 이메일 형식이 아닙니다.');
-      }
-    };
-  
-    const pwValidation = e => {
-      const value = e.target.value;
-  
-      setPassword(value);
-  
-      if (value.length > 0 && value.length < 6) {
-        setPwError('6자 이상 입력하세요');
-      } else {
-        setPwError('');
-      }
-    };
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!!email && !!password && !emailError && !pwError) {
-          setIsBtnActive(true);
-      } else {
-        setIsBtnActive(false);
-      }
-    }, [email, password, emailError, pwError]);
+  const isValid = !!watch("email") && !!watch("password") && !errors.email && !errors.password
   
-    const submitEmail = async e => {
-      e.preventDefault();
+  const submitEmail = async e => {
+    const email = e.email,
+      password = e.password;
+    
       try {
         const response = await emailvalid({ user: { email } });
-        
+        console.log(email);
         if (response.message === '사용 가능한 이메일 입니다.') {
           navigate('/signup/profile', { state: { email, password } });
         } else {
@@ -142,36 +92,51 @@ export default function Signup() {
     return (
     <>
     <Container>
-        <form onSubmit={submitEmail}>
+        <form onSubmit={handleSubmit(submitEmail)}>
         <HeaderTitle>이메일로 회원가입</HeaderTitle>
         <LoginValue>
-        <LoginTitle>이메일</LoginTitle>
-        <EmailInput
-        name="email" 
-        type="text" 
-        placeholder='이메일 주소를 입력해주세요'  
-        onChange={emailValidation}
-        required={true}
-        />
-        <ErrorMessage>{emailError}</ErrorMessage>
-        <PassWordTitle>비밀번호</PassWordTitle>
-        <PasswordInput 
-        name="password"
-        type="password"
-        placeholder="비밀번호를 설정해주세요"
-        onChange={pwValidation}
-        required={true}
-        />
-        <ErrorMessage>{pwError}</ErrorMessage>
+        <Label>이메일</Label>
+        <Input
+              type="text"
+              placeholder='이메일 주소를 입력해주세요' 
+              {...register("email", {
+                required: {
+                  value: true,
+                  message : "이메일을 입력하세요"
+                },
+                pattern: {
+                  value: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+                  message : '올바른 이메일 형식이 아닙니다.'
+                }
+              })}
+              />
+              {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+        <Label>비밀번호</Label>
+        <Input
+              type="password"
+              placeholder='비밀번호를 설정해주세요' 
+              {...register("password", {
+                required: {
+                  value: true,
+                  message : "비밀번호를 입력하세요"
+                },
+                minLength: {
+                  value: 6,
+                  message: "6자 이상 입력하세요"
+                }
+              })}
+            />
+        {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
         </LoginValue>
         <ResultBtn
-          text="다음" margin="20px 34px"
-          color="white"
-          backgroundColor="#C9D9F0"
-          width="322px" height="44px"
-          fontSize="14px" className={isBtnActive ? "on" : false
-          } />
-        </form>
+              text="다음" margin="20px 34px"
+              color="white"
+              backgroundColor="#C9D9F0"
+              width="322px" height="44px"
+              fontSize="14px"
+              className={isValid ? "on" : false
+              } />
+          </form>
     </Container>
         
     </>
