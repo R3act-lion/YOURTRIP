@@ -33,11 +33,11 @@ const instanceForm = axios.create({
   headers: { 'Content-type': 'multipart/form-data' },
 });
 
-export const signUp = async () => {
+export const signUp = async (data) => {
   try {
-    const response = await instance.post(`/user`);
+    const response = await instance.post(`/user`, data);
 
-    return response.data.user;
+    return response.data;
   } catch (error) {
     console.error(error.message);
     return error;
@@ -47,6 +47,17 @@ export const signUp = async () => {
 export const emailvalid = async (user) => {
   try {
     const response = await instanceUtil.post(`/user/emailvalid`, user);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
+
+export const userIdValid = async (user) => {
+  try {
+    const response = await instanceUtil.post(`/user/accountnamevalid`, user);
 
     return response.data;
   } catch (error) {

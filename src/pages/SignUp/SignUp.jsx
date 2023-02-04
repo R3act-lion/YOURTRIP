@@ -78,20 +78,15 @@ export default function Signup() {
     const email = e.email,
       password = e.password;
     
-      try {
-        const response = await emailvalid({ user: { email } });
-        console.log(email);
-        if (response.message === '사용 가능한 이메일 입니다.') {
-          navigate('/signup/profile', { state: { email, password } });
-        } else {
-          alert(response.message); 
-          setFocus("email");
-          reset({
-            email: ""
-          })
-        }
-      } catch (error) {
-        console.log(error.message);
+      const response = await emailvalid({ user: { email } });
+      if (response.message === '사용 가능한 이메일 입니다.') {
+        navigate('/signup/profile', { state: { email, password } });
+      } else {
+        alert(response.message); 
+        setFocus("email");
+        reset({
+          email: ""
+        })
       }
     };
   
