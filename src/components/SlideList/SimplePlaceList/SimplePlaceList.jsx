@@ -1,20 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import SimplePlaceListItem from './SimplePlaceListItem'
-
-const ListPlace = styled.ul`
-    width: 100%;
-    overflow-x: scroll;
-    padding: 2px 22px;
-    display: flex;
-    justify-content: space-between;
-    gap: 25px;
-    touch-action: pan-x;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`
+import React from 'react';
+import SimplePlaceListItem from './SimplePlaceListItem';
+import * as S from "./style";
 
 export default function SimplePlaceList({ selectedItem, category }) {
     let placelist = []
@@ -24,10 +10,10 @@ export default function SimplePlaceList({ selectedItem, category }) {
     }
 
     return (
-        <ListPlace>
+        <S.ListPlace>
             {
                 placelist.map((place, index) => <SimplePlaceListItem key={index + place.title} place={place} />)
             }
-        </ListPlace>
+        </S.ListPlace>
     )
 }

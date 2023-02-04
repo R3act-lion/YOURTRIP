@@ -1,9 +1,5 @@
-import styled from 'styled-components';
 import DetailPlaceListItem from '../DetailPlaceList/DetailPlaceListItem';
-
-const ListDetailPlace = styled.ul`
-    margin: 20px 0;
-`
+import * as S from "./style";
 
 export default function RecommendPlaceList(props) {
   const { selectedItem, category } = props
@@ -19,7 +15,7 @@ export default function RecommendPlaceList(props) {
   randomIndexArray.map(i => printList.push(selectedItem[i]))
 
   return (
-    <ListDetailPlace>
+    <S.ListDetailPlace>
       {
         printList.map(place => {
           return (
@@ -27,6 +23,6 @@ export default function RecommendPlaceList(props) {
           )
         })
       }
-    </ListDetailPlace>
+    </S.ListDetailPlace>
   )
 }

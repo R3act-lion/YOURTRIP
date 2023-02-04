@@ -1,10 +1,5 @@
-import { React, useState, useEffect } from 'react'
-import styled from 'styled-components'
-import PostItem from '../../../components/Post/PostItem/PostItem'
-
-const ListPost = styled.ul`
-
-`
+import { React, useEffect, useState } from 'react';
+import PostItem from '../../../components/Post/PostItem/PostItem';
 
 const getToken=()=>{
   const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
@@ -44,13 +39,13 @@ export default function MyPost() {
   },[])
 
   return (
-      <ListPost>
+      <ul>
           {myPostData.map((item)=>{
             return(
               <PostItem key={item._id} content={item.content} writer={item.author} feedData={item} />
                   )
                 })}
-      </ListPost>
+      </ul>
   )
 
   }

@@ -1,19 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import SelectedListItem from './SelectedListItem'
-
-const ListSelected = styled.ul`
-    width: 100%;
-    overflow-x: scroll;
-    padding: 0px 15px;
-    display: flex;
-    gap: 8px;
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
-    ::-webkit-scrollbar{
-      display: none;
-    }
-`
+import React from 'react';
+import SelectedListItem from './SelectedListItem';
+import * as S from "./style";
 
 export default function SelectedList({ checklist }) {
     let startX, scrollLeft
@@ -41,7 +28,7 @@ export default function SelectedList({ checklist }) {
     }
     
     return (
-        <ListSelected
+        <S.ListSelected
               onMouseLeave={handleMouseLeave} onMouseUp={handleMouseUp} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
         >
             {checklist.map(item => {
@@ -49,6 +36,6 @@ export default function SelectedList({ checklist }) {
                     <SelectedListItem key={item.contentid} place={item} />
                 )
             })}
-        </ListSelected>
+        </S.ListSelected>
     )
 }

@@ -1,39 +1,6 @@
-import { React, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-
-const ModalDiv = styled.section`
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 50%;
-    width: 252px;
-    margin: 0 auto;
-    text-align: center;
-    z-index: 50;
-    background-color: #fff;
-    border-radius: 10px;
-`
-
-const ModalHeader = styled.h1`
-    padding: 22px;
-    font-size: 16px;
-    font-weight: 600;
-`
-
-const ModalSelectCont = styled.ul`
-    display: flex;
-    border-top: 0.5px solid #DBDBDB;
-`
-
-const ModalSelectItem= styled.li`
-    flex-grow: 1;
-    width: 50%;
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-`
+import { React, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as S from "./style";
 
 export default function LogoutModal({setLogoutModal}) {
   const logoutModalRef= useRef();
@@ -41,14 +8,14 @@ export default function LogoutModal({setLogoutModal}) {
 
 
     return (
-      <ModalDiv>
-      <ModalHeader ref={logoutModalRef}>
+      <S.ModalSection>
+      <S.ModalHeader ref={logoutModalRef}>
         로그아웃하시겠어요?
-        </ModalHeader>
-        <ModalSelectCont>
-            <ModalSelectItem style={{borderRight: "0.5px solid #DBDBDB"}} onClick={()=>{
-                setLogoutModal(false)}}>취소</ModalSelectItem>
-            <ModalSelectItem style={{color: "#3C70BC"}} onClick={()=>{
+        </S.ModalHeader>
+        <S.ModalSelectCont>
+            <S.ModalSelectItem style={{borderRight: "0.5px solid #DBDBDB"}} onClick={()=>{
+                setLogoutModal(false)}}>취소</S.ModalSelectItem>
+            <S.ModalSelectItem style={{color: "#3C70BC"}} onClick={()=>{
                 navigate('/')
                 setLogoutModal(false)
                 localStorage.removeItem('Access Token');
@@ -57,8 +24,8 @@ export default function LogoutModal({setLogoutModal}) {
                 localStorage.removeItem('subtitle');
                 localStorage.removeItem('title');
             }}
-                >로그아웃</ModalSelectItem>
-        </ModalSelectCont>
-      </ModalDiv>
+                >로그아웃</S.ModalSelectItem>
+        </S.ModalSelectCont>
+      </S.ModalSection>
     )
 }

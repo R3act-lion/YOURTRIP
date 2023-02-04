@@ -1,14 +1,9 @@
 import { React, useState } from 'react'
 import { useLocation } from 'react-router'
-import styled from 'styled-components'
 import DetailModal from '../../components/Modal/DetailModal'
 import EditModal from '../../components/Modal/EditModal'
 import CommunityDetail from '../Community/CommunityDetail/CommunityDetail'
-
-const SectionContainer = styled.section`
-    min-height: calc(100vh - 108px);
-    margin-bottom: 61px;
-`
+import * as S from "./style"
 
 export default function Post() {
     window.scroll(0, 0);
@@ -26,7 +21,7 @@ export default function Post() {
     console.log(location.state.postDetail.id)
 
     return (
-        <SectionContainer>
+        <S.SectionContainer>
             <header>
                 <h2 className='irOnly'>
                     게시물 상세 페이지
@@ -56,6 +51,6 @@ export default function Post() {
                      />
                 : null}          
 
-        </SectionContainer>
+        </S.SectionContainer>
     )
 }

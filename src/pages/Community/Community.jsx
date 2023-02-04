@@ -1,15 +1,11 @@
 import { React } from 'react'
-import styled from 'styled-components'
 import CommuWritingButton from '../../components/CommuWritingButton/CommuWritingButton'
 import PostList from '../../components/Post/PostList/PostList'
-
-const SectionContainer = styled.section`
-    width: 390px;
-`
+import * as S from "./style"
 
 export default function Community() {
     return (
-        <SectionContainer>
+        <S.SectionContainer>
             <header>
                 <h2 className='irOnly'>
                     게시물
@@ -21,6 +17,6 @@ export default function Community() {
                 ?<CommuWritingButton/>
                 : <></>
             }
-        </SectionContainer>
+        </S.SectionContainer>
     )
 }

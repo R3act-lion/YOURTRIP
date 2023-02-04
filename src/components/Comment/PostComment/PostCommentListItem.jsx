@@ -1,18 +1,12 @@
-import { React } from 'react'
-import styled from 'styled-components'
 import CommentItem from '../CommentItem/CommentItem'
-
-const ListItemComment = styled.li`
-    padding: 20px 10px 0;
-    position: relative;
-`
+import * as S from "./style"
 
 export default function PostCommentListItem() {
 
     return (
-        <ListItemComment>
+        <S.ListItemComment>
             <CommentItem />
-        </ListItemComment>
+        </S.ListItemComment>
 
     )
 }

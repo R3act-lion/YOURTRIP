@@ -1,61 +1,7 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import CheckFillImage from '../../../../assets/images/icon-check-fill.svg'
 import CheckImage from '../../../../assets/images/icon-check.svg'
-
-
-const ListItemResult = styled.li`
-    display: flex;
-    align-items: center;
-
-    & + li {
-        margin-top: 15px;
-    }
-`
-
-const ImageResult = styled.img`
-    width: 77px;
-    height: 77px;
-    object-fit: cover;
-    margin-right: 10px;
-    border-radius: 5px;
-`
-
-const DivDesc = styled.div`
-    
-`
-
-const ParagraphName = styled.p`
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
-    margin-bottom: 8px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-`
-
-const ParagraphDesc = styled.p`
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 14px;
-    color: #676767;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-`
-
-const ButtonCheck = styled.button`
-    width: 32px;
-    margin-left: auto;
-    margin-right: 11px;
-`
-
-const ImageCheck = styled.img`
-    flex-grow: 1;
-`
+import * as S from "../../style"
 
 export default function QurationListItem({ checklist, getChecklist, deleteChecklist, place }) {
     const [isCheck, setIsCheck] = useState(false)
@@ -73,19 +19,19 @@ export default function QurationListItem({ checklist, getChecklist, deleteCheckl
     }
 
     return (
-        <ListItemResult>
-                <ImageResult src={place.firstimage} />
-                <DivDesc>
-                    <ParagraphName>
+        <S.ListItemResult>
+                <S.ImageResult src={place.firstimage} />
+                <div>
+                    <S.ParagraphName>
                         {place.title}
-                    </ParagraphName>
-                    <ParagraphDesc>
+                    </S.ParagraphName>
+                    <S.ParagraphDesc>
                         {place.addr1.split(" ")[0]} | {place.addr1.split(" ")[1]} ∙ {place.detail}
-                    </ParagraphDesc>
-                </DivDesc>
-                <ButtonCheck>
-                <ImageCheck src={isCheck ? CheckFillImage : CheckImage} onClick={handleClick} alt='선택' />
-                </ButtonCheck>
-            </ListItemResult>
+                    </S.ParagraphDesc>
+                </div>
+                <S.ButtonCheck>
+                <S.ImageCheck src={isCheck ? CheckFillImage : CheckImage} onClick={handleClick} alt='선택' />
+                </S.ButtonCheck>
+            </S.ListItemResult>
     )
 }

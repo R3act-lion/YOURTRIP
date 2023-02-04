@@ -1,104 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
-
-const Container = styled.div`
-    margin: 0 auto;
-    width: 390px;
-    height: 1100px;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-`
-
-
-const HeaderTitle = styled.h1`
-    margin-top: 54px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 30px;
-    color: #000000;
-    text-align: center;
-`
-
-const LoginValue = styled.div`
-    margin-top: 40px;
-    margin-left: 34px;
-    margin-right: 34px;
-`
-
-const LoginTitle = styled.p`
-    color:#767676;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const EmailInput = styled.input`
-    width: 322px;
-    border:none;
-    margin: 10px 0 0;
-    padding-bottom: 5px;
-    outline: none;
-    border-bottom: 1px solid #DBDBDB;
-    
-`
-
-const PassWordTitle = styled.p`
-    margin-top: 16px;
-    color:#767676;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const PasswordInput = styled.input`
-    width: 322px;
-    border:none;
-    margin: 10px 0 0;
-    padding-bottom: 5px;
-    outline: none;
-    border-bottom: 1px solid #DBDBDB;
-`
-
-const ResultBtn = styled.button`
-    width: 322px;
-    height: 44px;
-    margin: 30px 34px 20px 34px;
-    border: 0px;
-    background: #C9D9F0;
-    border-radius: 44px;
-    font-size: 14px;
-    line-height: 18px;
-    color: #FFFFFF;
-    cursor: pointer;
-    &:hover{
-        background-color: #C9D9F0;
-        color: #FFFFFF;
-    }
-    &.on{
-        background-color: ${props => props.theme.color.primary.main};
-    }
-`
-
-const SignTitle = styled(Link)`
-    cursor: pointer;
-    text-align: center;
-    color:#767676;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const ErrorMessage = styled.p`
-    font-size: 12px;
-    color: red;
-    margin-top: 6px;
-    `;
-
+import { useNavigate } from 'react-router-dom';
+import * as S from "./style";
 
 const loginAxios = axios.create({
     baseURL: 'https://mandarin.api.weniv.co.kr/user',
@@ -181,24 +84,24 @@ export default function Login() {
 
     return (
         <>
-            <Container>
+            <S.Container>
                 <form onSubmit={submitLogin}>
-                    <HeaderTitle>로그인</HeaderTitle>
-                    <LoginValue>
-                        <LoginTitle>이메일</LoginTitle>
-                        <EmailInput id="inputEmail" type="email" onChange={changeHandler} required />
-                        <ErrorMessage>{emailError}</ErrorMessage>
-                        <PassWordTitle >비밀번호</PassWordTitle>
-                        <PasswordInput id="inputPwd" type="password" onChange={changeHandler} required />
-                        <ErrorMessage>{loginError}</ErrorMessage>
-                    </LoginValue>
+                    <S.HeaderTitle>로그인</S.HeaderTitle>
+                    <S.LoginValue>
+                        <S.LoginTitle>이메일</S.LoginTitle>
+                        <S.EmailInput id="inputEmail" type="email" onChange={changeHandler} required />
+                        <S.ErrorMessage>{emailError}</S.ErrorMessage>
+                        <S.PassWordTitle >비밀번호</S.PassWordTitle>
+                        <S.PasswordInput id="inputPwd" type="password" onChange={changeHandler} required />
+                        <S.ErrorMessage>{loginError}</S.ErrorMessage>
+                    </S.LoginValue>
 
-                    <ResultBtn disabled={isBtnActive}
+                    <S.ResultBtn disabled={isBtnActive}
                         className={!!email && !!password && !emailError? "on" : false}
-                   >로그인</ResultBtn>
+                   >로그인</S.ResultBtn>
                 </form>
-                <SignTitle to='/signup'>이메일로 회원가입</SignTitle>
-            </Container>
+                <S.SignTitle to='/signup'>이메일로 회원가입</S.SignTitle>
+            </S.Container>
         </>
     )
 }

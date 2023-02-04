@@ -1,8 +1,7 @@
 import { React, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { ModalContainer, ModalDiv } from './DetailModal';
 import ModalBar from './ModalBar';
-import { ModalListItem } from './ModalList';
+import * as S from "./style";
 
 export default function ProfileModal({setProfileModal, setLogoutModal}) {
   const navigate= useNavigate();
@@ -22,18 +21,18 @@ export default function ProfileModal({setProfileModal, setLogoutModal}) {
     })
       
     return (
-      <ModalDiv>
-      <ModalContainer ref={profileModalRef}>
+      <S.ModalDiv>
+      <S.ModalContainer ref={profileModalRef}>
         <ModalBar />
-        <ModalListItem>
+        <S.ModalListItem>
             설정 및 개인정보
-        </ModalListItem>
-        <ModalListItem onClick={()=>{
+        </S.ModalListItem>
+        <S.ModalListItem onClick={()=>{
             setLogoutModal(true)}}>
             로그아웃
-        </ModalListItem>
+        </S.ModalListItem>
       
-        </ModalContainer>
-      </ModalDiv>
+        </S.ModalContainer>
+      </S.ModalDiv>
     )
 }

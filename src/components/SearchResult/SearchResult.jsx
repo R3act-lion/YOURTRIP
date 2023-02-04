@@ -1,27 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { SearchContext } from "../../context/Context"
 import UserDesc from '../UserDesc/UserDesc'
-
-const SectionResult = styled.section`
-    padding: 20px;
-`
-
-const HeadingTwoResult = styled.h2`
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 14px;
-    margin-top: 10px;
-`
-
-const ListResult = styled.ul`
-    margin: 20px 0 40px;
-
-    & > li + li {
-        margin-top: 30px;
-    }
-`
+import * as S from "./style"
 
 export default function SearchResult() {
     const { searchKeyword } = useContext(SearchContext)
@@ -78,13 +59,13 @@ export default function SearchResult() {
 
 
     return (
-        <SectionResult>
+        <S.SectionResult>
             <header>
-                <HeadingTwoResult>
+                <S.HeadingTwoResult>
                     장소
-                </HeadingTwoResult>
+                </S.HeadingTwoResult>
             </header>
-            <ListResult>
+            <S.ListResult>
                 {
                     searchlist.map(item => {
                         return (
@@ -97,13 +78,13 @@ export default function SearchResult() {
                         )
                     })
                 }
-            </ListResult>
+            </S.ListResult>
             <header>
-                <HeadingTwoResult>
+                <S.HeadingTwoResult>
                     유저
-                </HeadingTwoResult>
+                </S.HeadingTwoResult>
             </header>
-            <ListResult>
+            <S.ListResult>
                 {
                     userSearchList.map(item => {
                         return (
@@ -113,7 +94,7 @@ export default function SearchResult() {
                         )
                     })
                 }
-            </ListResult>
-        </SectionResult>
+            </S.ListResult>
+        </S.SectionResult>
     )
 }

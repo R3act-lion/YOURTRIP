@@ -1,26 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
-
 import PostList from '../../components/SlideList/PostList/PostList'
 import RecommendList from '../../components/SlideList/RecommendList/RecommendList'
 import SimplePlaceList from '../../components/SlideList/SimplePlaceList/SimplePlaceList'
-
-const SectionRecommend = styled.section`
-    padding-top: 28px;
-`
-
-const SectionMost = styled.section`
-    padding-top: 30px;
-`
-
-const HeadingTwoTitle = styled.h2`
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 28px;
-    margin-bottom: 15px;
-    padding-left: 16px;
-`
+import * as S from "./style"
 
 export default function Home() {
     window.scrollTo(0, 0)
@@ -29,20 +12,20 @@ export default function Home() {
 
     return (
         <>
-            <SectionRecommend>
-                <HeadingTwoTitle>
+            <S.SectionRecommend>
+                <S.HeadingTwoTitle>
                     오늘의 추천
-                </HeadingTwoTitle>
+                </S.HeadingTwoTitle>
                 {
                     !!placeData.today_recommended
                     ? <RecommendList selectedItem={placeData.today_best.list} />
                     : <></>
                 }
-            </SectionRecommend>
-            <SectionMost>
-                <HeadingTwoTitle>
+            </S.SectionRecommend>
+            <S.SectionMost>
+                <S.HeadingTwoTitle>
                     많이 찾는 여행지
-                </HeadingTwoTitle>
+                </S.HeadingTwoTitle>
                 <ul>
                     {
                         !!placeData.today_best
@@ -50,7 +33,7 @@ export default function Home() {
                         : <></>
                     }
                 </ul>
-            </SectionMost>
+            </S.SectionMost>
             <PostList />
         </>
     )

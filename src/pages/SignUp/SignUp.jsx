@@ -1,64 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router";
-import styled from 'styled-components';
-import Button from '../../modules/Button/Button';
 import { emailvalid } from "../../Upload/api";
-
-const Container = styled.div`
-    width: 390px;
-    height: 100vh;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-`
-
-const HeaderTitle = styled.h1`
-    margin-top: 54px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 30px;
-    color: #000000;
-    text-align: center;
-`
-
-const LoginValue = styled.div`
-  margin: 30px 34px 0;
-`
-
-const ResultBtn = styled(Button)`
-    &.on{
-        background-color: ${props => props.theme.color.primary.main};
-    }
-`
-
-const Label = styled.label`
-    color:#767676;
-    font-weight: 500;
-    display : inline-block;
-    margin-top: 20px;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const Input = styled.input`
-    width: 322px;
-    border:none;
-    margin: 10px 0 0;
-    padding-bottom: 5px;
-    outline: none;
-    border-bottom: 1px solid #DBDBDB;
-    &::placeholder{
-      color: #DBDBDB;
-    }
-`
-
-const ErrorMessage = styled.p`
-    font-size: 12px;
-    color: #EB5757;
-    margin-top: 6px;
-`
+import * as S from "./style";
   
 export default function Signup() {
   const {
@@ -92,12 +36,12 @@ export default function Signup() {
   
     return (
     <>
-    <Container>
+    <S.Container>
         <form onSubmit={handleSubmit(submitEmail)}>
-        <HeaderTitle>이메일로 회원가입</HeaderTitle>
-        <LoginValue>
-          <Label>이메일</Label>
-          <Input
+        <S.HeaderTitle>이메일로 회원가입</S.HeaderTitle>
+        <S.LoginValue>
+          <S.Label>이메일</S.Label>
+          <S.Input
             type="text"
             placeholder='이메일 주소를 입력해주세요' 
             {...register("email", {
@@ -111,9 +55,9 @@ export default function Signup() {
               }
             })}
             />
-            {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-        <Label>비밀번호</Label>
-        <Input
+            {errors.email && <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>}
+        <S.Label>비밀번호</S.Label>
+        <S.Input
               type="password"
               placeholder='비밀번호를 설정해주세요' 
               {...register("password", {
@@ -127,9 +71,9 @@ export default function Signup() {
                 }
               })}
             />
-        {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
-        </LoginValue>
-        <ResultBtn
+        {errors.password && <S.ErrorMessage>{errors.password.message}</S.ErrorMessage>}
+        </S.LoginValue>
+        <S.ResultBtn
               text="다음" margin="20px 34px"
               color="white"
               backgroundColor="#C9D9F0"
@@ -138,7 +82,7 @@ export default function Signup() {
               className={isValid ? "on" : false
               } />
           </form>
-    </Container>
+    </S.Container>
         
     </>
   )

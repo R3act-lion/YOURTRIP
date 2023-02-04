@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import CommentImg from '../../../assets/images/icon-comment.svg'
 import HeartImg from '../../../assets/images/icon-heart.svg'
 import MoreImg from '../../../assets/images/icon-more.svg'
 import Carousel from '../../../components/Carousel/Carousel'
 import PlaceCommentListItem from '../../../components/Comment/PlaceComment/PlaceCommentListItem'
 import WritePlaceComment from '../../../components/Comment/WritePlaceComment/WritePlaceComment'
-import { DivContent, DivPost, ImageAdditional, ImageMore, ParagraphAdditional, ParagraphContent, ParagraphTime } from '../../../components/Post/PostItem/PostItem'
 import UserDesc from '../../../components/UserDesc/UserDesc'
-
-const DivWrite = styled.div`
-    /* margin-left: -20px; */
-    margin-top: 24px;
-    border-top: 1px solid #DBDBDB;
-`
-
-const ListComment = styled.ul`
-    padding: 4px 14px;
-`
+import * as S from "../style"
 
 const getComments = async (postId, callBack) => {
     const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
@@ -39,9 +28,6 @@ const getComments = async (postId, callBack) => {
 }
 
 export default function CommunityDetail({ postContent, postWriter, postData, setDetailModal, setEditModal, accountname, authorAccountname }) {
-    // console.log(postContent);
-    // console.log(postWriter);
-    // console.log(postData);
 
     const imageData = postData.image.split(',');
     const createdAt = postData.createdAt.split('-');
@@ -59,33 +45,33 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
         <>
             {
                 <>
-                    <DivPost>
+                    <S.DivPost>
                         <UserDesc img={postWriter.image} name={postWriter.username} id={postWriter.accountname} />
-                        <ImageMore src={MoreImg} alt='더보기' 
+                        <S.ImageMore src={MoreImg} alt='더보기' 
                             onClick={() => {
                                 accountname === authorAccountname
                                     ? setEditModal(true)
                                     : setDetailModal(true) }} />
-                        <DivContent>
-                            <ParagraphContent>
+                        <S.DivContent>
+                            <S.ParagraphContent>
                                 {postContent}
-                            </ParagraphContent>
+                            </S.ParagraphContent>
                             <Carousel imageData={imageData} />
-                            <ImageAdditional src={HeartImg} alt='좋아요' />
-                            <ParagraphAdditional>
+                            <S.ImageAdditional src={HeartImg} alt='좋아요' />
+                            <S.ParagraphAdditional>
                                 {postData.heartCount}
-                            </ParagraphAdditional>
-                            <ImageAdditional src={CommentImg} alt='댓글' />
-                            <ParagraphAdditional>
+                            </S.ParagraphAdditional>
+                            <S.ImageAdditional src={CommentImg} alt='댓글' />
+                            <S.ParagraphAdditional>
                                 {comments.length}
-                            </ParagraphAdditional>
-                            <ParagraphTime>
+                            </S.ParagraphAdditional>
+                            <S.ParagraphTime>
                                 {`${createdAt[0]}년 ${createdAt[1]}월 ${createdAt[2].slice(0, 2)}일`}
-                            </ParagraphTime>
-                        </DivContent>
-                    </DivPost>
-                    <DivWrite>
-                        <ListComment>
+                            </S.ParagraphTime>
+                        </S.DivContent>
+                    </S.DivPost>
+                    <S.DivWrite>
+                        <S.ListComment>
                             {
                                 comments.map((comment) => {
                                     console.log(comment);
@@ -94,9 +80,9 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
                                 })
                                 
                             }
-                        </ListComment>
+                        </S.ListComment>
                         <WritePlaceComment postId={postData.id} renderFunction={updateState} />
-                    </DivWrite>
+                    </S.DivWrite>
                 </>
             }
         </>

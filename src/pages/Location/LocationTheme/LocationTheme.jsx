@@ -1,23 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
-import styled from 'styled-components'
 import RecommendList from '../../../components/SlideList/RecommendList/RecommendList'
-
-const SectionRecommend = styled.section`
-    padding: 28px 0;
-`
-
-const SectionMost = styled.section`
-    padding-top: 30px;
-`
-
-const HeadingTwoTitle = styled.h2`
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 28px;
-    margin-bottom: 15px;
-    padding-left: 16px;
-`
+import * as S from "../style"
 
 export default function LocationTheme() {
     window.scrollTo(0, 0)
@@ -30,7 +14,7 @@ export default function LocationTheme() {
 
     return (
         <>
-            <SectionRecommend>
+            <S.SectionRecommend>
                 <header>
                     <h2 className='irOnly'>
                         지역별 테마
@@ -55,7 +39,7 @@ export default function LocationTheme() {
                         })()
                     }
                 </ul>
-            </SectionRecommend>
+            </S.SectionRecommend>
 
         </>
     )

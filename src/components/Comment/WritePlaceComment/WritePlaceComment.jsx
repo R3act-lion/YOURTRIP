@@ -1,32 +1,6 @@
 import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
 import ProfileImage from '../../../assets/images/profile.svg'
-
-const FormComment = styled.form`
-    padding: 12px 16px;
-    width: 390px;
-    display: flex;
-    position: fixed;
-    bottom: 60px;
-    background-color: white;
-`
-
-const ImageProfile = styled.img`
-    width: 36px;
-    height: 36px;
-    vertical-align: top;
-    margin-right: 16px;
-`
-
-const InputComment = styled.input`
-    border: 0;
-    outline: 0;
-    flex-grow: 1;
-`
-
-const ButtonPost = styled.button`
-
-`
+import * as S from "../style"
 
 const writeComment = async (posdId, comment, renderFunction) => {
     const uploadAccount = JSON.parse(localStorage.getItem('user'));
@@ -71,14 +45,14 @@ export default function WritePlaceComment({ postId, renderFunction }) {
         <>
             {
                 !!localStorage.user
-                    ? <FormComment>
-                        <ImageProfile src={ProfileImage} alt='' />
+                    ? <S.FormComment>
+                        <S.ImageProfile src={ProfileImage} alt='' />
                         <label htmlFor="inputComment" className='irOnly'>댓글 내용 입력</label>
-                        <InputComment ref={commentContent} value={comment} onChange={(e) => setComment(e.target.value)} placeholder='댓글 입력하기...' />
-                        <ButtonPost onClick={onClickPost}>
+                        <S.InputComment ref={commentContent} value={comment} onChange={(e) => setComment(e.target.value)} placeholder='댓글 입력하기...' />
+                        <button onClick={onClickPost}>
                             게시
-                        </ButtonPost>
-                    </FormComment>
+                        </button>
+                    </S.FormComment>
                     : <></>
             }
         </>

@@ -1,22 +1,8 @@
 import { React, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import styled from 'styled-components';
 import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn';
 import UserDesc from '../../../components/UserDesc/UserDesc';
-
-const SectionFollowers = styled.section`
-    padding: 24px 16px;
-`
-
-const ListItemFollowers = styled.li`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &  + li {
-        margin-top: 20px;
-    }
-`
+import * as S from "../style";
 
 export default function ProfileFollowers() {
     const url = "https://mandarin.api.weniv.co.kr";
@@ -56,7 +42,7 @@ export default function ProfileFollowers() {
     },[]);
 
     return (
-        <SectionFollowers>
+        <S.SectionFollowers>
             <header>
                 <h2 className='irOnly'>
                     팔로잉 목록
@@ -66,7 +52,7 @@ export default function ProfileFollowers() {
                 {(followerData.length > 0) &&
                     followerData.map((item) => {
                         return(
-                        <ListItemFollowers key={item._id}>
+                        <S.ListItemFollowers key={item._id}>
                             <UserDesc img={item.image} name={item.username} id={item.accountname} />
                             {
                                 item.accountname === userId ?
@@ -74,10 +60,10 @@ export default function ProfileFollowers() {
                                 :
                                 <FollowingBtn userinfo={item} followState={ item.isfollow} />
                             }
-                        </ListItemFollowers>
+                        </S.ListItemFollowers>
                     )}
                 )}
             </ul>
-        </SectionFollowers>
+        </S.SectionFollowers>
     )
 }

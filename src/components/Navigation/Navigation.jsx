@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import icon_community from '../../assets/images/nav-community.svg'
 import icon_home from '../../assets/images/nav-home.svg'
 import icon_location from '../../assets/images/nav-location.svg'
@@ -10,29 +9,7 @@ import icon_community_fill from '../../assets/images/nav-community-fill.svg'
 import icon_home_fill from '../../assets/images/nav-home-fill.svg'
 import icon_location_fill from '../../assets/images/nav-location-fill.svg'
 import icon_profile_fill from '../../assets/images/nav-profile-fill.svg'
-
-const NavigationContainer = styled.nav`
-    width: 390px;
-    height: 60px;
-    position: fixed;
-    bottom: 0;
-    border-top: 1px solid #DBDBDB;
-    background-color: white;
-    padding: 0 6px;
-`
-
-const NavigationList = styled.ul`
-    display: flex;
-    justify-content: space-between;
-`
-
-const NavigationListItem = styled.li`
-    width: 84px;
-`
-
-const NavigationButtonImage = styled.img`
-    width: 100%;
-`
+import * as S from "./style"
 
 export default function Navigation() {
     const url = "https://mandarin.api.weniv.co.kr";
@@ -91,11 +68,11 @@ export default function Navigation() {
             <header>
                 <h2 className='irOnly'>네비게이션</h2>
             </header>
-            <NavigationContainer>
-                <NavigationList>
-                    <NavigationListItem>
+            <S.NavigationContainer>
+                <S.NavigationList>
+                    <S.NavigationListItem>
                         <Link to='/home'>
-                            <NavigationButtonImage
+                            <S.NavigationButtonImage
                                 src={home ? icon_home_fill : icon_home}
                                 onClick={() => {
                                     setHome(true)
@@ -105,10 +82,10 @@ export default function Navigation() {
                                 }}
                                 alt="홈" />
                         </Link>
-                    </NavigationListItem>
-                    <NavigationListItem>
+                    </S.NavigationListItem>
+                    <S.NavigationListItem>
                         <Link to='/location'>
-                            <NavigationButtonImage
+                            <S.NavigationButtonImage
                                 src={location ? icon_location_fill : icon_location}
                                 onClick={() => {
                                     setHome(false)
@@ -118,10 +95,10 @@ export default function Navigation() {
                                 }}
                                 alt="지역별" />
                         </Link>
-                    </NavigationListItem>
-                    <NavigationListItem>
+                    </S.NavigationListItem>
+                    <S.NavigationListItem>
                         <Link to='/community'>
-                            <NavigationButtonImage
+                            <S.NavigationButtonImage
                                 src={community ? icon_community_fill : icon_community}
                                 onClick={() => {
                                     setHome(false)
@@ -131,12 +108,12 @@ export default function Navigation() {
                                 }}
                                 alt="커뮤니티" />
                         </Link>
-                    </NavigationListItem>
-                    <NavigationListItem>
+                    </S.NavigationListItem>
+                    <S.NavigationListItem>
                         {
                             userName ? 
                                 <Link to={`/profile/${userName}`} >
-                                    <NavigationButtonImage
+                                    <S.NavigationButtonImage
                                         src=
                                         {profile ? icon_profile_fill : icon_profile}
                                         onClick={() => {
@@ -149,12 +126,12 @@ export default function Navigation() {
                                 </Link>
                             :
                                 <Link to={`/login`} >
-                                <NavigationButtonImage src={icon_profile} alt="프로필" />
+                                <S.NavigationButtonImage src={icon_profile} alt="프로필" />
                                 </Link>
                         }
-                    </NavigationListItem>
-                </NavigationList>
-            </NavigationContainer>
+                    </S.NavigationListItem>
+                </S.NavigationList>
+            </S.NavigationContainer>
         </article>
     )
 }

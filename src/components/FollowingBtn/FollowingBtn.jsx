@@ -8,8 +8,6 @@ export default function FollowingBtn({ followState, followerCount, followingCoun
     const path = useLocation().pathname;
     const [isFollow, setIsFollow] = useState(followState);
 
-    console.log(userinfo);
-
     useEffect(() => {
     	setIsFollow(followState);
     }, [followState]);

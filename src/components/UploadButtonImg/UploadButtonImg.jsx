@@ -1,22 +1,5 @@
-import axios from 'axios'
-import React from 'react'
-import styled from 'styled-components'
-import UploadButton from '../../assets/images/btn-upload-img-fill.svg'
-
-const ButtonImg = styled.div`
-    background-image: url(${UploadButton});
-    background-repeat: no-repeat;
-    border: 0;
-    background-size: cover;
-    width:35px;
-    height:35px;
-    cursor: pointer;
-    position: absolute;
-    top:85px;
-    left:70px;
-    `
-
-
+import axios from 'axios';
+import * as S from "./style";
     
 const imgAxios = axios.create({
    baseURL: 'https://mandarin.api.weniv.co.kr',
@@ -38,11 +21,10 @@ export default function UploadButtonImg({stateFunc}) {
     stateFunc(`https://mandarin.api.weniv.co.kr/${response.data.filename}`);
   }
 
-  
   return (
     <>
     <label htmlFor="image">
-    <ButtonImg/>
+    <S.ButtonImg/>
     <input 
     style={{display: "none"}}
     id="image"

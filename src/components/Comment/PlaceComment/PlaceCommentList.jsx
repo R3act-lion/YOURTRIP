@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import PlaceCommentListItem from './PlaceCommentListItem'
+import React, { useEffect, useState } from 'react';
+import PlaceCommentListItem from './PlaceCommentListItem';
+import * as S from "./style";
 
-const ListComment = styled.ul`
-    padding: 5px 19px 65px;
-`
 
 const getComments = async (callBack) => {
     const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
@@ -37,12 +34,12 @@ export default function PlaceCommentList({ placeid, setRenderFunction }) {
     }, [updateTarget])
 
     return (
-        <ListComment>
+        <S.ListComment>
             {
                 comments.filter((comment) => comment.itemName === 'yourtrip_placeComment_' + placeid).map((comment) => {
                     return <PlaceCommentListItem key={comment.id} comment={comment} />
                 })
             }
-        </ListComment>
+        </S.ListComment>
     )
 }

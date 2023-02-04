@@ -2,7 +2,7 @@ import { React, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import iconX from '../../../assets/images/icon-x.svg';
-import { ButtonImageUpload, ButtonUpload, FormPost, ImageLabel, ImageProfile, ImageUpload, PrevBigImg, PrevImgList, PrevSmallImg, PrevXBtn, SectionUpload, TextAreaContent } from "../CommunityUpload/CommunityUpload";
+import * as S from "../style";
 
 export default function CommunityEdit() {
     const fileInputRef = useRef();
@@ -102,17 +102,17 @@ export default function CommunityEdit() {
     }
 
     return (
-        <SectionUpload>
+        <S.SectionUpload>
             {
                 !!localStorage.user
                     ? <>
-                        <ImageProfile src={writerImg} alt='' />
-                        <FormPost action="">
-                            <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
+                        <S.ImageProfile src={writerImg} alt='' />
+                        <S.FormPost action="">
+                            <S.TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
                                 setContent(e.target.value)
 
-                            }} placeholder='게시글 입력하기...'>{content}</TextAreaContent>
-                            <PrevImgList>
+                            }} placeholder='게시글 입력하기...'>{content}</S.TextAreaContent>
+                            <S.PrevImgList>
                                 <>
                                 {
                                     imagesrc.map((item) => {
@@ -122,45 +122,45 @@ export default function CommunityEdit() {
                                                 ? null
                                                 :
                                                 (imagesrc.length === 1)
-                                                    ? <PrevBigImg src={item} onClick={() => {
+                                                    ? <S.PrevBigImg src={item} onClick={() => {
                                                         setImagesrc(imagesrc.filter(src => src !== item))
                                                     }} />
 
-                                                    : <PrevSmallImg src={item} onClick={() => {
+                                                    : <S.PrevSmallImg src={item} onClick={() => {
                                                         setImagesrc(imagesrc.filter(src => src !== item))
                                                     }} />
                                                 }
-                                                <PrevXBtn src={iconX} />
+                                                <S.PrevXBtn src={iconX} />
                                             </>
                                         )
                                     })
                                 }
                                 </>
-                            </PrevImgList>
+                            </S.PrevImgList>
 
-                        </FormPost>
-                        <ButtonImageUpload>
-                            <ImageLabel onClick={handleClickFileInput} />
-                            <ImageUpload
+                        </S.FormPost>
+                        <S.ButtonImageUpload>
+                            <S.ImageLabel onClick={handleClickFileInput} />
+                            <S.ImageUpload
                                 alt='이미지 업로드 버튼'
                                 type="file"
                                 accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
                                 ref={fileInputRef} 
                                 onChange={fileInput} 
                                 />
-                        </ButtonImageUpload>
+                        </S.ButtonImageUpload>
                         <Link to="/community">
-                            <ButtonUpload onClick={postEditing} style={{
+                            <S.ButtonUpload onClick={postEditing} style={{
                                 backgroundColor:
                                     ((content == "") && (imagesrc == ""))
                                         ? "#C9D9F0" : "#3C70BC" }}>
                                 업로드
-                            </ButtonUpload>
+                            </S.ButtonUpload>
                         </Link>
                     </>
                     : <></>
             }
             
-        </SectionUpload>
+        </S.SectionUpload>
     )
 }

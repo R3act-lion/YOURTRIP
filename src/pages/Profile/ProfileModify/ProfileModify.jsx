@@ -1,120 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import Imgsircle from '../../../assets/images/profile.svg';
 import UploadImgButton from '../../../components/UploadButtonImg/UploadButtonImg';
-
-
-
-const Container = styled.div`
-    margin: 30px auto;
-    width: 390px;
-    height: 950px;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-`
-
-const ProfileImgDiv = styled.div`
-    position: relative;
-    margin: 0 auto;
-    position: relative;
-    margin-bottom: 30px;
-`;
-
-const UploadImg = styled.img`
-    width:110px;
-    height:110px;
-    border-radius: 50%;
-`
-
-const ResultValue = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-`
-
-const ResultTitle = styled.label`
-    margin: 15px 0 10px;
-    color:#767676;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-`
-
-const NameInput = styled.input`
-    padding-bottom: 5px;
-    border: none;
-    border-bottom: 1px solid #DBDBDB;
-    margin-bottom: 10px;
-    font-size: 14px;
-    ::placeholder{
-    color: #DBDBDB;
-    }
-    :focus{
-    outline: none;
-    border-bottom: 1px solid #3C70BC;
-  }
-`
-
-const IdInput = styled.input`
-    padding-bottom: 5px;
-    border: none;
-    border-bottom: 1px solid #DBDBDB;
-    margin-bottom: 10px;
-    font-size: 14px;
-    ::placeholder{
-    color: #DBDBDB;
-    }
-    :focus{
-    outline: none;
-    border-bottom: 1px solid #3C70BC;
-  }
-`
-
-const IntroInput = styled.input`
-    width: 322px;
-    padding-bottom: 5px;
-    margin-bottom: 30px;
-    border-top:none;
-    border-left:none;
-    border-right:none;
-    border-bottom: 1px solid #DBDBDB;
-    ::placeholder{
-    color: #DBDBDB;
-    }
-    :focus{
-    outline: none;
-    border-bottom: 1px solid #3C70BC;
-    }
-`
-
-const ErrorMessage = styled.p`
-    font-size: 12px;
-    color: red;
-    margin: 0;
-    padding: 0;
-`
-
-const ButtonSave = styled.button`
-    width: 90px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #C9D9F0;
-    border-radius: 32px;
-    font-weight: 500;
-    font-size: 14px;
-    position: fixed;
-    top: 8px;
-    right: calc(50vw - 179px);
-    z-index: 30;
-    cursor: pointer;
-`
+import * as S from "../style";
 
 export default function ProfileModify() {
   const navigate = useNavigate();
@@ -243,15 +132,15 @@ export default function ProfileModify() {
     }
       
     return (
-    <Container>
-        <ProfileImgDiv> 
-          <UploadImg src= {userImage ? userImage:Imgsircle} />
+    <S.Container>
+        <S.ProfileImgDiv> 
+          <S.UploadImg src= {userImage ? userImage : Imgsircle} />
           <UploadImgButton stateFunc={setUserImage}/>
-        </ProfileImgDiv>     
+        </S.ProfileImgDiv>     
               
-      <ResultValue onSubmit={submitProfile}>
-        <ResultTitle htmlFor='userName'>사용자이름</ResultTitle>
-        <NameInput
+      <S.ResultValue onSubmit={submitProfile}>
+        <S.ResultTitle htmlFor='userName'>사용자이름</S.ResultTitle>
+        <S.NameInput
           value={userName}
           id='userName'
           type='text' 
@@ -259,10 +148,10 @@ export default function ProfileModify() {
           placeholder='2~10자 이내여야 합니다.'
           required
         >
-        </NameInput>
-        <ErrorMessage>{userNameError}</ErrorMessage>
-        <ResultTitle>계정ID</ResultTitle>
-        <IdInput 
+        </S.NameInput>
+        <S.ErrorMessage>{userNameError}</S.ErrorMessage>
+        <S.ResultTitle>계정ID</S.ResultTitle>
+        <S.IdInput 
         value={userId}
         id='userId'
         type='text' 
@@ -270,25 +159,24 @@ export default function ProfileModify() {
         placeholder='영문,숫자,특수문자(.),(_)만 사용 가능합니다.'
         required
          />
-         <ErrorMessage>{userIdError}</ErrorMessage>
-        <ResultTitle>소개</ResultTitle>
-        <IntroInput
+         <S.ErrorMessage>{userIdError}</S.ErrorMessage>
+        <S.ResultTitle>소개</S.ResultTitle>
+        <S.IntroInput
         value={userIntro} 
         id='userDesc'
         type='text'
         onChange={userIntroCheck}
         placeholder='나의 소개를 입력 해주세요'
         />
-        <ButtonSave 
+        <S.ButtonSave 
         disabled={isBtnActive}
         style={{backgroundColor: 
           ((userName === "") && (userId === "") && (userIntro === "") ) 
               ? "#C9D9F0" : "#3C70BC"}}
         >
           저장
-        </ButtonSave>
-      </ResultValue>
-    </Container>
-        
+        </S.ButtonSave>
+      </S.ResultValue>
+    </S.Container>
     )
 }

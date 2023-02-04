@@ -1,121 +1,7 @@
-import { React, useRef, useState } from 'react'
-import { useNavigate } from 'react-router'
-import styled from 'styled-components'
-import UploadImage from '../../../assets/images/btn-upload-img-fill.svg'
-import iconX from '../../../assets/images/icon-x.svg'
-
-export const SectionUpload = styled.section`
-    width: 390px;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    min-height: calc(100vh - 108px);
-`
-
-export const ButtonImageUpload = styled.div`
-    position: fixed;
-    bottom: 72px;
-    right: calc(50vw - 179px);
-    background-color: rgba(0, 0, 0, 0);
-    cursor: pointer;
-`
-
-export const ImageLabel = styled.button`
-    display: block;
-    background-image: url(${UploadImage});
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-`
-
-export const ImageUpload = styled.input`
-    display: none;
-`
-
-export const ImageProfile = styled.img`
-    width: 42px;
-    height: 42px;
-    margin: 20px 10px 0 20px;
-    border-radius: 50%;
-
-`
-
-export const FormPost = styled.form`
-    width: 319px;
-    display: inline-block;
-    margin: 32px 0 16px;
-`
-
-export const TextAreaContent = styled.textarea`
-    width: 300px;
-    margin-bottom: 16px;
-    padding: 0;
-    font-size: 16px;
-    resize: none;
-    border: none;
-    outline: none;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
-    color: #C4C4C4;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`
-
-export const ButtonUpload = styled.button`
-    width: 90px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: #C9D9F0;
-    border-radius: 32px;
-    font-weight: 500;
-    font-size: 14px;
-    position: fixed;
-    top: 8px;
-    right: calc(50vw - 179px);
-    z-index: 30;
-    cursor: pointer;
-`
-
-export const PrevImgList = styled.div`
-    width: 100%;
-    display: flex;
-    gap: 8px;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-  }
-`
-
-export const PrevBigImg = styled.img`
-    width: 304px;
-    height: 228px;
-    border-radius: 10px;
-    flex-shrink: 0;
-`
-
-export const PrevSmallImg = styled.img`
-    width: 168px;
-    height: 126px;
-    border-radius: 10px;
-    flex-shrink: 0;
-`
-
-export const PrevXBtn = styled.img`
-    width: 22px;
-    height: 22px;
-    position : relative;
-    right: 35px;
-    top: 8px;
-`
+import { React, useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
+import iconX from '../../../assets/images/icon-x.svg';
+import * as S from "../style";
 
 export default function CommunityUpload() {
     const fileInputRef = useRef();
@@ -214,48 +100,48 @@ export default function CommunityUpload() {
     }
 
     return (
-        <SectionUpload>
+        <S.SectionUpload>
             {
                 !!localStorage.user
                     ? <>
-                        <ImageProfile src={profileImg} alt='' />
-                        <FormPost action="">
-                            <TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
+                        <S.ImageProfile src={profileImg} alt='' />
+                        <S.FormPost action="">
+                            <S.TextAreaContent ref={textArea} id='postInput' onInput={handleResizeHeight} rows={1} onChange={(e) => {
                                 setContent(e.target.value)
 
                             }} placeholder='게시글 입력하기...' />
-                            <PrevImgList>
+                            <S.PrevImgList>
                                 {
                                     imagesrc.map((item) => {
                                         return (
                                             <>
                                                 {imagesrc.length === 1
-                                                    ? <PrevBigImg src={item} onClick={() => {
+                                                    ? <S.PrevBigImg src={item} onClick={() => {
                                                         setImagesrc(imagesrc.filter(src => src !== item))
                                                     }} />
 
-                                                    : <PrevSmallImg src={item} onClick={() => {
+                                                    : <S.PrevSmallImg src={item} onClick={() => {
                                                         setImagesrc(imagesrc.filter(src => src !== item))
                                                     }} />
                                                 }
-                                                <PrevXBtn src={iconX} />
+                                                <S.PrevXBtn src={iconX} />
                                             </>
                                         )
                                     })
                                 }
-                            </PrevImgList>
+                            </S.PrevImgList>
 
-                        </FormPost>
-                        <ButtonImageUpload>
-                            <ImageLabel onClick={handleClickFileInput} />
-                            <ImageUpload
+                        </S.FormPost>
+                        <S.ButtonImageUpload>
+                            <S.ImageLabel onClick={handleClickFileInput} />
+                            <S.ImageUpload
                                 alt='이미지 업로드 버튼'
                                 type="file"
                                 accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
                                 ref={fileInputRef}
                                 onChange={fileInput} />
-                        </ButtonImageUpload>
-                        <ButtonUpload onClick={() => {
+                        </S.ButtonImageUpload>
+                        <S.ButtonUpload onClick={() => {
                             posting()
                             navegation('/community')
                         }} style={{
@@ -264,11 +150,11 @@ export default function CommunityUpload() {
                                     ? "#C9D9F0" : "#3C70BC"
                         }}>
                             업로드
-                        </ButtonUpload>
+                        </S.ButtonUpload>
                     </>
                     : <></>
             }
 
-        </SectionUpload>
+        </S.SectionUpload>
     )
 }

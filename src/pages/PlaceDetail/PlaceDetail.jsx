@@ -1,126 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import IconMarker from '../../assets/images/icon-location-mini.svg';
 import PlaceCommentList from '../../components/Comment/PlaceComment/PlaceCommentList';
 import WriteComment from '../../components/Comment/WriteComment/WriteComment';
 import NormalPlaceList from '../../components/PlaceList/NormalPlaceList/NormalPlaceList';
+import * as S from "./style";
 
 const { kakao } = window;
-
-const SectionContainer = styled.section`
-    min-height: calc(100vh - 108px);
-    z-index: -1;
-`
-
-const ImageBackground = styled.img`
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    vertical-align: top;
-    /* position: -webkit-sticky;
-    position: sticky;
-    top: 0; */
-`
-
-const ListBUtton = styled.ul`
-    display: flex;
-    position: sticky;
-    top: 48px;
-    box-shadow: 0px 1px 1px #DBDBDB;
-    z-index: 20;
-`
-
-const ListItemBUtton = styled.li`
-    flex-grow: 1;
-`
-
-const ButtonTab = styled.button`
-    width: 100%;
-    height: 44px;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 18px;
-    color: #858585;
-    cursor: pointer;
-`
-
-const ListSection = styled.ul`
-    z-index: 10;
-`
-
-const SectionHome = styled.section`
-    padding: 30px 22px;
-`
-
-const HeadingTwoTitle = styled.h2`
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 30px;
-`
-
-const ImageMarker = styled.img`
-    width: 10px;
-    height: 14px;
-    margin-right: 4px;
-    vertical-align: top;
-    margin-top: 5px;
-`
-
-const ParagraphCategory = styled.p`
-    display: inline-block;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    vertical-align: top;
-    margin-bottom: 20px;
-    margin-top: 5px;
-`
-
-const ParagraphDescription = styled.p`
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 160%;
-`
-
-const SectionNear = styled.section`
-    padding: 30px 22px;
-
-    & + section {
-        margin-top: -30px;
-    }
-`
-
-const SectionComment = styled.section`
-    
-`
-
-const SectionMap = styled.section`
-    padding: 25px 22px;
-`
-
-const DivMap = styled.div`
-    width: 346px;
-    height: 277px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    z-index: 10;
-`
-
-const ParagraphAddrTItle = styled.p`
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 14px;
-    color: #5A5A5A;
-    margin-bottom: 8px;
-`
-
-const ParagraphAddress = styled.p`
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 14px;
-`
 
 const checkArea = (area) => {
     if (area.length === 2) {
@@ -274,76 +161,76 @@ export default function PlaceDetail() {
     const cafelist = selectRandomPlace(placeData['area'][area].전체식당.list.filter(i => i.detail === "바/까페"))
 
     return (
-        <SectionContainer>
+        <S.SectionContainer>
             <header>
                 <h2 className='irOnly'>
                     목적지 상세 페이지
                 </h2>
             </header>
-            <ImageBackground src={place.firstimage} alt={place.title} />
-            <ListBUtton>
-                <ListItemBUtton>
-                    <ButtonTab id='btnHome' onClick={() => setSelect('Home')}>홈</ButtonTab>
-                </ListItemBUtton>
-                <ListItemBUtton>
-                    <ButtonTab id='btnNear' onClick={() => setSelect('Near')}>주변</ButtonTab>
-                </ListItemBUtton>
-                <ListItemBUtton>
-                    <ButtonTab id='btnComment' onClick={() => setSelect('Comment')}>댓글</ButtonTab>
-                </ListItemBUtton>
-                <ListItemBUtton>
-                    <ButtonTab id='btnMap' onClick={() => setSelect('Map')}>지도</ButtonTab>
-                </ListItemBUtton>
-            </ListBUtton>
-            <ListSection>
+            <S.ImageBackground src={place.firstimage} alt={place.title} />
+            <S.ListBUtton>
+                <S.ListItemBUtton>
+                    <S.ButtonTab id='btnHome' onClick={() => setSelect('Home')}>홈</S.ButtonTab>
+                </S.ListItemBUtton>
+                <S.ListItemBUtton>
+                    <S.ButtonTab id='btnNear' onClick={() => setSelect('Near')}>주변</S.ButtonTab>
+                </S.ListItemBUtton>
+                <S.ListItemBUtton>
+                    <S.ButtonTab id='btnComment' onClick={() => setSelect('Comment')}>댓글</S.ButtonTab>
+                </S.ListItemBUtton>
+                <S.ListItemBUtton>
+                    <S.ButtonTab id='btnMap' onClick={() => setSelect('Map')}>지도</S.ButtonTab>
+                </S.ListItemBUtton>
+            </S.ListBUtton>
+            <S.ListSection>
                 <li id='sectionHome'>
-                    <SectionHome>
+                    <S.SectionHome>
                         <header>
-                            <HeadingTwoTitle>
+                            <S.HeadingTwoTitle>
                                 {place.title}
-                            </HeadingTwoTitle>
-                            <ImageMarker src={IconMarker} alt='' />
-                            <ParagraphCategory>
+                            </S.HeadingTwoTitle>
+                            <S.ImageMarker src={IconMarker} alt='' />
+                            <S.ParagraphCategory>
                                 {place.addr1.split(" ")[1]} | {place.detail}
-                            </ParagraphCategory>
+                            </S.ParagraphCategory>
                         </header>
-                        <ParagraphDescription>
+                        <S.ParagraphDescription>
                             {
                                 !!detailData
                                 ? detailData.overview
                                 : place.desc
                             }
-                        </ParagraphDescription>
-                    </SectionHome>
+                        </S.ParagraphDescription>
+                    </S.SectionHome>
                 </li>
                 <li id='sectionNear'>
-                    <SectionNear>
+                    <S.SectionNear>
                         <header>
-                            <HeadingTwoTitle>
+                            <S.HeadingTwoTitle>
                                 볼거리
-                            </HeadingTwoTitle>
+                            </S.HeadingTwoTitle>
                         </header>
                         <NormalPlaceList data={data} placelist={placelist} />
-                    </SectionNear>
-                    <SectionNear>
+                    </S.SectionNear>
+                    <S.SectionNear>
                         <header>
-                            <HeadingTwoTitle>
+                            <S.HeadingTwoTitle>
                                 식당
-                            </HeadingTwoTitle>
+                            </S.HeadingTwoTitle>
                         </header>
                         <NormalPlaceList data={data} placelist={restaurantlist} />
-                    </SectionNear>
-                    <SectionNear>
+                    </S.SectionNear>
+                    <S.SectionNear>
                         <header>
-                            <HeadingTwoTitle>
+                            <S.HeadingTwoTitle>
                                 카페
-                            </HeadingTwoTitle>
+                            </S.HeadingTwoTitle>
                         </header>
                         <NormalPlaceList data={data} placelist={cafelist} />
-                    </SectionNear>
+                    </S.SectionNear>
                 </li>
                 <li id='sectionComment'>
-                    <SectionComment>
+                    <section>
                         <header>
                             <h2 className='irOnly'>
                                 댓글
@@ -351,27 +238,27 @@ export default function PlaceDetail() {
                         </header>
                         <PlaceCommentList placeid={place.contentid} setRenderFunction={setRenderFunction} />
                         <WriteComment placeid={place.contentid} renderFunction={renderFunction} />
-                    </SectionComment>
+                    </section>
                 </li>
                 <li id='sectionMap'>
-                    <SectionMap>
+                    <S.SectionMap>
                         <header>
                             <h2 className='irOnly'>
                                 여행지 지도
                             </h2>
                         </header>
-                        <DivMap id='map'></DivMap>
-                        <ParagraphAddrTItle>
+                        <S.DivMap id='map'></S.DivMap>
+                        <S.ParagraphAddrTItle>
                             도로명 주소
-                        </ParagraphAddrTItle>
-                        <ParagraphAddress>
+                        </S.ParagraphAddrTItle>
+                        <S.ParagraphAddress>
                             {
                                 place.addr1
                             }
-                        </ParagraphAddress>
-                    </SectionMap>
+                        </S.ParagraphAddress>
+                    </S.SectionMap>
                 </li>
-            </ListSection>
-        </SectionContainer>
+            </S.ListSection>
+        </S.SectionContainer>
     )
 }

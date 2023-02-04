@@ -1,10 +1,5 @@
-import { React, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import PostItem from '../PostItem/PostItem'
-
-const ListPost = styled.ul`
-   
-`
+import { React, useEffect, useState } from 'react';
+import PostItem from '../PostItem/PostItem';
 
 const getToken = () => {
     let token = JSON.parse(localStorage.getItem('defaultAccount')).token;
@@ -39,7 +34,7 @@ export default function PostList() {
 
     return (
         <>
-            <ListPost>
+            <ul>
                 {
                     feedData.filter(item => item.content.startsWith('yourtrip_post_')).map(item => {
                         // console.log(item.content);
@@ -51,7 +46,7 @@ export default function PostList() {
                         return <PostItem key={contentData.text} content={contentData.text} writer={JSON.parse(contentData.user)} feedData={item} />
                     })
                 }
-            </ListPost>
+            </ul>
         </>
     )
 }
