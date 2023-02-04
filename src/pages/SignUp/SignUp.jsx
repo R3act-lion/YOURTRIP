@@ -65,6 +65,8 @@ export default function Signup() {
     register,
     handleSubmit,
     watch,
+    setFocus,
+    reset,
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
@@ -83,6 +85,10 @@ export default function Signup() {
           navigate('/signup/profile', { state: { email, password } });
         } else {
           alert(response.message); 
+          setFocus("email");
+          reset({
+            email: ""
+          })
         }
       } catch (error) {
         console.log(error.message);
@@ -95,22 +101,22 @@ export default function Signup() {
         <form onSubmit={handleSubmit(submitEmail)}>
         <HeaderTitle>이메일로 회원가입</HeaderTitle>
         <LoginValue>
-        <Label>이메일</Label>
-        <Input
-              type="text"
-              placeholder='이메일 주소를 입력해주세요' 
-              {...register("email", {
-                required: {
-                  value: true,
-                  message : "이메일을 입력하세요"
-                },
-                pattern: {
-                  value: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-                  message : '올바른 이메일 형식이 아닙니다.'
-                }
-              })}
-              />
-              {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+          <Label>이메일</Label>
+          <Input
+            type="text"
+            placeholder='이메일 주소를 입력해주세요' 
+            {...register("email", {
+              required: {
+                value: true,
+                message : "이메일을 입력하세요"
+              },
+              pattern: {
+                value: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+                message : '올바른 이메일 형식이 아닙니다.'
+              }
+            })}
+            />
+            {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
         <Label>비밀번호</Label>
         <Input
               type="password"
