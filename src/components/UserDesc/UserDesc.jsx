@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProfileImage from '../../assets/images/profile.svg';
 import * as S from "./style";
 
@@ -26,32 +26,36 @@ const getProfile = async (id, callBack) => {
 export default function UserDesc({ img, name, id, addr, detail, place }) {
     const [writer, setWriter] = useState({});
 
-    // console.log(writer);
+    // console.log(addr);
     
-    useEffect(() => {
-        if (!addr) {
-            getProfile(id, setWriter);
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!addr) {
+    //         getProfile(id, setWriter);
+    //     }
+    // }, [])
 
     // console.log(place);
+
+    const handleSend = () => {
+        getProfile(id, setWriter);
+    }
 
     return (
         <>
             {
                 writer
-                    ? <S.DivUser to={addr ?
+                    ? <S.DivUser onClick={handleSend} to={addr ?
                         `/placedetail/${name}` : `/yourprofile/${id}`} state={addr ? { place } : false}>
-                        <S.ProfileImg src={addr ? place.firstimage : writer.image} onError={(e) => e.target.src = ProfileImage} alt="프로필 이미지" />
+                        <S.ProfileImg src={addr ? place.firstimage : img} onError={(e) => e.target.src = ProfileImage} alt="프로필 이미지" />
                         <S.UserDetailDesc>
-                            <S.UserName>{addr? place.title : writer.username}</S.UserName>
+                            <S.UserName>{addr? place.title : name}</S.UserName>
                             {
                                 addr ?
                                     <S.UserIntro>
                                         {addr.split(" ")[0]} | {addr.split(" ")[1]} • {detail}
                                     </S.UserIntro>
                                     :
-                                    <S.UserIntro>@ {writer.accountname}</S.UserIntro>
+                                    <S.UserIntro>@ {id}</S.UserIntro>
                             }
                         </S.UserDetailDesc>
                     </S.DivUser>
