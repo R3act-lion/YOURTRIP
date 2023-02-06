@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { SearchContext } from "../../context/Context"
+import useDebounce from '../../Hook/useDebounce'
+import { searchUser } from '../../Upload/api'
 import UserDesc from '../UserDesc/UserDesc'
 import * as S from "./style"
 
@@ -8,6 +10,8 @@ export default function SearchResult() {
     const { searchKeyword } = useContext(SearchContext)
     const [userSearchList, setUserSearchList] = useState([])
     const { placeData } = useSelector(state => state.placeData);
+    const debounceValue = useDebounce({ value: searchKeyword, delay: 500 })
+    
 
     // place search
     const data = Object.entries(placeData.area);
@@ -26,64 +30,39 @@ export default function SearchResult() {
     }
 
     // user search
-    const url = "https://mandarin.api.weniv.co.kr";
-    let token = JSON.parse(localStorage.getItem('defaultAccount')).token;
+    const getData = async (value) => {
+        const response = await searchUser(value)
+        setUserSearchList(response)
+    }
 
     useEffect(() => {
-        if (searchKeyword.length !== 0) {
-            const getData = async (token) => {
-                try {
-                    const res = await fetch(url + `/user/searchuser/?keyword=${searchKeyword}`, {
-                        headers: {
-                            "Authorization": `Bearer ${token}`,
-                            "Content-type": "application/json"
-                        }
-                    })
-                    const resJson = await res.json()
-                    // console.log(resJson);
-                    if (searchKeyword.length > 0) {
-                        setUserSearchList(resJson)
-
-                    }
-                } catch (e) {
-                    console.log(e);
-                }
-            }
-            getData(token);
-        }
-        else {
+        if (debounceValue.length !== 0) {
+            getData(debounceValue)
+        } else {
             setUserSearchList([]);
         }
-
-    }, [searchKeyword])
+    }, [debounceValue])
 
 
     return (
         <S.SectionResult>
-            <header>
                 <S.HeadingTwoResult>
                     장소
                 </S.HeadingTwoResult>
-            </header>
             <S.ListResult>
                 {
                     searchlist.map(item => {
                         return (
                             <li key={item.contentid}>
-                                {
-                                    console.log('hi')
-                                }
                                 <UserDesc img={item.firstimage} name={item.title} addr={item.addr1} detail={item.detail} place={item} />
                             </li>
                         )
                     })
                 }
             </S.ListResult>
-            <header>
                 <S.HeadingTwoResult>
                     유저
                 </S.HeadingTwoResult>
-            </header>
             <S.ListResult>
                 {
                     userSearchList.map(item => {

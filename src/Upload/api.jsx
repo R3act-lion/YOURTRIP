@@ -4,6 +4,7 @@ import axios from 'axios';
 const baseURL = "https://mandarin.api.weniv.co.kr";
 const userToken = process.env.REACT_APP_TOKEN;
 const userAccountName = process.env.REACT_APP_ACCOUNT_NAME;
+const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
 
 const instanceUtil = axios.create({
   baseURL,
@@ -16,6 +17,14 @@ const instance = axios.create({
   baseURL,
   headers: {
     Authorization: `Bearer ${userToken}`,
+    'Content-type': 'application/json',
+  },
+});
+
+const instanceDefault  = axios.create({
+  baseURL,
+  headers: {
+    Authorization: `Bearer ${token}`,
     'Content-type': 'application/json',
   },
 });
@@ -63,6 +72,16 @@ export const userIdValid = async (user) => {
   } catch (error) {
     console.error(error.message);
     return error;
+  }
+};
+
+export const searchUser = async (keyword) => {
+  try {
+    const response = await instanceDefault.get(`/user/searchuser/?keyword=${keyword}`);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
   }
 };
 
