@@ -15,11 +15,6 @@ export default function Post() {
     const authorAccountname= (JSON.parse(JSON.parse
         (location.state.postDetail.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')).user)).accountname;
 
-    console.log(location.state.postDetail.image)
-    console.log(location.state.writer.image)
-    console.log(location.state.content)
-    console.log(location.state.postDetail.id)
-
     return (
         <S.SectionContainer>
             <header>

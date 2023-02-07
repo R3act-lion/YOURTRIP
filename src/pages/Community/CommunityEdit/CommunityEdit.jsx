@@ -2,6 +2,7 @@ import { React, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import iconX from '../../../assets/images/icon-x.svg';
+import { editPost, uploadImageFile } from '../../../Upload/api';
 import * as S from "../style";
 
 export default function CommunityEdit() {
@@ -16,17 +17,13 @@ export default function CommunityEdit() {
     const location= useLocation();
     const postId= location.state.postId;
     const writerImg= location.state.writerImg;
-
-    const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const url = "https://mandarin.api.weniv.co.kr";
 
     let [content, setContent] = useState(`${location.state.content}`);
-    console.log(content)
     let [imagesrc, setImagesrc] = useState(
         location.state.image == [""] 
         ? [] 
         : `${location.state.image}`.split(','));
-    console.log(imagesrc)
 
     // 수정 업로드하는 함수
     const postEditing= async()=>{
@@ -36,27 +33,14 @@ export default function CommunityEdit() {
             user: userData
         }
 
-        try {
-            const res = await fetch(url + "/post/" + postId, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    "post": {
-                        "content": 'yourtrip_post_' + JSON.stringify(newContent).replaceAll(/{/g, '(').replaceAll(/}/g, ')'),
-                        "image": imagesrc.join()
-                    }
-                })
-            });
-            const resJson = await res.json();
-            console.log(resJson);
-                
-        } catch (err) {
-            console.error(err);
+        const data = {
+            "post": {
+                    "content": 'yourtrip_post_' + JSON.stringify(newContent).replaceAll(/{/g, '(').replaceAll(/}/g, ')'),
+                    "image": imagesrc.join()
+                }
         }
 
+        await editPost(postId, data)
     }
 
     // 파일 인풋창 열리는 함수
@@ -84,18 +68,9 @@ export default function CommunityEdit() {
             const formData = new FormData();
             formData.append("image", Blob);
 
-            try {
-                const res = await fetch(url + "/image/uploadfiles", {
-                    method: "POST",
-                    body: formData
-                })
-                const resJson = await res.json();
-                let makeSrc = url + '/' + resJson[0]["filename"];
-                setImagesrc((imagesrc) => [...imagesrc, makeSrc]);
-
-            } catch (err) {
-                console.error(err);
-            }
+            const response = await uploadImageFile(formData)
+            let makeSrc = url + '/' + response[0]["filename"];
+            setImagesrc((imagesrc) => [...imagesrc, makeSrc]);
         } else {
             alert("사진은 3장까지만 업로드 가능합니다");
         }

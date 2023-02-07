@@ -2,11 +2,10 @@ import { React, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import FollowingBtn from '../../../components/FollowingBtn/FollowingBtn';
 import UserDesc from '../../../components/UserDesc/UserDesc';
+import { getFollowerList } from '../../../Upload/api';
 import * as S from "../style";
 
 export default function ProfileFollowers() {
-    const url = "https://mandarin.api.weniv.co.kr";
-    let token = localStorage.getItem('Access Token');
     let userId = localStorage.getItem('user ID')
     const location = useLocation()
     const userinfo = location.state.userinfo
@@ -15,21 +14,8 @@ export default function ProfileFollowers() {
 
     //팔로워 리스트 확인 함수
     const followerList = async () => {
-        try {
-            const res = await fetch(url + `/profile/${accountname}/follower?limit=Number&skip=Number`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-type": "application/json"
-                }
-            }
-            )
-            const resJson = await res.json();
-            console.log(resJson);
-            setFollowerData([...resJson])
-        } catch (err) {
-            console.error(err);
-        }
+        const response = await getFollowerList(accountname)
+        setFollowerData([...response])
     }
 
     setTimeout(() => {

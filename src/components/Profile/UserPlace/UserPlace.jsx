@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import AddImage from '../../../assets/images/icon-add.svg'
 import Button from '../../../modules/Button/Button'
+import { getProduct } from '../../../Upload/api'
 import RecommendList from '../../SlideList/RecommendList/RecommendList'
 import * as S from "./style"
 
 export default function UserPlace() {
-    const url= "https://mandarin.api.weniv.co.kr";
-    let token = localStorage.getItem('Access Token');
     const path = useLocation().pathname
     const { id } = useParams();
     const [curationData, setCurationData] = useState([])
@@ -20,21 +19,11 @@ export default function UserPlace() {
     let checklist;
     
     useEffect(() => {
-        const getData = async (id, token) => {
-            try {
-                const res = await fetch(url + `/product/${id}`, {
-                    headers : {
-                        "Authorization" : `Bearer ${token}`,
-                        "Content-type" : "application/json"
-                    }
-                })
-                const resJson = await res.json()
-                setCurationData(resJson)
-            } catch (e) {
-                console.log(e);
-            }
+        const getData = async (id) => {
+            const response = await getProduct(id)
+            setCurationData(response)
         }
-        getData(id, token);
+        getData(id);
     }, [])
 
     const itemClick = (value) => {

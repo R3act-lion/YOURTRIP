@@ -2,9 +2,11 @@ import axios from 'axios';
 
 // const baseURL = process.env.REACT_APP_URL;
 const baseURL = "https://mandarin.api.weniv.co.kr";
-const userToken = process.env.REACT_APP_TOKEN;
+// const userToken = process.env.REACT_APP_TOKEN;
 const userAccountName = process.env.REACT_APP_ACCOUNT_NAME;
 const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
+const userToken = localStorage.getItem('Access Token');
+
 
 const instanceUtil = axios.create({
   baseURL,
@@ -85,6 +87,28 @@ export const searchUser = async (keyword) => {
   }
 };
 
+export const getComment = async (postId) => {
+  try {
+    const response = await instanceDefault.get(`/post/${postId}/comments/?limit=10000&skip=0`);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const writeComments = async (postId, data) => {
+  try {
+    const response = await instance.post(`/post/${postId}/comments`, data);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
+
+
 export const getFeedList = async () => {
   try {
     const response = await instance.get('/post/feed');
@@ -105,7 +129,7 @@ export const getMyInfo = async () => {
   }
 };
 
-export const getFollowerList = async () => {
+export const getFollowerList = async (userAccountName) => {
   try {
     const response = await instance.get(`/profile/${userAccountName}/follower`);
 
@@ -116,9 +140,9 @@ export const getFollowerList = async () => {
   }
 };
 
-export const getFollowingList = async () => {
+export const getFollowingList = async (userAccountName) => {
   try {
-    const response = await instance.get(`/profile/${userAccountName}/following`);
+    const response = await instance.get(`/profile/${userAccountName}/following?limit=Number&skip=Number`);
 
     return response.data;
   } catch (error) {
@@ -149,7 +173,7 @@ export const unFollow = async accountname => {
   }
 };
 
-export const uploadImage = async files => {
+export const uploadImageFile = async files => {
   try {
     const name = [];
     const formData = new FormData();
@@ -187,7 +211,7 @@ export const uploadImg = async formData => {
 
 export const uploadPost = async post => {
   try {
-    const response = await instance.post('/post', { post });
+    const response = await instanceDefault.post('/post',  post );
 
     return response.data.post;
   } catch (error) {
@@ -199,7 +223,17 @@ export const getProduct = async accountname => {
   try {
     const response = await instance.get(`/product/${accountname}`);
 
-    return response.data.product;
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getDefaultProduct = async accountname => {
+  try {
+    const response = await instance.get(`/product/yourtrip_official/?limit=10000&skip=0`);
+
+    return response.data;
   } catch (error) {
     throw new Error(error);
   }
@@ -207,7 +241,7 @@ export const getProduct = async accountname => {
 
 export const editPost = async (postId, post) => {
   try {
-    const response = await instance.put(`/post/${postId}`, { post });
+    const response = await instanceDefault.put(`/post/${postId}`,  post );
 
     return response.data.post;
   } catch (error) {
@@ -219,7 +253,7 @@ export const getProfile = async accountname => {
   try {
     const response = await instanceAuth.get(`/profile/${accountname}`);
 
-    return response.data;
+    return response.data.profile;
   } catch (error) {
     throw new Error(error);
   }
@@ -227,7 +261,7 @@ export const getProfile = async accountname => {
 
 export const getPost = async username => {
   try {
-    const response = await instanceAuth.get(`/post/${username}/userpost`);
+    const response = await instanceDefault.get(`/post/${username}/userpost/?limit=Number&skip=Number`);
 
     return response.data;
   } catch (error) {
@@ -235,11 +269,31 @@ export const getPost = async username => {
   }
 };
 
-export const uploadProduct = async product => {
+export const getDefaultPost = async username => {
   try {
-    const response = await instance.post('/product', { product });
+    const response = await instanceAuth.get(`/post/yourtrip_official/userpost`);
 
-    return response.data.product;
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const uploadProduct = async data => {
+  try {
+    const response = await instance.post('/product', data);
+    
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const uploadComment = async data => {
+  try {
+    const response = await instanceDefault.post('/product', data);
+    
+    return response.data;
   } catch (error) {
     throw new Error(error);
   }

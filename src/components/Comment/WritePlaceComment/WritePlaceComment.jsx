@@ -1,34 +1,20 @@
-import React, { useRef, useState } from 'react'
-import ProfileImage from '../../../assets/images/profile.svg'
-import * as S from "../style"
+import React, { useRef, useState } from 'react';
+import ProfileImage from '../../../assets/images/profile.svg';
+import { writeComments } from '../../../Upload/api';
+import * as S from "../style";
 
-const writeComment = async (posdId, comment, renderFunction) => {
-    const uploadAccount = JSON.parse(localStorage.getItem('user'));
-    const url = "https://mandarin.api.weniv.co.kr";
+const writeComment = async (postId, comment, renderFunction) => {
+    const data = {
+        "comment": {
+            "content": comment
+        }
+    }
 
-    try {
-        const res = await fetch(url + "/post/" + posdId + '/comments', {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${uploadAccount.token}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "comment": {
-                    "content": comment
-                }
-            })
-        });
-        const resJson = await res.json();
-        console.log(resJson);
-        renderFunction(() => {
-            console.log('render');
+    const response = await writeComments(postId, data)
+    console.log(response);
+    renderFunction(() => {
             return {}
         });
-
-    } catch (err) {
-        console.error(err);
-    }
 }
 
 export default function WritePlaceComment({ postId, renderFunction }) {

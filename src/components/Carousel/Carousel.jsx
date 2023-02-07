@@ -18,7 +18,6 @@ export default function Carousel({ imageData }) {
 
     useEffect(() => {
         setStyle({ marginLeft: `-${current}00%` });
-        console.log(current);
     }, [current]);
 
     return (

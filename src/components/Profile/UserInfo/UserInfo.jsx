@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import ProfileImage from '../../../assets/images/profile.svg'
+import { getMyInfo, getProfile } from "../../../Upload/api"
 import FollowingBtn from '../../FollowingBtn/FollowingBtn'
 import * as S from "./style"
 
 export default function UserInfo() {
-    const url = "https://mandarin.api.weniv.co.kr";
-    const token = localStorage.getItem('Access Token');
     const path = useLocation().pathname
     const { id } = useParams()
 
@@ -16,37 +15,24 @@ export default function UserInfo() {
     const [isFollow, setIsFollow] = useState()
 
     useEffect(() => {
-        const setData = async (token) => {
-            try {
-                if (path.includes("yourprofile")) {
-                    const newToken = JSON.parse(localStorage.getItem('defaultAccount')).token;
+        const setData = async () => {
+            if (path.includes("yourprofile")) {
+                const response = await getProfile(id)
 
-                    const res = await fetch(url + `/profile/${id}`, {
-                        headers: {
-                            "Authorization": `Bearer ${newToken}`,
-                        }
-                    })
-                    const resJson = await res.json()
-                    setUserinfo(resJson.profile);
-                    setFollowerCount(resJson.profile.followerCount)
-                    setFollowingCount(resJson.profile.followingCount)
-                    setIsFollow(resJson.profile.isfollow)
-                } else {
-                    const res = await fetch(url + `/user/myinfo`, {
-                        headers: {
-                            "Authorization": `Bearer ${token}`,
-                        }
-                    })
-                    const resJson = await res.json()
-                    setUserinfo(resJson.user);
-                    setFollowerCount(resJson.user.followerCount)
-                    setFollowingCount(resJson.user.followingCount)
-                }
-            } catch (e) {
-                console.log(e);
+                setUserinfo(response);
+                setFollowerCount(response.followerCount)
+                setFollowingCount(response.followingCount)
+                setIsFollow(response.isfollow)
+            } else {
+                const response = await getMyInfo()
+
+                setUserinfo(response.user);
+                setFollowerCount(response.user.followerCount)
+                setFollowingCount(response.user.followingCount)
+
             }
         }
-        setData(token);
+        setData();
     }, [id]);
 
     if (!userinfo) {

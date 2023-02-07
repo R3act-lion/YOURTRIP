@@ -1,6 +1,7 @@
 import { React, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import iconX from '../../../assets/images/icon-x.svg';
+import { uploadPost } from '../../../Upload/api';
 import * as S from "../style";
 
 export default function CommunityUpload() {
@@ -12,11 +13,8 @@ export default function CommunityUpload() {
         textArea.current.style.color = 'black'
     }
 
-    const token = JSON.parse(localStorage.getItem('defaultAccount')).token;
     const url = "https://mandarin.api.weniv.co.kr";
-
     const profileImg= JSON.parse(localStorage.getItem("user")).image;
-    const accountname = localStorage.getItem("user ID");
 
     let [content, setContent] = useState("");
     let [imagesrc, setImagesrc] = useState([]);
@@ -31,29 +29,19 @@ export default function CommunityUpload() {
             user: userData
         }
 
-        try {
-            const res = await fetch(url + "/post", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    "post": {
-                        "content": 'yourtrip_post_' + JSON.stringify(newContent).replaceAll(/{/g, '(').replaceAll(/}/g, ')'),
-                        "image": imagesrc.join()
-                    }
-                })
-            });
-            const resJson = await res.json();
-            setContent('');
-            setImagesrc([]);
-            setAuthorAccountname((JSON.parse(JSON.parse
-                (resJson.post.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')).user)).accountname);
-
-        } catch (err) {
-            console.error(err);
+        const data = {
+            "post": {
+                "content": 'yourtrip_post_' + JSON.stringify(newContent).replaceAll(/{/g, '(').replaceAll(/}/g, ')'),
+                "image": imagesrc.join()
+            }   
         }
+
+        const response = await uploadPost(data)
+
+        setContent('');
+        setImagesrc([]);
+        setAuthorAccountname((JSON.parse(JSON.parse
+            (response.content.slice(14).replaceAll(/\(/g, '{').replaceAll(/\)/g, '}')).user)).accountname);
     }
 
     // 파일 인풋창 열리는 함수
