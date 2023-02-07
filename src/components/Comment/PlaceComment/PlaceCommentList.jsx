@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { getDefaultProduct } from '../../../Upload/api';
 import PlaceCommentListItem from './PlaceCommentListItem';
 import * as S from "./style";
 
 
 const getComments = async (callBack) => {
-    const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
-    const url = "https://mandarin.api.weniv.co.kr";
-
-    try {
-        const res = await fetch(url + "/product/" + uploadAccount.accountname + '/?limit=10000&skip=0', {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${uploadAccount.token}`,
-                "Content-Type": "application/json",
-            }
-        });
-        const resJson = await res.json();
-        callBack(resJson.product)
-    } catch (err) {
-        console.error(err);
-    }
+    const reseponse = await getDefaultProduct()
+    callBack(reseponse.product)
 }
 
 export default function PlaceCommentList({ placeid, setRenderFunction }) {

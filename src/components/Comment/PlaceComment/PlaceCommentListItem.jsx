@@ -3,7 +3,6 @@ import * as S from "./style";
 
 export default function PlaceCommentListItem({ comment, isPost, postId, commentId }) {
     if (isPost) {
-        console.log(comment);
 
         return (
             <S.ListItemPostComment>

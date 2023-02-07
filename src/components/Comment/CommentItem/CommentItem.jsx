@@ -10,8 +10,7 @@ export default function CommentItem({ user, content, postId, commentId }) {
     let [yourCommentModal, setYourCommentModal]= useState(false);
     const commentAuthor= user.accountname;
     const accountname= localStorage.getItem("user ID");
-    console.log(user)
-    
+
     return (
         <>
             <S.DivTop>

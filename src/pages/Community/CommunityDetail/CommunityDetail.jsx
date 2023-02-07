@@ -6,25 +6,12 @@ import Carousel from '../../../components/Carousel/Carousel'
 import PlaceCommentListItem from '../../../components/Comment/PlaceComment/PlaceCommentListItem'
 import WritePlaceComment from '../../../components/Comment/WritePlaceComment/WritePlaceComment'
 import UserDesc from '../../../components/UserDesc/UserDesc'
+import { getComment } from '../../../Upload/api'
 import * as S from "../style"
 
 const getComments = async (postId, callBack) => {
-    const uploadAccount = JSON.parse(localStorage.getItem('defaultAccount'));
-    const url = "https://mandarin.api.weniv.co.kr";
-
-    try {
-        const res = await fetch(url + "/post/" + postId + '/comments/?limit=10000&skip=0', {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${uploadAccount.token}`,
-                "Content-Type": "application/json",
-            }
-        });
-        const resJson = await res.json();
-        callBack(resJson.comments)
-    } catch (err) {
-        console.error(err);
-    }
+    const response = await getComment(postId)
+    callBack(response.comments)
 }
 
 export default function CommunityDetail({ postContent, postWriter, postData, setDetailModal, setEditModal, accountname, authorAccountname }) {
@@ -39,7 +26,6 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
         getComments(postData.id, setComments)
     }, [updateTarget])
 
-    console.log(imageData)
 
     return (
         <>
@@ -74,8 +60,6 @@ export default function CommunityDetail({ postContent, postWriter, postData, set
                         <S.ListComment>
                             {
                                 comments.map((comment) => {
-                                    console.log(comment);
-
                                     return <PlaceCommentListItem key={comment.id} comment={comment} isPost={true} commentId={comment.id} postId={postData.id}/>
                                 })
                                 

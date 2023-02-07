@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import AddImage from '../../../assets/images/icon-add.svg'
 import SelectedList from '../../../components/SlideList/SelectedList/SelectedList'
+import { uploadProduct } from "../../../Upload/api";
 import * as S from "../style"
 
 export default function ProfileAddQuration() {
-    const url= "https://mandarin.api.weniv.co.kr";
-    let token = localStorage.getItem('Access Token');
-
     const location = useLocation();
-    const checklist = location.state.checklist.current
+    const checklist = location.state.checklist?.current
     const id = location.state.id
 
     const [title, setTitle] = useState(() =>
@@ -19,27 +17,17 @@ export default function ProfileAddQuration() {
         JSON.parse(window.localStorage.getItem("subtitle")) || ''
     )
 
-    async function addCuration() {
+    const addCuration = async () => {
         const userCurationlist = JSON.stringify(checklist).replaceAll(/{/g, '(').replaceAll(/}/g, ')');
-        try {
-            await fetch(url + '/product', {
-                method: "POST",
-                headers: {
-                    "Authorization" : `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body : JSON.stringify({
-                    "product":{
-                        "itemName": 'yourtrip_quration_' + title,
-                        "price": 1,
-                        "link": subtitle,
-                        "itemImage": userCurationlist
-                    }
-                })
-            })
-        } catch (e) {
-            console.log(e);
+        const data = {
+                product: {
+                    itemName: 'yourtrip_quration_' + title,
+                    price: 1,
+                    link: subtitle,
+                    itemImage: userCurationlist,
+                }
         }
+        await uploadProduct(data)
     }
     
     useEffect(() => {
