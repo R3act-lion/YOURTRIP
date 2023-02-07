@@ -4,7 +4,6 @@ import * as S from "./style";
 
 export default function DetailPlaceList({data, placeList}) {
     window.scrollTo(0, 0)
-    console.log(placeList);
 
     return (
         <S.ListDetailPlace>

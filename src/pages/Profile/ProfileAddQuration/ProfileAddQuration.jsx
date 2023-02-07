@@ -9,7 +9,7 @@ export default function ProfileAddQuration() {
     let token = localStorage.getItem('Access Token');
 
     const location = useLocation();
-    const checklist = location.state.checklist
+    const checklist = location.state.checklist.current
     const id = location.state.id
 
     const [title, setTitle] = useState(() =>

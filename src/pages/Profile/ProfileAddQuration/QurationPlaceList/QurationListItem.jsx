@@ -3,17 +3,13 @@ import CheckFillImage from '../../../../assets/images/icon-check-fill.svg'
 import CheckImage from '../../../../assets/images/icon-check.svg'
 import * as S from "../../style"
 
-export default function QurationListItem({ checklist, getChecklist, deleteChecklist, place }) {
+function QurationListItem({ checklist, getChecklist, deleteChecklist, place }) {
     const [isCheck, setIsCheck] = useState(false)
 
-    const setChecklistValue = (e) => {
-        getChecklist(e)
-    }
-
-    function handleClick() {
+     const handleClick = ()=> {
         setIsCheck(!isCheck)
-        if (!isCheck) setChecklistValue(place)
-        if(checklist.length > 0 && isCheck) {
+        if (!isCheck) getChecklist(place)
+        if (checklist.current.length > 0 && isCheck) {
             deleteChecklist(place)
         }     
     }
@@ -30,8 +26,10 @@ export default function QurationListItem({ checklist, getChecklist, deleteCheckl
                     </S.ParagraphDesc>
                 </div>
                 <S.ButtonCheck>
-                <S.ImageCheck src={isCheck ? CheckFillImage : CheckImage} onClick={handleClick} alt='선택' />
+                <S.ImageCheck src={ isCheck ? CheckFillImage : CheckImage} onClick={handleClick} alt='선택' />
                 </S.ButtonCheck>
             </S.ListItemResult>
     )
 }
+
+export default QurationListItem;

@@ -29,7 +29,6 @@ export default function UserPlace() {
                     }
                 })
                 const resJson = await res.json()
-                console.log(resJson);
                 setCurationData(resJson)
             } catch (e) {
                 console.log(e);
@@ -47,8 +46,6 @@ export default function UserPlace() {
         });
         setIsCategory(newState);
     };
-
-    console.log(curationData);
 
     return (
         <div>
