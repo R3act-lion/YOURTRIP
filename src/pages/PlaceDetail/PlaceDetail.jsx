@@ -198,7 +198,7 @@ export default function PlaceDetail() {
                             {
                                 !!detailData
                                 ? detailData.overview
-                                : place.desc
+                                : <></>
                             }
                         </S.ParagraphDescription>
                     </S.SectionHome>

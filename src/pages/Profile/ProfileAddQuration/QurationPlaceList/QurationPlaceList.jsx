@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import SearchIcon from '../../../../assets/images/icon-search.svg';
@@ -8,22 +8,29 @@ import QurationListItem from './QurationListItem';
 export default function QurationPlaceList() {
     const { placeData } = useSelector(state => state.placeData);
     const [input, setInput] = useState('')
-    const [checklist, setChecklist] = useState('');
     const data = Object.entries(placeData.area);
     const location = useLocation();
     const id = location.state.id
     const list = location.state.checklist
 
+    const checklist = useRef([])
+
+    const [isActive, setIsActive] = useState(false)
+
     const getChecklist = (e) => {
-        let newArr = [...checklist, e]
-        setChecklist(newArr)
+        let newArr = [...checklist.current, e]
+        checklist.current = newArr;
     }
 
     const deleteChecklist = (e) => {
-        let newArr = checklist.filter(i => i !== e)
-        setChecklist(newArr)
+        let newArr = checklist.current.filter(i => i !== e)
+        checklist.current = newArr
     }
 
+    useEffect(() => {
+        checklist.current ?  setIsActive(true) : setIsActive(false)
+    }, [checklist])
+    
     const handleInput = (e) => {
         setInput(e.target.value)
     }
@@ -64,12 +71,14 @@ export default function QurationPlaceList() {
                     <>
                         <S.ListResult>
                             {
-                                searchlist.map(item => {
-                                    return (
-                                        <QurationListItem checklist={checklist} getChecklist={getChecklist} key={item.contentid} deleteChecklist={deleteChecklist} place={item} />    
-                                    )
-                                })
-                            }
+                                searchlist
+                                    .map(place => {
+                                        return (
+                                            <QurationListItem checklist={checklist} getChecklist={getChecklist} key={place.contentid} deleteChecklist={deleteChecklist} place={place} />    
+                                        )
+                                    })
+
+                                }
                         </S.ListResult>
                     </> 
                     :
@@ -90,7 +99,7 @@ export default function QurationPlaceList() {
                     </>
             }
             <Link to='/profile/addquration' state={{ checklist, id}} >
-                <S.ButtonSave className={checklist.length > 0 ? "on" : false}>저장</S.ButtonSave>
+                <S.ButtonSave className={isActive ? "on" : false}>저장</S.ButtonSave>
             </Link>
         </S.SectionList>
     )
